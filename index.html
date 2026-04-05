@@ -3,311 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一般社団法人リズカーレ | CULTIVATING A LOCAL CHALLENGER ECOSYSTEM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
+    <title>一般社団法人リズカーレ | THE LOCAL RESISTANCE AGENCY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Barcode+128+Text&family=Noto+Sans+JP:wght@700;900&family=Stencil&display=swap" rel="stylesheet">
     <style>
         /* =========================================
-           💥 BASE STYLES & VARIABLES
+           🎨 BASE STYLES & VARIABLES (バンクシー・モード)
         ========================================= */
         :root {
-            --color-red: #FF003C;
-            --color-yellow: #FFE500;
-            --color-blue: #0055FF;
             --color-black: #000000;
             --color-white: #FFFFFF;
-            --font-comic: 'Bangers', cursive;
+            --color-gray: #333333;
+            --color-red: #FF0000; /* バンクシーの象徴、鮮烈な赤 */
+            --color-bg: #EAEAEA; /* コンクリート風の薄いグレー */
+            --font-stencil: 'Stencil', sans-serif; /* ステンシル・フォント */
             --font-jp: 'Noto Sans JP', sans-serif;
-            --border-thick: 4px solid var(--color-black);
-            --shadow-pop: 6px 6px 0px var(--color-black);
+            --border-thick: 5px solid var(--color-black);
         }
 
         body {
             margin: 0;
             font-family: var(--font-jp);
-            background-color: var(--color-white);
+            background-color: var(--color-bg);
+            /* コンクリート壁の質感を表現する背景画像（デモ用） */
+            background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
             color: var(--color-black);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         h1, h2, h3, h4 { margin: 0; }
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
         ul { list-style: none; padding: 0; margin: 0; }
         img { max-width: 100%; height: auto; }
 
-        /* ベンデイドット（水玉）背景の生成 */
-        .bg-dots-yellow {
-            background-color: var(--color-yellow);
-            background-image: radial-gradient(var(--color-black) 15%, transparent 16%), radial-gradient(var(--color-black) 15%, transparent 16%);
-            background-size: 14px 14px;
-            background-position: 0 0, 7px 7px;
-        }
-        .bg-dots-blue {
-            background-color: #cce0ff;
-            background-image: radial-gradient(var(--color-blue) 15%, transparent 16%), radial-gradient(var(--color-blue) 15%, transparent 16%);
-            background-size: 14px 14px;
-            background-position: 0 0, 7px 7px;
-        }
-
-        /* アメコミ風ボックス（共通） */
-        .comic-box {
-            background: var(--color-white);
-            border: var(--border-thick);
-            box-shadow: var(--shadow-pop);
-            padding: 2rem;
-            border-radius: 0; /* リキテンスタイン風の角張り */
+        /* 全体的にモノクロ＋高コントラストのフィルターをかける魔法 */
+        .grayscale-art {
+            filter: grayscale(100%) contrast(150%);
         }
 
         /* セクション共通 */
         section {
-            padding: 5rem 2rem;
-            max-width: 1000px;
+            padding: 6rem 2rem;
+            max-width: 1100px;
             margin: 0 auto;
         }
         .section-title {
-            font-family: var(--font-comic);
-            font-size: 4rem;
+            font-family: var(--font-stencil);
+            font-size: 4.5rem;
             text-transform: uppercase;
-            text-shadow: 4px 4px 0px var(--color-black);
-            color: var(--color-yellow);
-            margin-bottom: 2rem;
+            color: var(--color-black);
+            margin-bottom: 3rem;
             text-align: center;
-            letter-spacing: 2px;
-            -webkit-text-stroke: 2px var(--color-black);
+            letter-spacing: -2px;
+            position: relative;
+        }
+        /* タイトルに赤いスプレーの「垂れ」を演出 */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 20px;
+            background: var(--color-red);
+            filter: blur(2px);
+            opacity: 0.7;
         }
 
         /* =========================================
-           💥 HEADER
+           🎨 HEADER
         ========================================= */
         header {
             position: sticky;
             top: 0;
-            background: var(--color-white);
+            background: rgba(255, 255, 255, 0.95);
             border-bottom: var(--border-thick);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 1rem 3rem;
             z-index: 1000;
         }
         .logo {
-            font-family: var(--font-comic);
-            font-size: 2.5rem;
-            color: var(--color-red);
-            text-shadow: 2px 2px 0px var(--color-black);
-            -webkit-text-stroke: 1px var(--color-black);
+            font-family: 'Anton', sans-serif;
+            font-size: 2.8rem;
+            color: var(--color-black);
+            letter-spacing: -1px;
         }
-        nav ul { display: flex; gap: 1.5rem; font-weight: 900; align-items: center;}
-        nav a:hover { color: var(--color-blue); }
+        nav ul { display: flex; gap: 2rem; font-weight: 900; align-items: center;}
+        nav a:hover { color: var(--color-red); }
         .btn-contact {
-            background: var(--color-yellow);
-            border: 3px solid var(--color-black);
-            padding: 0.5rem 1rem;
-            box-shadow: 3px 3px 0 var(--color-black);
-            transition: all 0.2s;
-        }
-        .btn-contact:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 5px 5px 0 var(--color-black);
             background: var(--color-red);
             color: var(--color-white);
+            border: var(--border-thick);
+            padding: 0.7rem 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        .btn-contact:hover {
+            background: var(--color-black);
         }
 
         /* =========================================
-           💥 HERO / VISION
+           🎨 HERO / VISION (バンクシー風の巨大ステンシル)
         ========================================= */
         #vision {
             max-width: 100%;
-            padding: 6rem 1rem;
+            padding: 0;
             position: relative;
-        }
-        .bubble-container {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-        /* 吹き出しデザイン */
-        .thought-bubble {
-            background: var(--color-white);
-            border: var(--border-thick);
-            border-radius: 30px;
-            padding: 3rem;
-            box-shadow: 10px 10px 0 var(--color-black);
-            position: relative;
-        }
-        .thought-bubble::after, .thought-bubble::before {
-            content: '';
-            position: absolute;
-            background: var(--color-white);
-            border: var(--border-thick);
-            border-radius: 50%;
-        }
-        .thought-bubble::after { width: 30px; height: 30px; bottom: -40px; left: 50px; box-shadow: 4px 4px 0 var(--color-black); }
-        .thought-bubble::before { width: 15px; height: 15px; bottom: -70px; left: 30px; box-shadow: 3px 3px 0 var(--color-black); z-index: 1;}
-
-        .vision-title {
-            font-family: var(--font-comic);
-            font-size: 3rem;
-            color: var(--color-blue);
-            text-align: center;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            -webkit-text-stroke: 1px var(--color-black);
-            text-shadow: 3px 3px 0 var(--color-black);
-        }
-        .vision-text { font-size: 1.1rem; font-weight: 700; white-space: pre-line;}
-        .highlight { background: var(--color-yellow); padding: 0 0.5rem; }
-
-        /* =========================================
-           💥 SERVICES
-        ========================================= */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .service-panel {
-            display: flex;
-            flex-direction: column;
-            border-top-width: 8px;
-        }
-        .service-panel:nth-child(1) { border-top-color: var(--color-red); }
-        .service-panel:nth-child(2) { border-top-color: var(--color-blue); }
-        .service-panel:nth-child(3) { border-top-color: var(--color-yellow); }
-        .service-panel:nth-child(4) { border-top-color: #000; }
-        
-        .service-title {
-            font-size: 1.3rem;
-            background: var(--color-black);
-            color: var(--color-white);
-            padding: 0.5rem 1rem;
-            margin: -2rem -2rem 1rem -2rem;
-        }
-        .target-box { margin-bottom: 1rem; font-size: 0.9rem; font-weight: 700; }
-        .target-box ul { list-style: "👉 "; margin-left: 1rem; }
-        .benefit-box {
-            margin-top: auto;
-            background: var(--color-yellow);
-            padding: 1rem;
-            border: 2px solid var(--color-black);
-            font-weight: 900;
-        }
-        .benefit-title { color: var(--color-red); font-size: 1.2rem; margin-bottom: 0.5rem; }
-
-        /* =========================================
-           💥 WORKS (SLIDER)
-        ========================================= */
-        #works-wrapper { background-color: var(--color-black); padding: 4rem 0; }
-        #works .section-title { -webkit-text-stroke: 2px var(--color-white); }
-        .slider-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 2rem;
-            padding: 1rem 2rem 2rem 2rem;
-        }
-        .slider-container::-webkit-scrollbar { height: 12px; }
-        .slider-container::-webkit-scrollbar-thumb { background: var(--color-yellow); border: 2px solid #000; }
-        
-        .work-item {
-            flex: 0 0 300px;
-            scroll-snap-align: center;
-            background: var(--color-white);
-            border: var(--border-thick);
-            height: 200px;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 1rem;
-            font-weight: 900;
-            font-size: 1.2rem;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
+            overflow: hidden;
         }
-        .work-item:hover { transform: scale(1.05); }
-        /* ホバー時の吹き出し */
-        .work-tooltip {
+        /* HERO背景画像（モノクロ・高コントラスト） */
+        .hero-bg-art {
             position: absolute;
-            bottom: 110%;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3; /* 背景として薄く敷く */
+        }
+        .vision-content {
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+        .vision-title {
+            font-family: var(--font-stencil);
+            font-size: 5rem;
+            color: var(--color-black);
+            line-height: 0.9;
+            letter-spacing: -3px;
+        }
+        .vision-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            white-space: pre-line;
+            color: var(--color-gray);
+            margin-top: 2rem;
+        }
+        /* 赤いステンシルのハイライト */
+        .highlight-red {
+            color: var(--color-red);
+            position: relative;
+        }
+        .highlight-red::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 5px; background: var(--color-red); opacity: 0.5;
+        }
+
+        /* =========================================
+           🎨 SERVICES (既存システムへの静かな反逆)
+        ========================================= */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+        .service-panel {
             background: var(--color-white);
             border: var(--border-thick);
-            padding: 1rem;
-            width: 250px;
-            font-size: 0.9rem;
-            box-shadow: 4px 4px 0 var(--color-black);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s;
-            z-index: 10;
+            padding: 2.5rem;
+            position: relative;
+            transition: 0.3s;
         }
-        .work-tooltip::after {
-            content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px;
-            border-width: 10px; border-style: solid;
-            border-color: var(--color-black) transparent transparent transparent;
+        .service-panel:hover {
+            transform: translateY(-10px);
+            box-shadow: 15px 15px 0 rgba(0,0,0,0.1);
         }
-        .work-item:hover .work-tooltip { opacity: 1; visibility: visible; }
+        /* バンクシーの「赤い風船と少女」のような、ワンポイントの赤 */
+        .service-panel::before {
+            content: '🎈'; /* 絵文字だけど、CSSで赤くするハック */
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 2px var(--color-red)) hue-rotate(300deg);
+        }
+
+        .service-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-black);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--color-red);
+            display: inline-block;
+        }
+        .benefit-box {
+            margin-top: 2rem;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 1.5rem;
+            font-weight: 900;
+        }
+        .benefit-title { color: var(--color-red); font-size: 1.4rem; margin-bottom: 0.5rem; text-transform: uppercase;}
 
         /* =========================================
-           💥 FOUNDER
+           🎨 WORKS (壁に貼られたシュレッダー済みの紙のような演出)
         ========================================= */
-        .founder-wrap { display: flex; gap: 3rem; align-items: center; }
+        #works-wrapper { background-color: var(--color-black); padding: 5rem 0; color: var(--color-white); }
+        #works .section-title { color: var(--color-white); }
+        #works .section-title::after { background: var(--color-white); }
+
+        .slider-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding: 2rem;
+        }
+        
+        .work-item {
+            flex: 0 0 320px;
+            background: var(--color-white);
+            border: var(--border-thick);
+            color: var(--color-black);
+            padding: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+        /* バンクシーのシュレッダー事件をオマージュした下部のギザギザ */
+        .work-item::after {
+            content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 20px;
+            background-image: linear-gradient(135deg, var(--color-bg) 25%, transparent 25%), linear-gradient(225deg, var(--color-bg) 25%, transparent 25%);
+            background-size: 20px 20px;
+        }
+        .work-item:hover { transform: rotate(2deg) scale(1.05); }
+
+        /* =========================================
+           🎨 FOUNDER (モノクロ・ステンシルアート加工)
+        ========================================= */
+        .founder-wrap { display: flex; gap: 4rem; align-items: center; background: var(--color-white); border: var(--border-thick); padding: 3rem; }
         .founder-img {
             flex: 1;
-            /* ハーフトーン風のCSSフィルター */
-            filter: grayscale(100%) contrast(150%) sepia(100%) hue-rotate(300deg) saturate(500%);
-            border: var(--border-thick);
-            box-shadow: var(--shadow-pop);
-            background: var(--color-yellow);
+            border: 10px solid var(--color-black);
+            /* ここで安形さんの写真をバンクシー風のステンシル・モノクロに加工！ */
+            filter: grayscale(100%) contrast(200%) brightness(80%);
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
         }
         .founder-info { flex: 2; }
-        .founder-catch { font-size: 1.5rem; color: var(--color-red); margin-bottom: 1rem; font-weight: 900; }
-        .founder-name { font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; }
+        .founder-catch { font-size: 1.8rem; color: var(--color-red); margin-bottom: 1.5rem; font-weight: 900; }
+        .founder-name { font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; }
 
         /* =========================================
-           💥 VALUES
+           🎨 VALUES (静かな、しかし確かなマニフェスト)
         ========================================= */
-        #values { background-color: var(--color-red); color: var(--color-white); max-width: 100%; text-align: center; padding: 6rem 2rem;}
-        #values .section-title { color: var(--color-white); text-shadow: 4px 4px 0px var(--color-black); }
+        #values { background-color: var(--color-white); border-top: var(--border-thick); border-bottom: var(--border-thick); max-width: 100%; padding: 7rem 2rem;}
         .values-text {
-            max-width: 800px; margin: 0 auto; font-size: 1.4rem; font-weight: 900; line-height: 2; text-shadow: 2px 2px 0 var(--color-black);
+            max-width: 850px; margin: 0 auto; font-size: 1.5rem; font-weight: 900; line-height: 2; text-align: center; color: var(--color-black);
         }
 
         /* =========================================
-           💥 COMPANY & ACCESS
+           🎨 COMPANY & ACCESS
         ========================================= */
-        .company-wrap { display: flex; gap: 2rem; flex-wrap: wrap; }
-        .company-info { flex: 1; min-width: 300px; }
-        .map-container { flex: 1; min-width: 300px; border: var(--border-thick); box-shadow: var(--shadow-pop); }
+        .company-wrap { display: flex; gap: 3rem; flex-wrap: wrap; }
+        .company-info { flex: 1; min-width: 300px; font-weight: 700;}
+        .map-container { flex: 1; min-width: 300px; border: var(--border-thick); filter: grayscale(100%); }
         .furusato-banner {
-            display: block; background: var(--color-blue); color: var(--color-white); border: var(--border-thick); padding: 1.5rem; text-align: center;
-            margin-top: 2rem; box-shadow: var(--shadow-pop); transition: 0.2s;
+            display: block; background: var(--color-black); color: var(--color-white); border: 3px solid var(--color-red); padding: 1.5rem; text-align: center;
+            margin-top: 2rem; transition: 0.2s; font-weight: 900;
         }
-        .furusato-banner:hover { background: var(--color-red); transform: translateY(-5px); box-shadow: 8px 8px 0 var(--color-black); }
+        .furusato-banner:hover { background: var(--color-red); }
 
         /* =========================================
-           💥 CONTACT
+           🎨 CONTACT (秘密結社への入会申し込み)
         ========================================= */
-        .contact-form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+        #contact { background-color: var(--color-red); color: var(--color-white); max-width: 100%; padding: 7rem 2rem;}
+        #contact .section-title { color: var(--color-white); }
+        #contact .section-title::after { background: var(--color-white); }
+
+        .contact-form { max-width: 650px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; background: rgba(255,255,255,0.1); padding: 3rem; border: var(--border-thick); }
         .contact-form input, .contact-form select, .contact-form textarea {
-            width: 100%; padding: 1rem; border: var(--border-thick); font-family: inherit; font-size: 1rem; box-sizing: border-box;
+            width: 100%; padding: 1.2rem; border: var(--border-thick); font-family: inherit; font-size: 1.1rem; box-sizing: border-box; background: rgba(255,255,255,0.8);
         }
-        .contact-form textarea { resize: vertical; min-height: 150px; }
+        .contact-form label { font-weight: 900; text-transform: uppercase; font-size: 0.9rem;}
         .btn-submit {
-            background: var(--color-red); color: var(--color-white); font-family: var(--font-comic); font-size: 2rem;
-            padding: 1rem; border: var(--border-thick); cursor: pointer; box-shadow: var(--shadow-pop); transition: 0.2s; letter-spacing: 2px;
+            background: var(--color-black); color: var(--color-white); font-family: var(--font-stencil); font-size: 2.2rem;
+            padding: 1rem; border: 0; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: 1rem;
         }
-        .btn-submit:hover { background: var(--color-yellow); color: var(--color-black); transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--color-black); }
+        .btn-submit:hover { background: var(--color-white); color: var(--color-black); }
+
+        /* 🎵 バンクシー風カセットテープ・プレイヤー */
+        #audio-player {
+            position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; align-items: center; gap: 10px;
+            background: #1a1a1a; color: #fff; padding: 10px; border: 3px solid #fff; box-shadow: 5px 5px 0 #000; font-family: 'Anton', sans-serif;
+        }
+        .tape-btn { background: #fff; color: #000; border: 0; cursor: pointer; font-weight: 900; font-size: 0.8rem; padding: 5px 10px; }
+        .tape-btn:hover { background: var(--color-red); color: #fff; }
 
         /* レスポンシブ */
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 1rem; }
-            nav ul { flex-wrap: wrap; justify-content: center; }
-            .vision-title { font-size: 2rem; }
-            .founder-wrap { flex-direction: column; }
+            .section-title { font-size: 3rem; }
+            .vision-title { font-size: 3.5rem; }
+            header { flex-direction: column; padding: 1rem; }
+            .founder-wrap { flex-direction: column; padding: 1.5rem; }
         }
     </style>
 </head>
@@ -323,190 +319,150 @@
                 <li><a href="#founder">FOUNDER</a></li>
                 <li><a href="#values">VALUES</a></li>
                 <li><a href="#company">COMPANY</a></li>
-                <li><a href="#contact" class="btn-contact">CONTACT!</a></li>
+                <li><a href="#contact" class="btn-contact">JOIN US!</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="vision" class="bg-dots-yellow">
-        <div class="bubble-container">
-            <div class="thought-bubble">
-                <h1 class="vision-title">CULTIVATING A LOCAL<br>CHALLENGER ECOSYSTEM!!</h1>
-                <p style="text-align: center; font-weight: 900; margin-bottom: 2rem;">〜地方の挑戦者たちをブーストする、最強のエコシステム〜</p>
-                <p class="vision-text">「地方には何もない」「挑戦できる環境がない」？
-                HA！そんな退屈な常識は、僕らの手で面白く塗りつぶしてしまえばいい！
+    <section id="vision">
+        <img src="hero-bg.jpg" alt="サカエマチHOLICの渦" class="hero-bg-art grayscale-art">
+        <div class="vision-content">
+            <h1 class="vision-title">CULTIVATING A LOCAL CHALLENGER ECOSYSTEM!!</h1>
+            <p class="vision-text">「地方には何もない」「挑戦できる環境がない」？
+            HA！そんな退屈な常識は、僕らの手で面白く塗りつぶしてしまえばいい！
 
-                私たちがここ、愛媛県西条市で創り出しているのは、単なる「場所」じゃない。
-                一人ひとりの「偏愛」や「熱中」が交わり、周りをガンガン巻き込みながら巨大なうねりとなっていく<span class="highlight">「挑戦の渦」</span>だ！失敗なんて恐れない。何度でも立ち上がるヒーローたちの生態系を、この土壌から耕し、育てていくぜ！
+            私たちがここ、愛媛県西条市で創り出しているのは、単なる「場所」じゃない。
+            一人ひとりの「偏愛」や「熱中」が交わり、周りをガンガン巻き込みながら巨大なうねりとなっていく<span class="highlight-red">「挑戦の渦」</span>だ！
 
-                この渦を最大化する、僕らの最強の武器。
-                それが<span class="highlight">「コミュニティの熱量」×「テクノロジーの拡張性」！</span>
-                サカエマチHOLICに集まる泥臭くて熱いリアルな繋がりを、テクノロジーの力で一気にスマートにブーストさせる。このハイブリッドな戦い方こそが、変化に負けないしなやかな地方を創るカギになるんだ。
+            サカエマチHOLICに集まる泥臭くて熱いリアルな繋がりを、テクノロジーの力で一気にスマートにブーストさせる。このハイブリッドな戦い方こそが、変化に負けないしなやかな地方を創るカギになるんだ。
 
-                そして、この熱狂は西条だけで終わるつもりはない。
-                私たちがローカルで証明した「挑戦の渦」のモデルを、全国へと波及させていく。
-                それがリズカーレの使命！
-                「地方だからできない」を、「地方だからこそ、おもしろい！」へ。
-                西条から日本中へ、最高にエキサイティングなムーブメントを！
-                <strong>さあ、君も僕らの渦に巻き込まれようぜ！💥</strong></p>
-            </div>
+            「地方だからできない」を、<span class="highlight-red">「地方だからこそ、おもしろい！」</span>へ。
+            西条から日本中へ、最高にエキサイティングなムーブメントを！
+            <strong>さあ、君も僕らの渦に巻き込まれようぜ！💥</strong></p>
         </div>
     </section>
 
     <section id="services">
-        <h2 class="section-title">OUR SERVICES</h2>
+        <h2 class="section-title">THE RESISTANCE PLANS</h2>
         <div class="services-grid">
-            <div class="comic-box service-panel">
+            <div class="service-panel">
                 <div class="service-title">① 個人向け起業支援</div>
-                <div class="target-box">
-                    <strong>ターゲットは君だ！👇</strong>
-                    <ul>
-                        <li>はじめて起業にチャレンジする人！</li>
-                        <li>なんとなくやりたい事はあるけど、やり方が分からない人！</li>
-                        <li>起業したいけど、周りに反対されている人！</li>
-                    </ul>
-                </div>
+                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（孤独を脱し、次の一歩へ）</div>
                 <div class="benefit-box">
-                    <div class="benefit-title">💥 【3ヶ月で、起業の不安を「自信」へ！】</div>
-                    <p style="margin:0; font-weight:normal; font-size:0.9rem;">面倒な事務手続き・SNS運用・HP設定…そんな壁は最速でハック！君の独自の強みを磨き上げるブランディングと、切磋琢磨できる熱い仲間のコミュニティを同時に提供するぜ。孤独をぶっ飛ばし、3ヶ月後には確信を持って次の一歩を踏み出せるヒーローになろう！</p>
+                    <div class="benefit-title">💥 BOOM! 【起業の不安を「自信」へ！】</div>
+                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">独自の強みを磨き上げるブランディングと、熱い仲間のコミュニティを同時に提供。3ヶ月後には確信を持って次の一歩を踏み出せるヒーローになろう！</p>
                 </div>
             </div>
-            <div class="comic-box service-panel">
+            <div class="service-panel">
                 <div class="service-title">② チャレンジコミュニティ創造支援</div>
-                <div class="target-box">
-                    <strong>ターゲットは君だ！👇（自治体向け）</strong>
-                    <ul>
-                        <li>地域おこし協力隊の熱き担当者！</li>
-                        <li>官民共創事業を引っ張るリーダー！</li>
-                        <li>「箱モノ」より「人」へ投資したい行政職員の方！</li>
-                    </ul>
-                </div>
+                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（自治体向けマニフェスト）</div>
                 <div class="benefit-box">
-                    <div class="benefit-title">💥 【本物の「地域活性」を！】</div>
-                    <p style="margin:0; font-weight:normal; font-size:0.9rem;">協力隊の定着や起業家輩出に、泥臭く伴走して確実な「成果」を叩き出す！外注頼みのDXなんて時代遅れ。これからは「地困地消」への転換だ。予算を未来への投資に変え、担当者が自信を持って語れる強い街の基礎を築き上げよう！</p>
+                    <div class="benefit-title">💥 POW! 【本物の「地域活性」を！】</div>
+                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">協力隊の定着や起業家輩出に、泥臭く伴走して確実な「成果」を叩き出す！予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築き上げよう！</p>
                 </div>
             </div>
-            <div class="comic-box service-panel">
+            <div class="service-panel">
                 <div class="service-title">③ レンタルアガタDX</div>
-                <div class="target-box">
-                    <strong>ターゲットは君だ！👇（中小・個人事業主）</strong>
-                    <ul>
-                        <li>スポットで頼れる「右腕」を召喚したい経営者！</li>
-                        <li>AIやITを活用して、仕事をスマートにしたい経営者！</li>
-                        <li>漠然と困っていて、とにかく誰かに壁打ちしたい方！</li>
-                    </ul>
-                </div>
+                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（中小・個人事業主の右腕）</div>
                 <div class="benefit-box">
-                    <div class="benefit-title">💥 【経営者の爆速の右腕、参上！】</div>
-                    <p style="margin:0; font-weight:normal; font-size:0.9rem;">採用リスクゼロ！戦略の壁打ちからAIによる業務効率化まで丸投げOK！漠然とした悩みをスッキリ整理し実務をテクノロジーで自動化。面倒な「作業」から解放され、経営者が本来やるべき「未来を創る仕事」に専念できる環境を即構築！</p>
+                    <div class="benefit-title">💥 BAM! 【経営者の爆速の右腕、参上！】</div>
+                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">採用リスクゼロ！戦略の壁打ちからAIによる業務効率化まで丸投げOK！面倒な「作業」から解放され、経営者が本来やるべき「未来を創る仕事」に専念できる環境を即構築！</p>
                 </div>
             </div>
-            <div class="comic-box service-panel">
+            <div class="service-panel">
                 <div class="service-title">④ コワーキングコミュニティ事業</div>
-                <div class="target-box">
-                    <strong>ターゲットは君だ！👇（個人・フリーランス）</strong>
-                    <ul>
-                        <li>何かにチャレンジしたい、面白い波にのっかりたい人！</li>
-                        <li>ビジネスに役立つ、リアルな情報や繋がりが欲しい人！</li>
-                        <li>仕事以外の楽しみや、ワクワクする仲間が欲しい人！</li>
-                    </ul>
-                </div>
+                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（挑戦者の生態系）</div>
                 <div class="benefit-box">
-                    <div class="benefit-title">💥 【助け合いこそが成功への道！】</div>
-                    <p style="margin:0; font-weight:normal; font-size:0.9rem;">ここは単なる作業場じゃない、挑戦者が集う「生態系」だ！独自の繋がりと最新情報が飛び交い、一人の「やりたい！」が仲間の力で即プロジェクト化！失敗を笑い飛ばし面白がる文化の中で、確信を持って一歩踏み出せる最高の居場所！</p>
+                    <div class="benefit-title">💥 BOOM! 【助け合いこそが成功への道！】</div>
+                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">ここは単なる作業場じゃない。一人の「やりたい！」が仲間の力で即プロジェクト化！失敗を笑い飛ばし面白がる文化の中で、確信を持って一歩踏み出せる最高の居場所！</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div id="works-wrapper" class="bg-dots-blue">
+    <div id="works-wrapper">
         <section id="works" style="padding: 0;">
-            <h2 class="section-title">OUR WORKS</h2>
+            <h2 class="section-title">TAGGED WORKS</h2>
             <div class="slider-container" id="auto-slider">
-                <div class="work-item">
-                    実績①<br>ローカルベンチャー<br>誘致育成事業
-                    <div class="work-tooltip">POW!💥<br>西条市のローカルベンチャーを牽引！詳細を見るにはクリック！</div>
+                <div class="work-item grayscale-art">
+                    <strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業
+                    <p style="font-size:0.9rem; font-weight:700;">（西条市のローカルベンチャーを牽引！💥）</p>
                 </div>
-                <div class="work-item">
-                    実績②<br>四国初の<br>市民コミュニティ財団設立
-                    <div class="work-tooltip">BANG!💥<br>資金循環の仕組みを地域に創出！</div>
+                <div class="work-item grayscale-art">
+                    <strong>実績②</strong><br>四国初の<br>市民コミュニティ財団設立
+                    <p style="font-size:0.9rem; font-weight:700;">（資金循環の仕組みを地域に創出！BAM!💥）</p>
                 </div>
-                <div class="work-item">
-                    実績③<br>100人超の<br>起業家コミュニティ創造
-                    <div class="work-tooltip">BOOM!💥<br>サカエマチHOLICを中心に熱狂的な渦を構築！</div>
+                <div class="work-item grayscale-art">
+                    <strong>実績③</strong><br>100人超の<br>起業家コミュニティ創造
+                    <p style="font-size:0.9rem; font-weight:700;">（延べ300件超の起業支援、調達額3000万円超！POW!💥）</p>
                 </div>
-                <div class="work-item">
-                    実績④<br>事業用<br>空き家バンク設立
-                    <div class="work-tooltip">BAM!💥<br>遊休資産を活用して挑戦の場をハック！</div>
+                <div class="work-item grayscale-art">
+                    <strong>実績④</strong><br>事業用<br>空き家バンク設立
+                    <p style="font-size:0.9rem; font-weight:700;">（遊休資産を活用して挑戦の場をハック！💥）</p>
                 </div>
             </div>
         </section>
     </div>
 
     <section id="founder">
-        <h2 class="section-title" style="color: var(--color-black); -webkit-text-stroke: 0;">FOUNDER</h2>
-        <div class="comic-box founder-wrap">
-            <img src="https://via.placeholder.com/400x400/000000/FFFFFF?text=PHOTO+HERE" alt="安形 真" class="founder-img">
+        <h2 class="section-title">THE RISKTAKER</h2>
+        <div class="founder-wrap">
+            <img src="founder-main.jpg" alt="安形 真" class="founder-img">
             <div class="founder-info">
                 <div class="founder-catch">「おもしろき こともなき世を おもしろく」を体現するリスクテイカー！</div>
-                <h3 class="founder-name">代表理事 安形 真 <span style="font-size:1rem; font-weight:normal;">(Makoto Agata)</span></h3>
-                <p style="font-weight:700; font-size:0.9rem; margin-bottom: 1rem; border-bottom: 2px dashed #000; padding-bottom: 0.5rem;">
-                    内閣府地域活性化伝道師 / (公財)えひめ西条つながり基金事務局長 / ㈱Democracy代表取締役 / 東海若手起業塾理事
+                <h3 class="founder-name">代表理事 安形 真</h3>
+                <p style="font-weight:900; font-size:1rem; margin-bottom: 1.5rem; color: var(--color-red); text-transform:uppercase; font-family:var(--font-stencil);">
+                    Regional Revitalization Envoy / Democracy CEO
                 </p>
-                <p style="font-size: 0.95rem; font-weight: 700;">
-                    愛知県出身。会計事務所を退職後、農業で起業。D2Cによる販売や農家レストランなど当時の先進的な農家のビジネスを展開。その後体調不良を機に支援業にピボット。<br><br>
-                    縁もゆかりもなかった愛媛県西条市に飛び込み、地域に根を張る「挑戦の支援者」としての歩みをスタート。社名の由来でもあるラテン語「Risicare（勇気をもって試みる）」を地で行くスタイルで、地方の停滞した空気をハックし続けている。<br><br>
-                    2019年にリズカーレを設立後、西条市のローカルベンチャー誘致・育成事業を牽引。コワーキングスペース「サカエマチHOLIC」の運営を通じて、延べ300件以上の起業支援を行い、3000万円以上の資金調達を支援し、100名を超える熱狂的なコミュニティを構築した。
+                <p style="font-size: 1rem; font-weight: 700;">
+                    会計事務所を退職後、農業で起業。D2Cや農家レストランなど先進的なビジネスを展開。<br><br>
+                    縁もゆかりもなかった愛媛県西条市に飛び込み、「Risicare（勇気をもって試みる）」を地で行くスタイルで、地方の停滞した空気をハックし続けている。
                 </p>
             </div>
         </div>
     </section>
 
     <div id="values">
-        <h2 class="section-title">CORE VALUES</h2>
+        <h2 class="section-title">MANIFESTO</h2>
         <div class="values-text">
             商売人としての“当たり前”を、誰よりも熱く。<br><br>
-            地域で商売をするということ。それは、いかにリピートしてもらうかということ。つまり、揺るぎない「信頼関係」を結ぶってことだ。当たり前の価値を、当たり前に出し続ける。<br><br>
-            表面的なSNSのフォロワー数？バズ狙いのコンテンツ？<br>
-            いや、私たちが求めるのはそこじゃない。<span style="color:var(--color-yellow);">社会を変えるという確かな実感を伴う、直接的な繋がりだ。</span><br><br>
-            どんなに小さなチャレンジでもいい。その小さな成功体験がもたらす「自信」が、数年後のとてつもない大きな変化に繋がると、私たちは本気で信じている。だからこそ、目先の短期的な合理性ではなく、<span style="color:var(--color-yellow); font-size:1.8rem; border-bottom: 4px solid var(--color-yellow);">「長期的な合理性」</span>を泥臭く取りに行く。それこそが、面白い社会を創り上げるための、最高に重要なファクターなんだ！
+            地域で商売をするということ。それは、揺るぎない「信頼関係」を結ぶってことだ。表面的なSNSのフォロワー数？バズ狙いのコンテンツ？いや、私たちが求めるのはそこじゃない。<span style="color:var(--color-red);">社会を変えるという確かな実感を伴う、直接的な繋がりだ。</span><br><br>
+            どんなに小さなチャレンジでもいい。その小さな成功体験がもたらす「自信」が、数年後の大きな変化に繋がると、私たちは本気で信じている。目先の短期的な合理性ではなく、<span style="color:var(--color-red); font-size:2rem; border-bottom: 5px solid var(--color-red);">「長期的な合理性」</span>を泥臭く取りに行く。それこそが、面白い社会を創り上げるためのファクターなんだ。
         </div>
     </div>
 
     <section id="company">
-        <h2 class="section-title" style="color: var(--color-black); -webkit-text-stroke: 0;">COMPANY & ACCESS</h2>
-        <div class="comic-box company-wrap">
-            <div class="company-info">
+        <h2 class="section-title">ACCESS ZONE</h2>
+        <div class="company-wrap">
+            <div class="company-info comic-box" style="background:var(--color-white); border:var(--border-thick); padding:2rem;">
                 <h3>一般社団法人リズカーレ</h3>
                 <p>〒793-0030<br>愛媛県西条市大町1663<br>（サカエマチHOLIC）</p>
                 <a href="https://www.furusato-tax.jp/city/donation/38206" target="_blank" class="furusato-banner">
-                    <strong style="font-size:1.2rem; color: var(--color-yellow);">BE OUR SUPPORTER! 🤝</strong><br>
-                    リズカーレの活動がある愛媛県西条市は、ふるさと納税の対象自治体です！<br>
-                    「世の中に挑戦する人を増やしたい！」私たちの想いに共感してくれる熱いサポーター大募集！<br>
-                    <strong>👉 西条市ふるさと納税で挑戦を支援する！</strong>
+                    <strong style="font-size:1.3rem;">BE OUR SUPPORTER! 👉</strong><br>
+                    西条市ふるさと納税で挑戦者を生み出すパワーを！
                 </a>
             </div>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.9701198565554!2d133.1818224!3d33.9161665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3551d0de49a1dcc5%3A0x67b5eb7a4140733!2z44K144Kr44Ko44Oe44OBSE9MSUM!5e0!3m2!1sja!2sjp!4v1715000000000!5m2!1sja!2sjp" width="100%" height="100%" style="border:0; min-height: 300px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map-container grayscale-art">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.9701198565554!2d133.1818224!3d33.9161665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3551d0de49a1dcc5%3A0x67b5eb7a4140733!2z44K144Kr44Ko44Oe44OBSE9MSUM!5e0!3m2!1sja!2sjp!4v1715000000000!5m2!1sja!2sjp" width="100%" height="100%" style="border:0; min-height: 350px;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <h2 class="section-title" style="color: var(--color-red); -webkit-text-stroke: 2px var(--color-black);">LET'S MAKE A MOVEMENT!</h2>
-        <p style="text-align:center; font-weight:900; margin-bottom:2rem;">一緒にムーブメントを起こそう！以下のフォームから熱いメッセージを待ってるぜ！</p>
+        <h2 class="section-title">JOIN THE RESISTANCE💥</h2>
+        <p style="text-align:center; font-weight:900; margin-bottom:2rem; font-size:1.2rem;">既存の常識を塗りつぶす悪巧み（作戦会議）を始めよう。まずは無料で「壁打ち」してみないか？👉</p>
         
-        <form class="comic-box contact-form" onsubmit="event.preventDefault(); alert('BOOM! 💥 メッセージ送信アクションが呼ばれました！（※現在はデモ用です）');">
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('MISSION RECEIVED! 💥 作戦を受領しました！');">
             <div>
-                <label style="font-weight:900;">YOUR NAME (お名前)</label>
-                <input type="text" required placeholder="西条 太郎">
+                <label>YOUR NAME (お名前)</label>
+                <input type="text" required placeholder="匿名希望（西条太郎）">
             </div>
             <div>
-                <label style="font-weight:900;">EMAIL (メールアドレス)</label>
-                <input type="email" required placeholder="hero@example.com">
+                <label>EMAIL (メールアドレス)</label>
+                <input type="email" required placeholder="hidden@example.com">
             </div>
             <div>
-                <label style="font-weight:900;">CATEGORY (お問い合わせ種別)</label>
+                <label>CATEGORY (お問い合わせ種別)</label>
                 <select required>
                     <option value="">選択してください</option>
                     <option value="起業相談">起業相談（個人向け）</option>
@@ -516,52 +472,22 @@
                 </select>
             </div>
             <div>
-                <label style="font-weight:900;">MESSAGE (メッセージ)</label>
-                <textarea required placeholder="君の熱い想いをここに書き込んでくれ！"></textarea>
+                <label>MESSAGE (作戦計画書)</label>
+                <textarea required placeholder="君の熱い想いや漠然とした悩みをここに書き込んでくれ！"></textarea>
             </div>
-            <button type="submit" class="btn-submit">SEND MESSAGE! 💥</button>
+            <button type="submit" class="btn-submit">SEND MISSION! 💥</button>
         </form>
     </section>
 
+    <div id="audio-player">
+        <span>TAPE: bgm.mp3</span>
+        <audio id="bgm" src="bgm.mp3" loop></audio>
+        <button onclick="document.getElementById('bgm').play()" class="tape-btn">▶ PLAY</button>
+        <button onclick="document.getElementById('bgm').pause()" class="tape-btn">■ STOP</button>
+    </div>
+
     <script>
-        // WORKSセクションの簡単な自動スクロール機能
-        const slider = document.getElementById('auto-slider');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        // マウスドラッグでスクロールできるようにする
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true;
-            slider.style.cursor = 'grabbing';
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-        });
-        slider.addEventListener('mouseleave', () => {
-            isDown = false;
-            slider.style.cursor = 'grab';
-        });
-        slider.addEventListener('mouseup', () => {
-            isDown = false;
-            slider.style.cursor = 'grab';
-        });
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2; // スクロール速度
-            slider.scrollLeft = scrollLeft - walk;
-        });
-
-        // スムーススクロール（ナビゲーション用）
+        // スムーススクロール
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+                e
