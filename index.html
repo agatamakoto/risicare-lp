@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>一般社団法人リズカーレ | THE LOCAL INNOVATION AGENCY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Barcode+128+Text&family=Noto+Sans+JP:wght@700;900&family=Stencil&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Anton&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        /* =========================================
-           🎨 BASE STYLES & VARIABLES (バンクシー・モード2.0)
-        ========================================= */
         :root {
             --color-black: #000000;
             --color-white: #FFFFFF;
             --color-gray: #333333;
             --color-red: #FF0000;
             --color-bg: #EAEAEA;
-            --font-stencil: 'Stencil', sans-serif;
+            --font-stencil: 'Allerta Stencil', sans-serif;
             --font-jp: 'Noto Sans JP', sans-serif;
             --border-thick: 5px solid var(--color-black);
         }
@@ -36,7 +35,6 @@
         img { max-width: 100%; height: auto; }
         .grayscale-art { filter: grayscale(100%) contrast(150%); }
 
-        /* セクション共通 */
         section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
         .section-title {
             font-family: var(--font-stencil); font-size: 4.5rem; text-transform: uppercase;
@@ -47,9 +45,7 @@
             width: 100px; height: 10px; background: var(--color-red); filter: blur(2px); opacity: 0.5;
         }
 
-        /* =========================================
-           🎨 HEADER
-        ========================================= */
+        /* HEADER */
         header {
             position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); border-bottom: var(--border-thick);
             display: flex; justify-content: space-between; align-items: center; padding: 1rem 3rem; z-index: 1000;
@@ -60,112 +56,65 @@
         .btn-contact { background: var(--color-red); color: var(--color-white); border: var(--border-thick); padding: 0.7rem 1.5rem; font-weight: 900; text-transform: uppercase; }
         .btn-contact:hover { background: var(--color-black); }
 
-        /* =========================================
-           🎨 HERO / VISION
-        ========================================= */
+        /* VISION */
         #vision { max-width: 100%; padding: 0; position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .hero-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(150%) brightness(40%); }
         .vision-content { z-index: 10; text-align: center; max-width: 900px; padding: 0 2rem; color: var(--color-white); }
         .vision-title { font-family: var(--font-stencil); font-size: 5rem; line-height: 0.9; letter-spacing: -3px; text-shadow: 2px 2px 0 var(--color-black); }
-        
-        /* アコーディオン（折り畳み） */
         .vision-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
         .vision-details.open { max-height: 1000px; }
         .vision-text { font-size: 1.2rem; font-weight: 700; white-space: pre-line; color: rgba(255, 255, 255, 0.9); margin-top: 2rem; text-shadow: 1px 1px 0 var(--color-black); text-align: left;}
-        .highlight-red { color: var(--color-red); }
         .btn-toggle { background: transparent; color: var(--color-white); border: 2px solid var(--color-white); padding: 0.5rem 2rem; font-size: 1.2rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
         .btn-toggle:hover { background: var(--color-white); color: var(--color-black); }
 
-        /* =========================================
-           🎨 CHALLENGER COMMUNITY & FOUNDER (左右配置)
-        ========================================= */
+        /* FOUNDER & COMMUNITY SPLIT */
         #intro-split { display: flex; flex-wrap: wrap; max-width: 100%; padding: 0; border-bottom: var(--border-thick); }
         .split-panel { flex: 1; min-width: 400px; padding: 6rem 4rem; background: var(--color-white); }
         .split-panel:first-child { border-right: var(--border-thick); }
-        
-        .community-stats { font-size: 1.2rem; font-weight: 900; margin: 2rem 0; line-height: 1.2; }
         .stats-number { font-size: 4.5rem; color: var(--color-red); font-family: var(--font-stencil); }
-        .stats-date { font-size: 0.9rem; color: var(--color-gray); font-family: var(--font-jp); font-weight: normal;}
 
-        .founder-img { border: var(--border-thick); width: 100%; max-width: 300px; margin-bottom: 1.5rem; }
+        .founder-img { border: var(--border-thick); width: 100%; max-width: 250px; margin-bottom: 1.5rem; }
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; }
-        .founder-links a:hover { color: var(--color-black); }
 
-        /* =========================================
-           🎨 WORKS (自動スライダー ＆ ポップアップ)
-        ========================================= */
+        /* WORKS & TOOLTIP REPAIR */
         #works-wrapper { background-color: var(--color-black); padding: 5rem 0; color: var(--color-white); overflow: hidden;}
-        #works .section-title { color: var(--color-white); }
-        #works .section-title::after { background: var(--color-white); }
-
-        .slider-container { display: flex; overflow-x: auto; gap: 2rem; padding: 2rem; scroll-behavior: smooth; }
-        .slider-container::-webkit-scrollbar { display: none; } /* スクロールバー非表示 */
+        .slider-container { display: flex; overflow-x: auto; gap: 2rem; padding: 4rem 2rem; scroll-behavior: smooth; }
+        .slider-container::-webkit-scrollbar { display: none; }
         
-        .work-item { flex: 0 0 350px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 2.5rem 2rem; cursor: pointer; transition: 0.3s; position: relative; font-size: 1.2rem; text-align: center;}
-        .work-item::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 20px; background-image: linear-gradient(135deg, var(--color-bg) 25%, transparent 25%), linear-gradient(225deg, var(--color-bg) 25%, transparent 25%); background-size: 20px 20px; }
+        .work-item { flex: 0 0 320px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 2.5rem 2rem; cursor: pointer; transition: 0.3s; position: relative; font-size: 1.2rem; text-align: center; z-index: 10;}
         
-        /* ツールチップ（ポップアップ） */
+        /* 🛠 ツールチップの挙動修正（ゆっくり表示 & 消えにくく） */
         .work-tooltip {
-            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-            background: var(--color-black); color: var(--color-white); padding: 1rem; border: 3px solid var(--color-red);
-            width: 280px; font-size: 1rem; font-weight: 900; line-height: 1.4;
-            opacity: 0; visibility: hidden; transition: 0.3s; pointer-events: none; z-index: 100;
+            position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%) translateY(10px);
+            background: var(--color-black); color: var(--color-white); padding: 1.2rem; border: 3px solid var(--color-red);
+            width: 280px; font-size: 1rem; font-weight: 900; line-height: 1.5;
+            opacity: 0; visibility: hidden; 
+            transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s; /* ゆっくり表示 */
+            pointer-events: none; z-index: 100;
         }
         .work-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; }
-        .work-item:hover .work-tooltip { opacity: 1; visibility: visible; bottom: 110%; }
+        
+        .work-item:hover .work-tooltip { 
+            opacity: 1; visibility: visible; 
+            transform: translateX(-50%) translateY(0); /* ふわっと浮き上がる */
+        }
 
-        /* =========================================
-           🎨 SAKAEMACHI HOLIC FEATURE (特集)
-        ========================================= */
+        /* FEATURE: SAKAEMACHI HOLIC */
         #holic-feature { background-color: var(--color-bg); padding: 5rem 2rem; border-bottom: var(--border-thick); }
-        .feature-box { max-width: 900px; margin: 0 auto; background: var(--color-white); padding: 3rem; border: var(--border-thick); font-weight: 700; font-size: 1.1rem; box-shadow: 10px 10px 0 rgba(0,0,0,0.1); }
-        .feature-box h3 { color: var(--color-red); font-size: 1.8rem; margin-bottom: 1.5rem; border-bottom: 2px dashed var(--color-black); padding-bottom: 0.5rem;}
-        .feature-box ul { margin: 1.5rem 0; padding-left: 2rem; list-style-type: square; }
-        .feature-box li { margin-bottom: 0.5rem; }
+        .feature-box { max-width: 900px; margin: 0 auto; background: var(--color-white); padding: 3rem; border: var(--border-thick); font-weight: 700; box-shadow: 10px 10px 0 rgba(0,0,0,0.1); }
+        .feature-box h3 { color: var(--color-red); font-size: 1.8rem; margin-bottom: 1.5rem; line-height: 1.3; border-bottom: 2px dashed var(--color-black); padding-bottom: 1rem;}
+        .feature-link { display: inline-block; margin-top: 1.5rem; color: var(--color-red); text-decoration: underline; font-weight: 900; }
 
-        /* =========================================
-           🎨 MANIFESTO (CORE VALUE)
-        ========================================= */
-        #values { background-color: var(--color-white); max-width: 100%; padding: 7rem 2rem; border-bottom: var(--border-thick);}
-        .values-text { max-width: 850px; margin: 0 auto; text-align: center; color: var(--color-black); }
-
-        /* =========================================
-           🎨 SERVICES
-        ========================================= */
-        #services { max-width: 1100px; margin: 0 auto; }
+        /* SERVICES */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
         .service-panel { background: var(--color-white); border: var(--border-thick); padding: 2.5rem; position: relative; transition: 0.3s; }
-        .service-panel:hover { transform: translateY(-10px); box-shadow: 15px 15px 0 rgba(0,0,0,0.1); }
-        .service-panel::before { content: '🎈'; position: absolute; top: 10px; right: 10px; font-size: 1.5rem; filter: drop-shadow(0 0 2px var(--color-red)) hue-rotate(300deg); }
-        .service-title { font-size: 1.6rem; font-weight: 900; color: var(--color-black); margin-bottom: 1.5rem; border-bottom: 3px solid var(--color-red); display: inline-block; }
         .benefit-box { margin-top: 2rem; background: var(--color-black); color: var(--color-white); padding: 1.5rem; font-weight: 900; }
-        .benefit-title { color: var(--color-red); font-size: 1.3rem; margin-bottom: 0.5rem; text-transform: uppercase;}
+        .benefit-title { color: var(--color-red); font-size: 1.3rem; margin-bottom: 0.5rem; }
 
-        /* =========================================
-           🎨 COMPANY & ACCESS
-        ========================================= */
-        .company-wrap { display: flex; gap: 3rem; flex-wrap: wrap; }
-        .company-info { flex: 1; min-width: 300px; font-weight: 700;}
-        .map-container { flex: 1; min-width: 300px; border: var(--border-thick); filter: grayscale(100%); padding: 0;}
-        .furusato-banner { display: block; background: var(--color-black); color: var(--color-white); border: 3px solid var(--color-red); padding: 1.5rem; text-align: center; margin-top: 2rem; transition: 0.2s; font-weight: 900; }
-        .furusato-banner:hover { background: var(--color-red); }
-
-        /* =========================================
-           🎨 CONTACT
-        ========================================= */
+        /* CONTACT (まろやかVer) */
         #contact { background-color: var(--color-red); color: var(--color-white); max-width: 100%; padding: 7rem 2rem;}
-        #contact .section-title { color: var(--color-white); }
-        #contact .section-title::after { background: var(--color-white); }
-        .contact-form { max-width: 650px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; background: rgba(255,255,255,0.1); padding: 3rem; border: var(--border-thick); }
-        .contact-form input, .contact-form select, .contact-form textarea { width: 100%; padding: 1.2rem; border: var(--border-thick); font-family: inherit; font-size: 1.1rem; box-sizing: border-box; background: rgba(255,255,255,0.8); }
-        .contact-form label { font-weight: 900; text-transform: uppercase; font-size: 0.9rem;}
-        .btn-submit { background: var(--color-black); color: var(--color-white); font-family: var(--font-stencil); font-size: 2.2rem; padding: 1rem; border: 0; cursor: pointer; transition: 0.2s; text-transform: uppercase; margin-top: 1rem; }
-        .btn-submit:hover { background: var(--color-white); color: var(--color-black); }
-
-        /* 🎵 オーディオプレイヤー */
-        #audio-player { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; align-items: center; gap: 10px; background: #1a1a1a; color: #fff; padding: 10px; border: 3px solid #fff; box-shadow: 5px 5px 0 #000; font-family: 'Anton', sans-serif; }
-        .tape-btn { background: #fff; color: #000; border: 0; cursor: pointer; font-weight: 900; font-size: 0.8rem; padding: 5px 10px; }
-        .tape-btn:hover { background: var(--color-red); color: #fff; }
+        .btn-submit-big { display: inline-block; text-decoration: none; padding: 1.5rem 4rem; background: var(--color-black); color: var(--color-white); border: 3px solid var(--color-white); font-weight: 900; font-size: 1.5rem; transition: 0.3s; }
+        .btn-submit-big:hover { background: var(--color-white); color: var(--color-black); transform: scale(1.05); }
 
         @media (max-width: 768px) {
             .section-title { font-size: 3rem; } .vision-title { font-size: 3.5rem; }
@@ -183,9 +132,8 @@
                 <li><a href="#vision">VISION</a></li>
                 <li><a href="#works-wrapper">WORKS</a></li>
                 <li><a href="#intro-split">FOUNDER</a></li>
-                <li><a href="#values">MANIFESTO</a></li>
                 <li><a href="#services">SERVICES</a></li>
-                <li><a href="#contact" class="btn-contact">JOIN US!</a></li>
+                <li><a href="#contact" class="btn-contact">CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -195,19 +143,11 @@
         <div class="vision-content">
             <h1 class="vision-title">CULTIVATING A LOCAL CHALLENGER ECOSYSTEM</h1>
             <button class="btn-toggle" onclick="toggleVision()">READ OUR VISION ▼</button>
-            
             <div id="vision-text-box" class="vision-details">
                 <p class="vision-text">「地方には何もない」「挑戦できる環境がない」？
                 退屈な常識は、僕らの手で面白く塗りつぶしてしまえばいい。
-
                 私たちがここ、愛媛県西条市で創り出しているのは、単なる「場所」じゃない。
-                一人ひとりの「偏愛」や「熱中」が交わり、周りをガンガン巻き込みながら巨大なうねりとなっていく<span class="highlight-red">「挑戦の渦」</span>だ！
-
-                サカエマチHOLICに集まる泥臭くて熱いリアルな繋がりを、テクノロジーの力で一気にスマートにブーストさせる。この戦い方こそが、変化に負けないしなやかな地方を創るカギになるんだ。
-
-                「地方だからできない」を、<span class="highlight-red">「地方だからこそ、おもしろい！」</span>へ。
-                西条から日本中へ、最高にエキサイティングなムーブメントを！
-                <strong>さあ、君も僕らの渦に巻き込まれようぜ！💥</strong></p>
+                一人ひとりの「偏愛」が巨大なうねりとなっていく「挑戦の渦」だ！</p>
             </div>
         </div>
     </section>
@@ -215,33 +155,22 @@
     <section id="intro-split">
         <div class="split-panel">
             <h2 class="section-title" style="font-size: 3rem; text-align: left; letter-spacing: 0;">CHALLENGER COMMUNITY</h2>
-            <p style="font-weight: 700; font-size: 1.1rem;">西条市、人口10万弱のこのまちで、私たちは圧倒的なチャレンジャーコミュニティを築き上げました。</p>
             <div class="community-stats">
-                会員数<br>
-                <span class="stats-number">115</span><span style="font-size: 2rem;"> 人・社</span><br>
-                <span class="stats-date">(2026年3月31日時点)</span>
+                会員数 <span class="stats-number">115</span> <span style="font-size: 1.5rem; font-weight: 900;">人・社</span>
             </div>
-            <p style="font-weight: 700;">サカエマチHOLICを中心に、このコミュニティからさまざまなプロジェクトが日々生まれています。一人の「やりたい！」が仲間の力で即プロジェクト化し、圧倒的スピードで実行に移される。このダイナミックな流れを、WORKSでぜひ体感してください。</p>
-            <p style="margin-top: 1.5rem; font-weight: 900; font-size: 1.2rem;">
-                <a href="#works-wrapper" style="color: var(--color-red); text-decoration: underline;">👉 WORKSでプロジェクトを見る</a>
-            </p>
+            <p style="font-weight: 700;">サカエマチHOLICを中心に、このコミュニティから日々新しいプロジェクトが生まれています。</p>
         </div>
-        
         <div class="split-panel">
-            <h2 class="section-title" style="font-size: 3rem; text-align: left; letter-spacing: 0;">内閣府地域活性化伝道師</h2>
+            <h2 class="section-title" style="font-size: 3rem; text-align: left; letter-spacing: 0;">FOUNDER</h2>
             <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
                 <img src="founder-main.jpg" alt="安形 真" class="founder-img grayscale-art">
                 <div>
-                    <h3 style="font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem;">代表理事 安形 真</h3>
-                    <p style="font-weight: 900; color: var(--color-red); margin-bottom: 1rem;">「おもしろき こともなき世を おもしろく」を地方で体現する起業家兼活動家。</p>
-                    <p style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1.5rem;">
-                        会計事務所を退職後、農業で起業。D2Cや農家レストランなど先進的なビジネスを展開。<br><br>
-                        2018年、縁もゆかりもなかった愛媛県西条市に飛び込み、リズカーレを創業。コワーキングスペースの運営、起業型地域おこし協力隊の定着支援、四国初のコミュニティ財団設立など、地方で挑戦者の生態系を耕し続けている。
-                    </p>
+                    <h3 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem;">代表理事 安形 真</h3>
+                    <p style="font-weight: 900; color: var(--color-red); margin-bottom: 0.5rem;">内閣府地域活性化伝道師</p>
+                    <p style="font-size: 0.95rem; font-weight: 700;">「おもしろき こともなき世を おもしろく」を地方で体現する起業家兼活動家。</p>
                     <div class="founder-links">
-                        <a href="https://democracy.co.jp/" target="_blank">株式会社Democracy 代表取締役</a>
-                        <a href="https://escf.jp/" target="_blank">公益財団法人えひめ西条つながり基金 事務局長</a>
-                        <a href="https://tokai-entre.jp/" target="_blank">東海若手起業塾 理事兼メンター</a>
+                        <a href="https://democracy.co.jp/" target="_blank">株式会社Democracy 代表</a>
+                        <a href="https://escf.jp/" target="_blank">えひめ西条つながり基金 事務局長</a>
                     </div>
                 </div>
             </div>
@@ -249,7 +178,7 @@
     </section>
 
     <div id="works-wrapper">
-        <h2 class="section-title" style="color: var(--color-white);">TAGGED WORKS</h2>
+        <h2 class="section-title" style="color: var(--color-white);">WORKS</h2>
         <div class="slider-container" id="auto-slider">
             <div class="work-item grayscale-art">
                 <strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業
@@ -267,131 +196,68 @@
                 <strong>実績④</strong><br>事業用<br>空き家バンク設立
                 <div class="work-tooltip">起業と遊休資産をマッチングで地域課題解決へ</div>
             </div>
-            <div class="work-item grayscale-art"><strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業<div class="work-tooltip">西条市のローカルベンチャーを牽引！</div></div>
-            <div class="work-item grayscale-art"><strong>実績②</strong><br>四国初の<br>市民コミュニティ財団設立<div class="work-tooltip">資金循環の仕組みを地域に創出！</div></div>
         </div>
     </div>
 
     <section id="holic-feature">
-        <h2 class="section-title">FEATURE: SAKAEMACHI HOLIC</h2>
+        <h2 class="section-title">特集：サカエマチHOLIC</h2>
         <div class="feature-box">
-            <h3>「HOLIC」は変態…ではなく偏愛</h3>
-            <p>サカエマチHOLICは、チャレンジャーを生み出す「装置」であり「入り口」です。</p>
-            <ul>
-                <li><strong>VISION:</strong> あらゆる組織や地域の課題がサカエマチHOLICで解決できるコミュニティになっている</li>
-                <li><strong>MISSION:</strong> チャレンジャーにとって最高に価値を感じる場所をつくる</li>
-            </ul>
+            <h3>廃れた商店街にあるコワーキングスペースで起こっている静かな革命</h3>
             <p>
-                スタートアップ（急成長）だけを目指すのではなく、個々の「自己実現」や「まちづくり」へのアクションを応援しています。<br><br>
-                年代も業種もバラバラな個人事業主や法人経営者、会社員、公務員が集まり、その多様性が「化学反応」と「ワクワク」を生み出します。「最初は安く使える場所を探していたけど、今は様々な刺激が得られて違ったところに価値を感じている」と、場所以上にコミュニティとしての価値が求められています。<br><br>
-                約6割の会員が「他者の相談に乗ったり手伝ったりした経験がある」と回答しており、コワーキングが地域の社会関係資本を可視化し、増幅させる装置として機能しています。
+                3.5％ルール。それは全人口のわずか3.5%が非暴力的な抗議活動に積極的に参加すれば、社会変革はほぼ確実に成功するという政治学者エリカ・チェノウェスが提唱した理論だ。<br><br>
+                私たちリズカーレは保守的で挑戦しにくい地方の空気を本気で変えに行くために、挑戦者のためのコワーキングスペースを運用している。スペース、いや今となってはコミュニティという言葉にした方がしっくりくる。<br><br>
+                今となっては115人の挑戦者の集まりとなり、市外・県外からの参加も2割となった。西条市とそれ以外を結ぶローカルコワーキングコミュニティがサカエマチHOLICだ。<br><br>
+                日々面白い変化が生まれ、助け合い、前に進んでいく。粒度やインパクトは様々だ。それに意味があるのかと言われたら、必ずあると答える。この挑戦は10年後にこのまちのDNAとなって花開くからだ。
             </p>
+            <a href="https://shisaly.com/recipients/311" target="_blank" class="feature-link">👉 視察についての詳細はこちらから</a>
         </div>
     </section>
-
-    <div id="values">
-        <h2 class="section-title">CORE VALUE</h2>
-        <div class="values-text">
-            <p style="margin-bottom: 2rem; font-size: 1.2rem; font-weight: 900;">起業家ひとりひとりに寄り添うために、以下の考え方を大事にしています。</p>
-            <p style="font-size: 3rem; color: var(--color-red); font-family: var(--font-stencil); margin-bottom: 3rem; text-shadow: 2px 2px 0 var(--color-black);">「人生の手綱を、取り戻せ。」</p>
-            
-            <div style="text-align: left; max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem; font-weight: 700; font-size: 1.2rem;">
-                <div>
-                    <strong style="font-size: 1.5rem; border-bottom: 3px solid var(--color-black); color: var(--color-red);">自己との対話：</strong><br>
-                    外部の評価ではなく、内なる確信から挑戦を始める。
-                </div>
-                <div>
-                    <strong style="font-size: 1.5rem; border-bottom: 3px solid var(--color-black); color: var(--color-red);">共創の加速：</strong><br>
-                    助け合うことで、独りでは辿り着けない速さで目的地へ。
-                </div>
-                <div>
-                    <strong style="font-size: 1.5rem; border-bottom: 3px solid var(--color-black); color: var(--color-red);">長期的信頼：</strong><br>
-                    泥臭い繋がりこそが、地方で生き抜くための最強のインフラ。
-                </div>
-            </div>
-        </div>
-    </div>
 
     <section id="services">
         <h2 class="section-title">SERVICES</h2>
         <div class="services-grid">
             <div class="service-panel">
                 <div class="service-title">① 個人向け起業支援</div>
-                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（これから起業したいと思う方へ）</div>
                 <div class="benefit-box">
-                    <div class="benefit-title">💥 【起業の不安を「自信」へ！】</div>
-                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">独自の強みを磨き上げるブランディングと、熱い仲間のコミュニティを同時に提供。確信を持って次の一歩を踏み出せる起業家になろう！</p>
+                    <div class="benefit-title">💥 不安を「自信」へ</div>
+                    <p style="margin:0; font-size:0.95rem;">独自の強みを磨き上げるブランディングと、熱い仲間のコミュニティを同時に提供。</p>
                 </div>
             </div>
             <div class="service-panel">
-                <div class="service-title">② チャレンジコミュニティ創造支援</div>
-                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（地方創生でお困りの自治体向け）</div>
+                <div class="service-title">② 自治体向け支援</div>
                 <div class="benefit-box">
-                    <div class="benefit-title">💥 【本物の「地域活性」を！】</div>
-                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">協力隊の定着や起業家輩出に、泥臭く伴走して確実な「成果」を叩き出す！予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築き上げよう！</p>
+                    <div class="benefit-title">💥 成果を叩き出す</div>
+                    <p style="margin:0; font-size:0.95rem;">協力隊の定着や起業家輩出に泥臭く伴走。「挑戦者が自走する街」を築きます。</p>
                 </div>
             </div>
             <div class="service-panel">
                 <div class="service-title">③ レンタルアガタDX</div>
-                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（中小企業・個人事業主向け）</div>
                 <div class="benefit-box">
-                    <div class="benefit-title">💥 【経営者の爆速の右腕、参上！】</div>
-                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">戦略の壁打ちからAIによる業務効率化まで丸投げOK！経営者が本来やるべき「未来を創る仕事」に専念できる環境を即構築！</p>
+                    <div class="benefit-title">💥 爆速の右腕</div>
+                    <p style="margin:0; font-size:0.95rem;">戦略の壁打ちからAI効率化まで。経営者が未来を創る仕事に専念できる環境を構築。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="company">
-        <h2 class="section-title">ACCESS ZONE</h2>
-        <div class="company-wrap">
-            <div class="company-info comic-box" style="background:var(--color-white); border:var(--border-thick); padding:2rem;">
-                <h3>一般社団法人リズカーレ</h3>
-                <p>〒793-0030<br>愛媛県西条市大町1663<br>（サカエマチHOLIC）</p>
-                <a href="https://www.furusato-tax.jp/city/donation/38206" target="_blank" class="furusato-banner">
-                    <strong style="font-size:1.3rem;">BE OUR SUPPORTER! 👉</strong><br>
-                    西条市ふるさと納税で挑戦者を生み出すパワーを！
-                </a>
-            </div>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14692.358282422349!2d133.18375!3d33.916584!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3551d30a34c236a7%3A0xd9b7b1f00b6b6375!2z44K144Kr44Ko44Oe44OBSE9MSUM!5e1!3m2!1sja!2sjp!4v1775394444433!5m2!1sja!2sjp" width="100%" height="100%" style="border:0; min-height: 350px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-    </section>
-
-   <section id="contact">
-        <h2 class="section-title">JOIN THE MOVEMENT💥</h2>
-        <p style="text-align:center; font-weight:900; margin-bottom:2rem; font-size:1.2rem;">既存の常識を塗りつぶす、新しいムーブメントを共に。<br>まずは無料で「壁打ち」してみませんか？👉</p>
+    <section id="contact">
+        <h2 class="section-title">CONTACT💥</h2>
+        <p style="text-align:center; font-weight:900; margin-bottom:3rem; font-size:1.2rem;">
+            新しい風を、一緒に。まずは気軽な「壁打ち」から始めてみませんか？<br>
+            あなたの想いを聞かせてください。
+        </p>
         
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="https://forms.gle/oraAAVnMhmm8rMt69" target="_blank" rel="noopener noreferrer" class="btn-submit" style="display: inline-block; text-decoration: none; padding: 1.5rem 4rem; background: var(--color-black); color: var(--color-white); border: 3px solid var(--color-white);">
-                作戦計画書を送る！<br><span style="font-size: 1rem;">（Googleフォームが開きます）💥</span>
+        <div style="text-align: center;">
+            <a href="https://forms.gle/csHdYp6i4ABMamp39" target="_blank" rel="noopener noreferrer" class="btn-submit-big">
+                サクッと相談してみる！💥
             </a>
             <p style="margin-top: 1.5rem; font-weight: 700; font-size: 0.95rem; color: var(--color-white);">
-                ※クリックすると安全な外部フォームに移動します。
+                ※Googleフォームが開きます。
             </p>
         </div>
     </section>
 
-    <div id="audio-player">
-        <span>TAPE: bgm.mp3</span>
-        <audio id="bgm" src="bgm.mp3" loop></audio>
-        <button onclick="document.getElementById('bgm').play()" class="tape-btn">▶ PLAY</button>
-        <button onclick="document.getElementById('bgm').pause()" class="tape-btn">■ STOP</button>
-    </div>
-
     <script>
-        // 1. スムーススクロール
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // 2. HEROセクションのアコーディオン（折り畳み）機能
         function toggleVision() {
             const textBox = document.getElementById('vision-text-box');
             const btn = document.querySelector('.btn-toggle');
@@ -404,22 +270,16 @@
             }
         }
 
-        // 3. WORKSセクションの自動スライダー
         const slider = document.getElementById('auto-slider');
         let isDown = false;
-        
-        // 自動スクロール処理
-        let autoScroll = setInterval(() => {
+        setInterval(() => {
             if(!isDown) {
-                slider.scrollLeft += 1; // スクロール速度
-                // 末尾に達したら最初に戻す（簡易無限ループ）
+                slider.scrollLeft += 1;
                 if(slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 5)) {
                     slider.scrollLeft = 0;
                 }
             }
         }, 30);
-
-        // マウスホバーで一時停止
         slider.addEventListener('mouseenter', () => { isDown = true; });
         slider.addEventListener('mouseleave', () => { isDown = false; });
     </script>
