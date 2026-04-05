@@ -66,7 +66,7 @@
         .vision-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
         .vision-details.open { max-height: 1000px; }
         .vision-text { font-size: 1.2rem; font-weight: 700; white-space: pre-line; color: rgba(255, 255, 255, 0.9); margin-top: 2rem; text-shadow: 1px 1px 0 var(--color-black); text-align: center;}
-        .btn-toggle { background: transparent; color: var(--white); border: 2px solid var(--color-white); padding: 0.5rem 2rem; font-size: 1.2rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
+        .btn-toggle { background: transparent; color: var(--color-white); border: 2px solid var(--color-white); padding: 0.5rem 2rem; font-size: 1.2rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
         .btn-toggle:hover { background: var(--color-white); color: var(--color-black); }
 
         /* FOUNDER & COMMUNITY */
@@ -76,13 +76,13 @@
         .stats-number { font-size: 4.5rem; color: var(--color-red); font-family: var(--font-stencil); line-height: 1; }
         .founder-img { border: var(--border-thick); width: 100%; max-width: 250px; margin-bottom: 1.5rem; cursor: pointer; }
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.9rem; }
-        .community-img-wrap { margin-top: auto; border: var(--border-thick); overflow: hidden; cursor: pointer; }
+        .community-img-wrap { margin-top: 2rem; border: var(--border-thick); overflow: hidden; cursor: pointer; }
 
         /* WORKS */
         #works-wrapper { 
             position: relative;
             background-color: var(--color-black); 
-            padding: 8rem 0;
+            padding: 10rem 0;
             color: var(--color-white); 
             overflow: hidden;
         }
@@ -90,29 +90,60 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
-            opacity: 0.4;
-            filter: grayscale(100%) brightness(50%);
+            opacity: 0.35;
+            filter: grayscale(100%) brightness(40%);
         }
         #works-wrapper .section-title { position: relative; z-index: 10; color: var(--color-white); }
         #works-wrapper .section-title::after { background: var(--color-white); }
         
-        .slider-container { position: relative; z-index: 10; display: flex; overflow-x: auto; gap: 3rem; padding: 10rem 2rem 5rem 2rem; scroll-behavior: smooth; }
+        .slider-container { position: relative; z-index: 10; display: flex; overflow-x: auto; gap: 3rem; padding: 4rem 2rem 6rem 2rem; scroll-behavior: smooth; }
         .slider-container::-webkit-scrollbar { display: none; }
         
-        .work-item { flex: 0 0 340px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 2.5rem 2rem; cursor: pointer; transition: 0.3s; position: relative; font-size: 1.1rem; text-align: center; z-index: 10;}
+        .work-item { 
+            flex: 0 0 340px; 
+            background: var(--color-white); 
+            border: var(--border-thick); 
+            color: var(--color-black); 
+            padding: 2.5rem 2rem; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            position: relative; 
+            font-size: 1.1rem; 
+            text-align: center; 
+            z-index: 10;
+            display: block; /* リンクとして全体をクリック可能に */
+        }
+        .work-item:hover { transform: translateY(-10px); }
         .work-item img { width:100%; height:180px; object-fit:cover; margin-bottom:1rem; border-bottom:2px solid var(--color-black); filter: grayscale(100%); transition: 0.3s;}
         .work-item:hover img { filter: grayscale(0%); }
         
         .work-tooltip {
-            position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%) translateY(20px);
-            background: rgba(0, 0, 0, 0.95); color: var(--color-white); padding: 1.5rem; border: 3px solid var(--color-red);
-            width: 320px; font-size: 1rem; font-weight: 900; line-height: 1.6;
-            opacity: 0; visibility: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none; z-index: 100;
-            box-shadow: 0 -15px 30px rgba(0,0,0,0.6);
+            position: absolute; 
+            bottom: 120%; 
+            left: 50%; 
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(0, 0, 0, 0.95); 
+            color: var(--color-white); 
+            padding: 1.2rem; 
+            border: 3px solid var(--color-red);
+            width: 300px; 
+            font-size: 0.95rem; 
+            font-weight: 900; 
+            line-height: 1.6;
+            opacity: 0; 
+            visibility: hidden; 
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+            pointer-events: none; 
+            z-index: 100;
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.6);
         }
-        .work-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 12px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; }
-        .work-item:hover .work-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .work-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; }
+        
+        .work-item:hover .work-tooltip { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateX(-50%) translateY(0); 
+        }
 
         /* FEATURE SECTION */
         #holic-feature { background-color: #E0E0E0; padding: 5rem 2rem; border-bottom: var(--border-thick); }
@@ -167,6 +198,7 @@
             .section-title { font-size: 3rem; } .vision-title { font-size: 3.5rem; }
             header { flex-direction: column; padding: 1rem; }
             .split-panel { min-width: 100%; border-right: none; padding: 3rem 2rem; }
+            .slider-container { padding-top: 8rem; }
         }
     </style>
 </head>
@@ -234,41 +266,48 @@
         <img src="yuta2581611.jpg" alt="Works Background" class="works-bg-art">
         <h2 class="section-title">WORKS</h2>
         <div class="slider-container" id="auto-slider">
-            <div class="work-item">
+            
+            <a href="https://www.city.saijo.ehime.jp/soshiki/sangyoshinko/saijoway.html" target="_blank" class="work-item">
                 <img src="work1.jpg" alt="実績1">
                 <strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業
                 <div class="work-tooltip">13人中11人が起業・定着。2021年年間売上約6000万達成。</div>
-            </div>
-            <div class="work-item">
+            </a>
+
+            <a href="https://escf.jp/" target="_blank" class="work-item">
                 <img src="work2.jpg" alt="実績2">
-                <strong>実績②</strong><br>四国初の<br>コミュニティ財団設立
+                <strong>実績②</strong><br>市民コミュニティ<br>財団設立
                 <div class="work-tooltip">401名から428万超の寄付を得て、行政らと協定締結。</div>
-            </div>
-            <div class="work-item">
+            </a>
+
+            <a href="https://sakaemachi-holic.com/" target="_blank" class="work-item">
                 <img src="work3.jpg" alt="実績3">
                 <strong>実績③</strong><br>100人超の<br>起業家コミュニティ創造
                 <div class="work-tooltip">延べ300件超の起業支援、資金調達支援額3000万円超！</div>
-            </div>
-            <div class="work-item">
+            </a>
+
+            <a href="https://sakaemachi-holic.com/vacant-house-bank/" target="_blank" class="work-item">
                 <img src="work4.jpg" alt="実績4">
                 <strong>実績④</strong><br>事業用空き家バンク設立
                 <div class="work-tooltip">起業と遊休資産をマッチングで地域課題解決へ</div>
-            </div>
-            <div class="work-item">
+            </a>
+
+            <a href="https://sakaemachi-holic.com/column/column-1311/" target="_blank" class="work-item">
                 <img src="work5.jpg" alt="実績5">
                 <strong>実績⑤</strong><br>SHIBUYA QWSでの講演
                 <div class="work-tooltip">「越境」する挑戦の事例として注目！🚀</div>
-            </div>
-            <div class="work-item">
+            </a>
+
+            <a href="https://democracy.co.jp/" target="_blank" class="work-item">
                 <img src="work6.jpg" alt="実績6">
                 <strong>実績⑥</strong><br>会員同士で会社を設立
                 <div class="work-tooltip">㈱Democracy始動！民主主義をアップデートせよ！🔥</div>
-            </div>
-            <div class="work-item">
+            </a>
+
+            <a href="https://sites.google.com/view/saijosoup/" target="_blank" class="work-item">
                 <img src="work7.jpg" alt="実績7">
                 <strong>実績⑦</strong><br>チャレンジプレゼン大会<br>の創出
                 <div class="work-tooltip">今までに計7回、延べ35組のチャレンジを応援！</div>
-            </div>
+            </a>
         </div>
     </div>
 
@@ -360,8 +399,11 @@
         slider.addEventListener('mouseleave', () => isDown = false);
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                const href = this.getAttribute('href');
+                if(href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
