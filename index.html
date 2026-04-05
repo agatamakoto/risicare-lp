@@ -45,12 +45,18 @@
             width: 100px; height: 10px; background: var(--color-red); filter: blur(2px); opacity: 0.5;
         }
 
-        /* HEADER */
+        /* 🎨 HEADER (ロゴ画像対応版) */
         header {
             position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); border-bottom: var(--border-thick);
-            display: flex; justify-content: space-between; align-items: center; padding: 1rem 3rem; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 3rem; z-index: 1000;
         }
-        .logo { font-family: 'Anton', sans-serif; font-size: 2.8rem; color: var(--color-black); letter-spacing: -1px; }
+        .header-logo img {
+            height: 60px; 
+            width: auto; 
+            display: block;
+            /* 背景が白のロゴでも透過させる魔法 */
+            mix-blend-mode: multiply; 
+        }
         nav ul { display: flex; gap: 2rem; font-weight: 900; align-items: center;}
         nav a:hover { color: var(--color-red); }
         .btn-contact-nav { background: var(--color-red); color: var(--color-white); border: var(--border-thick); padding: 0.5rem 1.2rem; font-weight: 900; text-transform: uppercase; }
@@ -74,7 +80,7 @@
         .founder-img { border: var(--border-thick); width: 100%; max-width: 250px; margin-bottom: 1.5rem; }
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.9rem; }
 
-        /* WORKS (画像対応スライダー) */
+        /* WORKS (画像スライダー 6枚版) */
         #works-wrapper { background-color: var(--color-black); padding: 5rem 0; color: var(--color-white); overflow: hidden;}
         .slider-container { display: flex; overflow-x: auto; gap: 2rem; padding: 4rem 2rem; scroll-behavior: smooth; }
         .slider-container::-webkit-scrollbar { display: none; }
@@ -124,7 +130,9 @@
 <body>
 
     <header>
-        <div class="logo">RISICARE</div>
+        <a href="#vision" class="header-logo">
+            <img src="logo.png" alt="RISICARE LOGO">
+        </a>
         <nav>
             <ul>
                 <li><a href="#vision">VISION</a></li>
@@ -199,6 +207,16 @@
                 <strong>実績④</strong><br>事業用<br>空き家バンク設立
                 <div class="work-tooltip">起業と遊休資産をマッチングで地域課題解決へ</div>
             </div>
+            <div class="work-item">
+                <img src="work5.jpg" alt="実績5">
+                <strong>実績⑤</strong><br>SHIBUYA QWS<br>での講演
+                <div class="work-tooltip">西条から渋谷へ！「越境」する挑戦の事例として大注目！🚀</div>
+            </div>
+            <div class="work-item">
+                <img src="work6.jpg" alt="実績6">
+                <strong>実績⑥</strong><br>会員同士で<br>会社を設立
+                <div class="work-tooltip">コミュニティ発！株式会社Democracy始動。民主主義をアップデートせよ！🔥</div>
+            </div>
         </div>
     </div>
 
@@ -240,7 +258,7 @@
                 <div class="service-target">対象：中小零細企業・個人事業主</div>
                 <div class="benefit-box">
                     <div class="benefit-title">💥 爆速の右腕、参上</div>
-                    <p style="margin:0; font-size:0.85rem; font-weight: normal;">戦略の壁打ちからAI効率化まで丸投げOK！経営者が本来やるべき「未来を創る仕事」に専念できる環境を即構築します。</p>
+                    <p style="margin:0; font-size:0.85rem; font-weight: normal;">戦略の壁打ちからAI効率化まで。採用リスクゼロで経営者が本来やるべき「未来を創る仕事」に専念できる環境を即構築します。</p>
                 </div>
             </div>
         </div>
