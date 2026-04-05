@@ -12,7 +12,7 @@
             --color-black: #000000;
             --color-white: #FFFFFF;
             --color-gray: #333333;
-            --color-red: #FF0000; /* 情熱の赤 */
+            --color-red: #FF0000;
             --color-bg: #F0F0F0;
             --font-stencil: 'Allerta Stencil', sans-serif;
             --font-jp: 'Noto Sans JP', sans-serif;
@@ -42,7 +42,6 @@
             font-family: var(--font-stencil); font-size: 4.5rem; text-transform: uppercase;
             color: var(--color-black); margin-bottom: 3rem; text-align: center; letter-spacing: -2px; position: relative;
         }
-        /* 💥 タイトルの下線をクッキリとした赤に */
         .section-title::after {
             content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
             width: 100px; height: 10px; background: var(--color-red); filter: blur(1px); opacity: 0.8;
@@ -78,24 +77,54 @@
         .founder-img { border: var(--border-thick); width: 100%; max-width: 250px; margin-bottom: 1.5rem; cursor: pointer; }
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.9rem; }
 
-        /* WORKS */
-        #works-wrapper { background-color: var(--color-black); padding: 5rem 0; color: var(--color-white); overflow: hidden;}
-        #works-wrapper .section-title { color: var(--color-white); }
-        #works-wrapper .section-title::after { background: var(--color-white); }
-        .slider-container { display: flex; overflow-x: auto; gap: 2rem; padding: 6rem 2rem 4rem 2rem; scroll-behavior: smooth; }
-        .slider-container::-webkit-scrollbar { display: none; }
-        .work-item { flex: 0 0 320px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 2rem; cursor: pointer; transition: 0.3s; position: relative; font-size: 1.1rem; text-align: center; z-index: 10;}
-        .work-item img { width:100%; height:150px; object-fit:cover; margin-bottom:1rem; border-bottom:2px solid var(--color-black); filter: grayscale(100%); transition: 0.3s;}
-        .work-item:hover img { filter: grayscale(0%); }
-        .work-tooltip {
-            position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%) translateY(20px);
-            background: rgba(0, 0, 0, 0.95); color: var(--color-white); padding: 1.2rem; border: 3px solid var(--color-red);
-            width: 280px; font-size: 0.95rem; font-weight: 900; line-height: 1.5;
-            opacity: 0; visibility: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none; z-index: 100;
-            box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
+        /* 💥 WORKS (ステッカー背景 ＆ 吹き出し改善) */
+        #works-wrapper { 
+            position: relative;
+            background-color: var(--color-black); 
+            padding: 8rem 0; /* 上下に余裕を持たせる */
+            color: var(--color-white); 
+            overflow: hidden;
         }
-        .work-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; }
+        /* 背景画像: yuta2581611.jpg を暗めに配置 */
+        .works-bg-art {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: grayscale(100%) brightness(50%);
+        }
+        #works-wrapper .section-title { position: relative; z-index: 10; color: var(--color-white); }
+        #works-wrapper .section-title::after { background: var(--color-white); }
+        
+        .slider-container { position: relative; z-index: 10; display: flex; overflow-x: auto; gap: 3rem; padding: 10rem 2rem 5rem 2rem; scroll-behavior: smooth; }
+        .slider-container::-webkit-scrollbar { display: none; }
+        
+        .work-item { flex: 0 0 340px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 2.5rem 2rem; cursor: pointer; transition: 0.3s; position: relative; font-size: 1.1rem; text-align: center; z-index: 10;}
+        .work-item img { width:100%; height:180px; object-fit:cover; margin-bottom:1rem; border-bottom:2px solid var(--color-black); filter: grayscale(100%); transition: 0.3s;}
+        .work-item:hover img { filter: grayscale(0%); }
+        
+        /* 吹き出しの挙動修正: もっと上に、文字数対応 */
+        .work-tooltip {
+            position: absolute; 
+            bottom: 115%; /* さらに上に配置 */
+            left: 50%; 
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(0, 0, 0, 0.95); 
+            color: var(--color-white); 
+            padding: 1.5rem; 
+            border: 3px solid var(--color-red);
+            width: 320px; /* 少し幅広に */
+            font-size: 1rem; 
+            font-weight: 900; 
+            line-height: 1.6;
+            opacity: 0; 
+            visibility: hidden; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none; 
+            z-index: 100;
+            box-shadow: 0 -15px 30px rgba(0,0,0,0.6);
+        }
+        .work-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 12px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; }
         .work-item:hover .work-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 
         /* FEATURE SECTION */
@@ -105,7 +134,7 @@
         .feature-img-wrap { margin: 2.5rem 0; border: var(--border-thick); cursor: pointer; overflow: hidden; background: #000;}
         .feature-link { display: inline-block; margin-top: 1.5rem; color: var(--color-red); text-decoration: underline; font-weight: 900; }
 
-        /* 🎨 SERVICES (背景写真 ＆ メリハリ赤) */
+        /* SERVICES */
         #services { 
             background-color: var(--color-black); 
             border-bottom: var(--border-thick);
@@ -114,45 +143,35 @@
             position: relative;
             overflow: hidden;
         }
+        /* 背景写真: KZ39DSCF2928.jpg */
         .services-bg-art {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
             filter: grayscale(100%) contrast(120%) brightness(30%);
             opacity: 0.5;
         }
-        .services-content {
-            z-index: 10;
-            position: relative;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 6rem 2rem;
-        }
+        .services-content { z-index: 10; position: relative; max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
         .service-panel { background: rgba(255, 255, 255, 0.9); border: var(--border-thick); padding: 2.5rem; transition: 0.3s; display: flex; flex-direction: column; }
         .service-panel:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 1); box-shadow: 15px 15px 0 var(--color-red); }
-        /* 💥 サービスタイトルに赤の下線 */
         .service-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; border-bottom: 3px solid var(--color-red); display: inline-block; }
         .service-target { font-size: 0.9rem; font-weight: 900; color: var(--color-gray); margin-bottom: 1.5rem; }
         .benefit-box { margin-top: auto; background: var(--color-black); color: var(--color-white); padding: 1.2rem; font-weight: 900; border-left: 5px solid var(--color-red); }
-        /* 💥 ベネフィットのタイトルに赤 */
         .benefit-title { color: var(--color-red); font-size: 1.1rem; margin-bottom: 0.5rem; }
 
-        /* 🎨 CONTACT (グラデーションでメリハリ) */
+        /* CONTACT */
         #contact { 
-            background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%);
-            color: var(--color-white); 
+            background: linear-gradient(135deg, #EAEAEA 0%, #FFFFFF 100%);
+            color: var(--color-black); 
             max-width: 100%; 
             padding: 8rem 2rem;
             border-bottom: var(--border-thick);
         }
-        #contact .section-title { color: var(--color-white); }
-        #contact .section-title::after { background: var(--color-white); }
-        .btn-submit-big { display: inline-block; text-decoration: none; padding: 1.5rem 4rem; background: var(--color-white); color: var(--color-black); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.8rem; transition: 0.3s; cursor: pointer; box-shadow: 8px 8px 0 var(--color-black); }
-        .btn-submit-big:hover { background: var(--color-black); color: var(--color-white); transform: translate(-4px, -4px); box-shadow: 12px 12px 0 var(--color-white); }
+        #contact .section-title { color: var(--color-black); }
+        #contact .section-title::after { background: var(--color-black); }
+        .btn-submit-big { display: inline-block; text-decoration: none; padding: 1.5rem 4rem; background: var(--color-black); color: var(--color-white); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.8rem; transition: 0.3s; cursor: pointer; box-shadow: 8px 8px 0 rgba(0,0,0,0.2); }
+        .btn-submit-big:hover { background: var(--color-red); color: var(--color-white); transform: translate(-4px, -4px); box-shadow: 12px 12px 0 var(--color-black); }
 
         /* AUDIO PLAYER */
         #audio-player { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; align-items: center; gap: 10px; background: #1a1a1a; color: #fff; padding: 10px; border: 3px solid #fff; box-shadow: 5px 5px 0 #000; font-family: 'Anton', sans-serif; }
@@ -162,6 +181,7 @@
             .section-title { font-size: 3rem; } .vision-title { font-size: 3.5rem; }
             header { flex-direction: column; padding: 1rem; }
             .split-panel { min-width: 100%; border-right: none; padding: 3rem 2rem; }
+            .work-tooltip { width: 260px; left: 50%; }
         }
     </style>
 </head>
@@ -223,21 +243,22 @@
     </section>
 
     <div id="works-wrapper">
+        <img src="yuta2581611.jpg" alt="Works Background" class="works-bg-art">
         <h2 class="section-title">WORKS</h2>
         <div class="slider-container" id="auto-slider">
             <div class="work-item">
                 <img src="work1.jpg" alt="実績1">
                 <strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業
-                <div class="work-tooltip">西条市のローカルベンチャーを牽引！</div>
+                <div class="work-tooltip">13人中11人が起業・定着。2021年年間売上約6000万達成。</div>
             </div>
             <div class="work-item">
                 <img src="work2.jpg" alt="実績2">
-                <strong>実績②</strong><br>市民コミュニティ財団設立
-                <div class="work-tooltip">資金循環の仕組みを地域に創出！</div>
+                <strong>実績②</strong><br>四国初の<br>コミュニティ財団設立
+                <div class="work-tooltip">401名から428万超の寄付を得て、行政らと協定締結。</div>
             </div>
             <div class="work-item">
                 <img src="work3.jpg" alt="実績3">
-                <strong>実績③</strong><br>起業家コミュニティ創造
+                <strong>実績③</strong><br>100人超の<br>起業家コミュニティ創造
                 <div class="work-tooltip">延べ300件超の起業支援、資金調達支援額3000万円超！</div>
             </div>
             <div class="work-item">
@@ -263,13 +284,15 @@
         <div class="feature-box">
             <h3>廃れた商店街にあるコワーキングスペースで起こっている静かな革命</h3>
             <p>
-                3.5％ルール。それは全人口のわずか3.5%が非暴力的な抗議活動に積極的に参加すれば、社会変革は成功するという理論だ。<br><br>
-                保守的な地方の空気を変えるため、私たちはコミュニティを運用している。今や115人の挑戦者が集まり、市外・県外からの参加も2割に達した。<br><br>
-                日々生まれる助け合いや変化は、10年後にこのまちのDNAとなって花開くはずだ。
+                3.5％ルール。それは全人口のわずか3.5%が積極的に参加すれば、社会変革は成功するという理論だ。<br><br>
+                保守的な地方の空気を変えるため、私たちはコミュニティを運用している。今や115人の挑戦者が集まり、市外・県外からの参加も2割に達した。西条市とそれ以外を結ぶローカルコワーキングコミュニティがサカエマチHOLICだ。
             </p>
             <div class="feature-img-wrap grayscale-art hover-color">
                 <img src="community-scene.jpg" alt="活気ある風景" style="display:block; width:100%;">
             </div>
+            <p style="margin-top: 2rem;">
+                日々生まれる助け合いや変化は、10年後にこのまちのDNAとなって花開くはずだ。
+            </p>
             <a href="https://shisaly.com/recipients/311" target="_blank" class="feature-link">👉 視察についての詳細はこちらから</a>
         </div>
     </section>
@@ -283,7 +306,7 @@
                     <div class="service-title">起業コンサルティング</div>
                     <div class="service-target">対象：これから起業したい個人の方</div>
                     <div class="benefit-box">
-                        <div class="benefit-title">不安を「自信」へ</div>
+                        <div class="benefit-title"> 不安を「自信」へ</div>
                         <p style="margin:0; font-size:0.85rem; font-weight: normal;">独自の強みを磨き上げるブランディングと仲間とのコミュニティを提供。確信を持って次の一歩を踏み出せるあなたへ。</p>
                     </div>
                 </div>
@@ -291,16 +314,16 @@
                     <div class="service-title">コミュニティ創造支援</div>
                     <div class="service-target">対象：地方創生でお困りの自治体</div>
                     <div class="benefit-box">
-                        <div class="benefit-title">本物の「地域活性」</div>
-                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">地域おこし協力隊の定着や起業家輩出を泥臭く伴走。予算を未来への投資に変え、「挑戦者が自走し続ける強い街」を築きます。</p>
+                        <div class="benefit-title"> 本物の「地域活性」</div>
+                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">地域おこし協力隊の定着や起業家輩出を泥臭く伴走。予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築きます。</p>
                     </div>
                 </div>
                 <div class="service-panel">
                     <div class="service-title">レンタルアガタDX</div>
                     <div class="service-target">対象：中小零細企業・個人事業主</div>
                     <div class="benefit-box">
-                        <div class="benefit-title">爆速の右腕、参上</div>
-                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">戦略の壁打ちからAI効率化まで。経営者が本来の仕事に専念できる環境を即構築します。</p>
+                        <div class="benefit-title"> 爆速の右腕、参上</div>
+                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">戦略の壁打ちからAI効率化まで。採用リスクゼロで経営者が本来の仕事に専念できる環境を即構築します。</p>
                     </div>
                 </div>
             </div>
@@ -309,7 +332,7 @@
 
     <section id="contact">
         <h2 class="section-title">CONTACT</h2>
-        <p style="text-align:center; font-weight:900; margin-bottom:4rem; font-size:1.3rem;">
+        <p style="text-align:center; font-weight:900; margin-bottom:4rem; font-size:1.3rem; color: var(--color-gray);">
             新しい風を、一緒に。まずは気軽な「壁打ち」から始めてみませんか？<br>
             あなたの想いを聞かせてください。
         </p>
@@ -342,12 +365,4 @@
         setInterval(() => { if(!isDown) { slider.scrollLeft += 1; if(slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 5)) slider.scrollLeft = 0; } }, 30);
         slider.addEventListener('mouseenter', () => isDown = true);
         slider.addEventListener('mouseleave', () => isDown = false);
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
-</body>
-</html>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor =>
