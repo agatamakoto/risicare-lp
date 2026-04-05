@@ -77,15 +77,14 @@
         .founder-img { border: var(--border-thick); width: 100%; max-width: 250px; margin-bottom: 1.5rem; cursor: pointer; }
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.9rem; }
 
-        /* 💥 WORKS (ステッカー背景 ＆ 吹き出し改善) */
+        /* WORKS */
         #works-wrapper { 
             position: relative;
             background-color: var(--color-black); 
-            padding: 8rem 0; /* 上下に余裕を持たせる */
+            padding: 8rem 0;
             color: var(--color-white); 
             overflow: hidden;
         }
-        /* 背景画像: yuta2581611.jpg を暗めに配置 */
         .works-bg-art {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -103,25 +102,12 @@
         .work-item img { width:100%; height:180px; object-fit:cover; margin-bottom:1rem; border-bottom:2px solid var(--color-black); filter: grayscale(100%); transition: 0.3s;}
         .work-item:hover img { filter: grayscale(0%); }
         
-        /* 吹き出しの挙動修正: もっと上に、文字数対応 */
         .work-tooltip {
-            position: absolute; 
-            bottom: 115%; /* さらに上に配置 */
-            left: 50%; 
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(0, 0, 0, 0.95); 
-            color: var(--color-white); 
-            padding: 1.5rem; 
-            border: 3px solid var(--color-red);
-            width: 320px; /* 少し幅広に */
-            font-size: 1rem; 
-            font-weight: 900; 
-            line-height: 1.6;
-            opacity: 0; 
-            visibility: hidden; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none; 
-            z-index: 100;
+            position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: rgba(0, 0, 0, 0.95); color: var(--color-white); padding: 1.5rem; border: 3px solid var(--color-red);
+            width: 320px; font-size: 1rem; font-weight: 900; line-height: 1.6;
+            opacity: 0; visibility: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none; z-index: 100;
             box-shadow: 0 -15px 30px rgba(0,0,0,0.6);
         }
         .work-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 12px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; }
@@ -143,7 +129,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* 背景写真: KZ39DSCF2928.jpg */
         .services-bg-art {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -160,18 +145,18 @@
         .benefit-box { margin-top: auto; background: var(--color-black); color: var(--color-white); padding: 1.2rem; font-weight: 900; border-left: 5px solid var(--color-red); }
         .benefit-title { color: var(--color-red); font-size: 1.1rem; margin-bottom: 0.5rem; }
 
-        /* CONTACT */
+        /* 🎨 CONTACT (情熱の赤グラデーション復活！) */
         #contact { 
-            background: linear-gradient(135deg, #EAEAEA 0%, #FFFFFF 100%);
-            color: var(--color-black); 
+            background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%);
+            color: var(--color-white); 
             max-width: 100%; 
             padding: 8rem 2rem;
             border-bottom: var(--border-thick);
         }
-        #contact .section-title { color: var(--color-black); }
-        #contact .section-title::after { background: var(--color-black); }
-        .btn-submit-big { display: inline-block; text-decoration: none; padding: 1.5rem 4rem; background: var(--color-black); color: var(--color-white); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.8rem; transition: 0.3s; cursor: pointer; box-shadow: 8px 8px 0 rgba(0,0,0,0.2); }
-        .btn-submit-big:hover { background: var(--color-red); color: var(--color-white); transform: translate(-4px, -4px); box-shadow: 12px 12px 0 var(--color-black); }
+        #contact .section-title { color: var(--color-white); }
+        #contact .section-title::after { background: var(--color-white); }
+        .btn-submit-big { display: inline-block; text-decoration: none; padding: 1.5rem 4rem; background: var(--color-white); color: var(--color-black); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.8rem; transition: 0.3s; cursor: pointer; box-shadow: 8px 8px 0 var(--color-black); }
+        .btn-submit-big:hover { background: var(--color-black); color: var(--color-white); transform: translate(-4px, -4px); box-shadow: 12px 12px 0 var(--color-white); }
 
         /* AUDIO PLAYER */
         #audio-player { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; align-items: center; gap: 10px; background: #1a1a1a; color: #fff; padding: 10px; border: 3px solid #fff; box-shadow: 5px 5px 0 #000; font-family: 'Anton', sans-serif; }
@@ -181,7 +166,6 @@
             .section-title { font-size: 3rem; } .vision-title { font-size: 3.5rem; }
             header { flex-direction: column; padding: 1rem; }
             .split-panel { min-width: 100%; border-right: none; padding: 3rem 2rem; }
-            .work-tooltip { width: 260px; left: 50%; }
         }
     </style>
 </head>
@@ -253,7 +237,7 @@
             </div>
             <div class="work-item">
                 <img src="work2.jpg" alt="実績2">
-                <strong>実績②</strong><br>四国初の<br>コミュニティ財団設立
+                <strong>実績②</strong><br>市民コミュニティ財団設立
                 <div class="work-tooltip">401名から428万超の寄付を得て、行政らと協定締結。</div>
             </div>
             <div class="work-item">
@@ -306,7 +290,7 @@
                     <div class="service-title">起業コンサルティング</div>
                     <div class="service-target">対象：これから起業したい個人の方</div>
                     <div class="benefit-box">
-                        <div class="benefit-title"> 不安を「自信」へ</div>
+                        <div class="benefit-title">不安を「自信」へ</div>
                         <p style="margin:0; font-size:0.85rem; font-weight: normal;">独自の強みを磨き上げるブランディングと仲間とのコミュニティを提供。確信を持って次の一歩を踏み出せるあなたへ。</p>
                     </div>
                 </div>
@@ -314,7 +298,7 @@
                     <div class="service-title">コミュニティ創造支援</div>
                     <div class="service-target">対象：地方創生でお困りの自治体</div>
                     <div class="benefit-box">
-                        <div class="benefit-title"> 本物の「地域活性」</div>
+                        <div class="benefit-title">本物の「地域活性」</div>
                         <p style="margin:0; font-size:0.85rem; font-weight: normal;">地域おこし協力隊の定着や起業家輩出を泥臭く伴走。予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築きます。</p>
                     </div>
                 </div>
@@ -322,7 +306,7 @@
                     <div class="service-title">レンタルアガタDX</div>
                     <div class="service-target">対象：中小零細企業・個人事業主</div>
                     <div class="benefit-box">
-                        <div class="benefit-title"> 爆速の右腕、参上</div>
+                        <div class="benefit-title">爆速の右腕、参上</div>
                         <p style="margin:0; font-size:0.85rem; font-weight: normal;">戦略の壁打ちからAI効率化まで。採用リスクゼロで経営者が本来の仕事に専念できる環境を即構築します。</p>
                     </div>
                 </div>
@@ -332,7 +316,7 @@
 
     <section id="contact">
         <h2 class="section-title">CONTACT</h2>
-        <p style="text-align:center; font-weight:900; margin-bottom:4rem; font-size:1.3rem; color: var(--color-gray);">
+        <p style="text-align:center; font-weight:900; margin-bottom:4rem; font-size:1.3rem;">
             新しい風を、一緒に。まずは気軽な「壁打ち」から始めてみませんか？<br>
             あなたの想いを聞かせてください。
         </p>
@@ -365,4 +349,12 @@
         setInterval(() => { if(!isDown) { slider.scrollLeft += 1; if(slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 5)) slider.scrollLeft = 0; } }, 30);
         slider.addEventListener('mouseenter', () => isDown = true);
         slider.addEventListener('mouseleave', () => isDown = false);
-        document.querySelectorAll('a[href^="#"]').forEach(anchor =>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
