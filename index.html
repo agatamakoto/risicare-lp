@@ -66,16 +66,17 @@
         .vision-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
         .vision-details.open { max-height: 1000px; }
         .vision-text { font-size: 1.2rem; font-weight: 700; white-space: pre-line; color: rgba(255, 255, 255, 0.9); margin-top: 2rem; text-shadow: 1px 1px 0 var(--color-black); text-align: center;}
-        .btn-toggle { background: transparent; color: var(--color-white); border: 2px solid var(--color-white); padding: 0.5rem 2rem; font-size: 1.2rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
+        .btn-toggle { background: transparent; color: var(--white); border: 2px solid var(--color-white); padding: 0.5rem 2rem; font-size: 1.2rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
         .btn-toggle:hover { background: var(--color-white); color: var(--color-black); }
 
         /* FOUNDER & COMMUNITY */
         #intro-split { display: flex; flex-wrap: wrap; max-width: 100%; padding: 0; border-bottom: var(--border-thick); }
-        .split-panel { flex: 1; min-width: 400px; padding: 5rem 3rem; background: var(--color-white); }
+        .split-panel { flex: 1; min-width: 400px; padding: 5rem 3rem; background: var(--color-white); display: flex; flex-direction: column; }
         .split-panel:first-child { border-right: var(--border-thick); }
         .stats-number { font-size: 4.5rem; color: var(--color-red); font-family: var(--font-stencil); line-height: 1; }
         .founder-img { border: var(--border-thick); width: 100%; max-width: 250px; margin-bottom: 1.5rem; cursor: pointer; }
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.9rem; }
+        .community-img-wrap { margin-top: auto; border: var(--border-thick); overflow: hidden; cursor: pointer; }
 
         /* WORKS */
         #works-wrapper { 
@@ -145,7 +146,7 @@
         .benefit-box { margin-top: auto; background: var(--color-black); color: var(--color-white); padding: 1.2rem; font-weight: 900; border-left: 5px solid var(--color-red); }
         .benefit-title { color: var(--color-red); font-size: 1.1rem; margin-bottom: 0.5rem; }
 
-        /* 🎨 CONTACT (情熱の赤グラデーション復活！) */
+        /* CONTACT */
         #contact { 
             background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%);
             color: var(--color-white); 
@@ -192,7 +193,7 @@
             <h1 class="vision-title">CULTIVATING A LOCAL CHALLENGER ECOSYSTEM</h1>
             <button class="btn-toggle" onclick="toggleVision()">READ OUR VISION ▼</button>
             <div id="vision-text-box" class="vision-details">
-                <p class="vision-text">「地方には何もない」「挑戦できる環境がない」？
+                <p class="vision-text">「地方には何もない」「出る杭は打たれる」？
                 退屈な常識は、僕らの手で面白く塗りつぶしてしまえばいい。
                 私たちがここ、愛媛県西条市で創り出しているのは、単なる「場所」じゃない。
                 一人ひとりの「偏愛」が巨大なうねりとなっていく「挑戦の渦」だ！</p>
@@ -219,10 +220,13 @@
         </div>
         <div class="split-panel">
             <h2 class="section-title" style="font-size: 2.5rem; text-align: left; letter-spacing: 0;">CHALLENGER COMMUNITY</h2>
-            <div style="margin-bottom: 2rem;">
+            <div style="margin-bottom: 1.5rem;">
                 会員数 <span class="stats-number">115</span> <span style="font-size: 1.5rem; font-weight: 900;">人・社</span>
             </div>
-            <p style="font-weight: 700;">サカエマチHOLICを中心に、このコミュニティから日々新しいプロジェクトが生まれています。人口10万弱のまちで、圧倒的な熱量を持つ挑戦者の生態系を耕しています。</p>
+            <p style="font-weight: 700; margin-bottom: 2rem;">サカエマチHOLICを中心に、このコミュニティから日々新しいプロジェクトが生まれています。人口10万弱のまちで、圧倒的な才能と熱量を持つ挑戦者の生態系を耕しています。</p>
+            <div class="community-img-wrap grayscale-art hover-color">
+                <img src="CHALLENGER_COMMUNITY.jpg" alt="コミュニティの風景" style="display:block; width:100%;">
+            </div>
         </div>
     </section>
 
@@ -237,7 +241,7 @@
             </div>
             <div class="work-item">
                 <img src="work2.jpg" alt="実績2">
-                <strong>実績②</strong><br>市民コミュニティ財団設立
+                <strong>実績②</strong><br>四国初の<br>コミュニティ財団設立
                 <div class="work-tooltip">401名から428万超の寄付を得て、行政らと協定締結。</div>
             </div>
             <div class="work-item">
@@ -259,6 +263,11 @@
                 <img src="work6.jpg" alt="実績6">
                 <strong>実績⑥</strong><br>会員同士で会社を設立
                 <div class="work-tooltip">㈱Democracy始動！民主主義をアップデートせよ！🔥</div>
+            </div>
+            <div class="work-item">
+                <img src="work7.jpg" alt="実績7">
+                <strong>実績⑦</strong><br>チャレンジプレゼン大会<br>の創出
+                <div class="work-tooltip">今までに計7回、延べ35組のチャレンジを応援！</div>
             </div>
         </div>
     </div>
