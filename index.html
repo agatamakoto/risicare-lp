@@ -153,4 +153,264 @@
             transform: translateX(-50%) translateY(0); 
         }
 
-        #holic-feature { background-color: #E0E0E0; padding: 5rem
+        #holic-feature { background-color: #E0E0E0; padding: 5rem 2rem; border-bottom: var(--border-thick); }
+        .feature-box { max-width: 900px; margin: 0 auto; background: var(--color-white); padding: 3rem; border: var(--border-thick); font-weight: 700; box-shadow: 10px 10px 0 rgba(0,0,0,0.1); }
+        .feature-box h3 { color: var(--color-red); font-size: 1.8rem; margin-bottom: 1.5rem; line-height: 1.3; border-bottom: 2px dashed var(--color-black); padding-bottom: 1rem;}
+        .feature-img-wrap { margin: 2.5rem 0; border: var(--border-thick); cursor: pointer; overflow: hidden; background: #000;}
+        .feature-link { display: inline-block; margin-top: 1.5rem; color: var(--color-red); text-decoration: underline; font-weight: 900; }
+
+        #services { 
+            background-color: var(--color-black); 
+            border-bottom: var(--border-thick);
+            max-width: 100%;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .services-bg-art {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(120%) brightness(30%);
+            opacity: 0.5;
+        }
+        .services-content { z-index: 10; position: relative; max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+        .service-panel { background: rgba(255, 255, 255, 0.9); border: var(--border-thick); padding: 2.5rem; transition: 0.3s; display: flex; flex-direction: column; }
+        .service-panel:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 1); box-shadow: 15px 15px 0 var(--color-red); }
+        .service-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; border-bottom: 3px solid var(--color-red); display: inline-block; }
+        .service-target { font-size: 0.9rem; font-weight: 900; color: var(--color-gray); margin-bottom: 1.5rem; }
+        .benefit-box { margin-top: auto; background: var(--color-black); color: var(--color-white); padding: 1.2rem; font-weight: 900; border-left: 5px solid var(--color-red); }
+        .benefit-title { color: var(--color-red); font-size: 1.1rem; margin-bottom: 0.5rem; }
+
+        #contact { 
+            background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%);
+            color: var(--color-white); 
+            max-width: 100%; 
+            padding: 8rem 2rem;
+            border-bottom: var(--border-thick);
+        }
+        #contact .section-title { color: var(--color-white); }
+        #contact .section-title::after { background: var(--color-white); }
+        .btn-submit-big { display: inline-block; text-decoration: none; padding: 1.5rem 4rem; background: var(--color-white); color: var(--color-black); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.8rem; transition: 0.3s; cursor: pointer; box-shadow: 8px 8px 0 var(--color-black); }
+        .btn-submit-big:hover { background: var(--color-black); color: var(--color-white); transform: translate(-4px, -4px); box-shadow: 12px 12px 0 var(--color-white); }
+
+        #audio-player { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; align-items: center; gap: 10px; background: #1a1a1a; color: #fff; padding: 10px; border: 3px solid #fff; box-shadow: 5px 5px 0 #000; font-family: 'Anton', sans-serif; }
+        .tape-btn { background: #fff; color: #000; border: 0; cursor: pointer; font-weight: 900; font-size: 0.8rem; padding: 5px 10px; }
+
+        @media (max-width: 768px) {
+            .section-title { font-size: 3rem; } .vision-title { font-size: 3.5rem; }
+            header { flex-direction: column; padding: 1rem; }
+            .split-panel { min-width: 100%; border-right: none; padding: 3rem 2rem; }
+            .work-tooltip { width: 280px; left: 50%; bottom: 110%; }
+            #works-wrapper { padding-top: 8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#vision" class="header-logo">
+            <img src="logo.png" alt="RISICARE LOGO">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#vision">VISION</a></li>
+                <li><a href="#intro-split">FOUNDER</a></li>
+                <li><a href="#works-wrapper">WORKS</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#contact" class="btn-contact-nav">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="vision">
+        <img src="hero-bg.jpg" alt="サカエマチHOLICの渦" class="hero-bg-art">
+        <div class="vision-content">
+            <h1 class="vision-title">CULTIVATING A LOCAL CHALLENGER ECOSYSTEM</h1>
+            <button class="btn-toggle" onclick="toggleVision()">READ OUR VISION ▼</button>
+            <div id="vision-text-box" class="vision-details">
+                <p class="vision-text">「地方には何もない」「出る杭は打たれる」？
+                退屈な常識は、僕らの手で面白く塗りつぶしてしまえばいい。
+                私たちがここ、愛媛県西条市で創り出しているのは、単なる「場所」じゃない。
+                一人ひとりの「偏愛」が巨大なうねりとなっていく「挑戦の渦」だ！</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="intro-split">
+        <div class="split-panel">
+            <h2 class="section-title" style="font-size: 2.5rem; text-align: left; letter-spacing: 0;">FOUNDER</h2>
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                <img src="founder-main.jpg" alt="安形 真" class="founder-img grayscale-art hover-color">
+                <div style="flex: 1; min-width: 250px;">
+                    <h3 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 0.3rem;">代表理事 安形 真</h3>
+                    <p style="font-weight: 900; color: var(--color-red); margin-bottom: 0.8rem; font-size: 0.9rem;">内閣府地域活性化伝道師</p>
+                    <p style="font-size: 0.9rem; font-weight: 700; margin-bottom: 1.2rem;">「おもしろき こともなき世を おもしろく」を地方で体現する起業家兼活動家。</p>
+                    <div class="founder-links">
+                        <a href="https://democracy.co.jp/" target="_blank">株式会社Democracy 代表取締役</a>
+                        <a href="https://escf.jp/" target="_blank">えひめ西条つながり基金 事務局長</a>
+                        <a href="https://tokai-entre.jp/" target="_blank">東海若手起業塾 理事兼メンター</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="split-panel">
+            <h2 class="section-title" style="font-size: 2.5rem; text-align: left; letter-spacing: 0;">CHALLENGER COMMUNITY</h2>
+            <div style="margin-bottom: 1.5rem;">
+                会員数 <span class="stats-number">115</span> <span style="font-size: 1.5rem; font-weight: 900;">人・社</span>
+            </div>
+            <p style="font-weight: 700; margin-bottom: 2rem;">サカエマチHOLICを中心に、このコミュニティから日々新しいプロジェクトが生まれています。人口10万弱のまちで、圧倒的な才能と熱量を持つ挑戦者の生態系を耕しています。</p>
+            <div class="community-img-wrap grayscale-art hover-color">
+                <img src="CHALLENGER_COMMUNITY.jpg" alt="コミュニティの風景" style="display:block; width:100%;">
+            </div>
+        </div>
+    </section>
+
+    <div id="works-wrapper">
+        <img src="yuta2581611.jpg" alt="Works Background" class="works-bg-art">
+        <h2 class="section-title">WORKS</h2>
+        <div class="slider-container" id="auto-slider">
+            
+            <a href="https://www.city.saijo.ehime.jp/soshiki/sangyoshinko/saijoway.html" target="_blank" class="work-item">
+                <img src="work1.jpg" alt="実績1">
+                <strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業
+                <div class="work-tooltip">13人中11人が起業・定着。2021年年間売上約6000万達成。</div>
+            </a>
+
+            <a href="https://escf.jp/" target="_blank" class="work-item">
+                <img src="work2.jpg" alt="実績2">
+                <strong>実績②</strong><br>市民コミュニティ<br>財団設立
+                <div class="work-tooltip">401名から428万超の寄付を得て、行政らと協定締結。</div>
+            </a>
+
+            <a href="https://sakaemachi-holic.com/" target="_blank" class="work-item">
+                <img src="work3.jpg" alt="実績3">
+                <strong>実績③</strong><br>100人超の<br>起業家コミュニティ創造
+                <div class="work-tooltip">延べ300件超の起業支援、資金調達支援額3000万円超！</div>
+            </a>
+
+            <a href="https://sakaemachi-holic.com/vacant-house-bank/" target="_blank" class="work-item">
+                <img src="work4.jpg" alt="実績4">
+                <strong>実績④</strong><br>事業用空き家バンク設立
+                <div class="work-tooltip">起業と遊休資産をマッチングで地域課題解決へ</div>
+            </a>
+
+            <a href="https://sakaemachi-holic.com/column/column-1311/" target="_blank" class="work-item">
+                <img src="work5.jpg" alt="実績5">
+                <strong>実績⑤</strong><br>SHIBUYA QWSでの講演
+                <div class="work-tooltip">「越境」する挑戦の事例として注目！🚀</div>
+            </a>
+
+            <a href="https://democracy.co.jp/" target="_blank" class="work-item">
+                <img src="work6.jpg" alt="実績6">
+                <strong>実績⑥</strong><br>会員同士で会社を設立
+                <div class="work-tooltip">㈱Democracy始動！民主主義をアップデートせよ！🔥</div>
+            </a>
+
+            <a href="https://sites.google.com/view/saijosoup/" target="_blank" class="work-item">
+                <img src="work7.jpg" alt="実績7">
+                <strong>実績⑦</strong><br>チャレンジプレゼン大会<br>の創出
+                <div class="work-tooltip">今までに計7回、延べ35組のチャレンジを応援！</div>
+            </a>
+        </div>
+    </div>
+
+    <section id="holic-feature">
+        <h2 class="section-title">特集：サカエマチHOLIC</h2>
+        <div class="feature-box">
+            <h3>廃れた商店街にあるコワーキングスペースで起こっている静かな革命</h3>
+            <p>
+                3.5％ルール。それは全人口のわずか3.5%が積極的に参加すれば、社会変革は成功するという理論だ。<br><br>
+                保守的な地方の空気を変えるため、私たちはコミュニティを運用している。今や115人の挑戦者が集まり、市外・県外からの参加も2割に達した。西条市とそれ以外を結ぶローカルコワーキングコミュニティがサカエマチHOLICだ。
+            </p>
+            <div class="feature-img-wrap grayscale-art hover-color">
+                <img src="community-scene.jpg" alt="活気ある風景" style="display:block; width:100%;">
+            </div>
+            <p style="margin-top: 2rem;">
+                日々生まれる助け合いや変化は、10年後にこのまちのDNAとなって花開くはずだ。
+            </p>
+            <a href="https://shisaly.com/recipients/311" target="_blank" class="feature-link">👉 視察についての詳細はこちらから</a>
+        </div>
+    </section>
+
+    <section id="services">
+        <img src="KZ39DSCF2928.jpg" alt="安形 真" class="services-bg-art">
+        <div class="services-content">
+            <h2 class="section-title" style="color: var(--color-white);">SERVICES</h2>
+            <div class="services-grid">
+                <div class="service-panel">
+                    <div class="service-title">起業コンサルティング</div>
+                    <div class="service-target">対象：これから起業したい個人の方</div>
+                    <div class="benefit-box">
+                        <div class="benefit-title">不安を「自信」へ</div>
+                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">独自の強みを磨き上げるブランディングと仲間とのコミュニティを提供。確信を持って次の一歩を踏み出せるあなたへ。</p>
+                    </div>
+                </div>
+                <div class="service-panel">
+                    <div class="service-title">コミュニティ創造支援</div>
+                    <div class="service-target">対象：地方創生でお困りの自治体</div>
+                    <div class="benefit-box">
+                        <div class="benefit-title">本物の「地域活性」</div>
+                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">地域おこし協力隊の定着や起業家輩出を泥臭く伴走。予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築きます。</p>
+                    </div>
+                </div>
+                <div class="service-panel">
+                    <div class="service-title">レンタルアガタDX</div>
+                    <div class="service-target">対象：中小零細企業・個人事業主</div>
+                    <div class="benefit-box">
+                        <div class="benefit-title">爆速の右腕、参上</div>
+                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">戦略の壁打ちからAI効率化まで。採用リスクゼロで経営者が本来の仕事に専念できる環境を即構築します。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">CONTACT</h2>
+        <p style="text-align:center; font-weight:900; margin-bottom:4rem; font-size:1.3rem;">
+            新しい風を、一緒に。まずは気軽な「壁打ち」から始めてみませんか？<br>
+            あなたの想いを聞かせてください。
+        </p>
+        <div style="text-align: center;">
+            <a href="https://forms.gle/csHdYp6i4ABMamp39" target="_blank" rel="noopener noreferrer" class="btn-submit-big">サクッと相談してみる！</a>
+        </div>
+    </section>
+
+    <div id="audio-player">
+        <span>TAPE: bgm.mp3</span>
+        <audio id="bgm" src="bgm.mp3" loop></audio>
+        <button onclick="document.getElementById('bgm').play()" class="tape-btn">▶ PLAY</button>
+        <button onclick="document.getElementById('bgm').pause()" class="tape-btn">■ STOP</button>
+    </div>
+
+    <script>
+        function toggleVision() {
+            const textBox = document.getElementById('vision-text-box');
+            const btn = document.querySelector('.btn-toggle');
+            if (textBox.classList.contains('open')) {
+                textBox.classList.remove('open');
+                btn.innerHTML = 'READ OUR VISION ▼';
+            } else {
+                textBox.classList.add('open');
+                btn.innerHTML = 'CLOSE VISION ▲';
+            }
+        }
+        const slider = document.getElementById('auto-slider');
+        let isDown = false;
+        setInterval(() => { if(!isDown) { slider.scrollLeft += 1; if(slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 5)) slider.scrollLeft = 0; } }, 30);
+        slider.addEventListener('mouseenter', () => isDown = true);
+        slider.addEventListener('mouseleave', () => isDown = false);
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if(href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
