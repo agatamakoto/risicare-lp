@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一般社団法人リズカーレ | THE LOCAL RESISTANCE AGENCY</title>
+    <title>一般社団法人リズカーレ | THE LOCAL INNOVATION AGENCY</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Barcode+128+Text&family=Noto+Sans+JP:wght@700;900&family=Stencil&display=swap" rel="stylesheet">
     <style>
         /* =========================================
-           🎨 BASE STYLES & VARIABLES (バンクシー・モード)
+           🎨 BASE STYLES & VARIABLES (バンクシー・モード2.0)
         ========================================= */
         :root {
             --color-black: #000000;
             --color-white: #FFFFFF;
             --color-gray: #333333;
-            --color-red: #FF0000; /* バンクシーの象徴、鮮烈な赤 */
-            --color-bg: #EAEAEA; /* コンクリート風の薄いグレー */
+            --color-red: #FF0000; /* 鮮烈な赤（ワンポイント） */
+            --color-bg: #EAEAEA; /* コンクリート風グレー */
             --font-stencil: 'Stencil', sans-serif; /* ステンシル・フォント */
             --font-jp: 'Noto Sans JP', sans-serif;
             --border-thick: 5px solid var(--color-black);
@@ -24,7 +24,7 @@
             margin: 0;
             font-family: var(--font-jp);
             background-color: var(--color-bg);
-            /* コンクリート壁の質感を表現する背景画像（デモ用） */
+            /* コンクリート壁の質感を表現する背景画像 */
             background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
             color: var(--color-black);
             line-height: 1.6;
@@ -35,11 +35,6 @@
         a { text-decoration: none; color: inherit; transition: 0.2s; }
         ul { list-style: none; padding: 0; margin: 0; }
         img { max-width: 100%; height: auto; }
-
-        /* 全体的にモノクロ＋高コントラストのフィルターをかける魔法 */
-        .grayscale-art {
-            filter: grayscale(100%) contrast(150%);
-        }
 
         /* セクション共通 */
         section {
@@ -57,7 +52,7 @@
             letter-spacing: -2px;
             position: relative;
         }
-        /* タイトルに赤いスプレーの「垂れ」を演出 */
+        /* タイトルに赤いスプレーの「垂れ」を演出（優しく） */
         .section-title::after {
             content: '';
             position: absolute;
@@ -65,10 +60,10 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100px;
-            height: 20px;
+            height: 10px;
             background: var(--color-red);
             filter: blur(2px);
-            opacity: 0.7;
+            opacity: 0.5;
         }
 
         /* =========================================
@@ -106,7 +101,7 @@
         }
 
         /* =========================================
-           🎨 HERO / VISION (バンクシー風の巨大ステンシル)
+           🎨 HERO / VISION (バンクシー風ステンシルと写真の融合)
         ========================================= */
         #vision {
             max-width: 100%;
@@ -118,7 +113,7 @@
             justify-content: center;
             overflow: hidden;
         }
-        /* HERO背景画像（モノクロ・高コントラスト） */
+        /* HERO背景画像（アップロードした写真をモノクロ・高コントラストに！） */
         .hero-bg-art {
             position: absolute;
             top: 0;
@@ -126,40 +121,64 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.3; /* 背景として薄く敷く */
+            filter: grayscale(100%) contrast(150%) brightness(50%); /* 写真を背景として暗く加工 */
+            opacity: 1;
         }
         .vision-content {
             z-index: 10;
             text-align: center;
             max-width: 900px;
             padding: 0 2rem;
+            color: var(--color-white); /* 白抜きテキストに変更 */
         }
         .vision-title {
             font-family: var(--font-stencil);
             font-size: 5rem;
-            color: var(--color-black);
             line-height: 0.9;
             letter-spacing: -3px;
+            text-shadow: 2px 2px 0 var(--color-black); /* 視認性向上のためのドロップシャドウ */
         }
         .vision-text {
             font-size: 1.3rem;
             font-weight: 700;
             white-space: pre-line;
-            color: var(--color-gray);
+            color: rgba(255, 255, 255, 0.8);
             margin-top: 2rem;
+            text-shadow: 1px 1px 0 var(--color-black);
         }
-        /* 赤いステンシルのハイライト */
+        /* 赤いステンシルのハイライト（文字に優しく） */
         .highlight-red {
             color: var(--color-red);
-            position: relative;
         }
-        .highlight-red::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 5px; background: var(--color-red); opacity: 0.5;
+
+        /* =========================================
+           🎨 CHALLENGER COMMUNITY (サカエマチHOLICの紹介)
+        ========================================= */
+        #challenger-community {
+            background-color: var(--color-white);
+            border-top: var(--border-thick);
+            border-bottom: var(--border-thick);
+            max-width: 100%;
+            padding: 7rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            align-items: center;
         }
+        .community-img {
+            border: var(--border-thick);
+            filter: grayscale(100%) contrast(150%);
+        }
+        .community-info {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .community-info a:hover { color: var(--color-red); }
 
         /* =========================================
            🎨 SERVICES (既存システムへの静かな反逆)
         ========================================= */
+        #services { max-width: 1100px; margin: 0 auto; }
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -176,9 +195,9 @@
             transform: translateY(-10px);
             box-shadow: 15px 15px 0 rgba(0,0,0,0.1);
         }
-        /* バンクシーの「赤い風船と少女」のような、ワンポイントの赤 */
+        /* バンクシーの「赤い風船と少女」のようなワンポイントの赤（絵文字を赤くするハック） */
         .service-panel::before {
-            content: '🎈'; /* 絵文字だけど、CSSで赤くするハック */
+            content: '🎈'; 
             position: absolute;
             top: 10px;
             right: 10px;
@@ -242,7 +261,6 @@
         .founder-img {
             flex: 1;
             border: 10px solid var(--color-black);
-            /* ここで安形さんの写真をバンクシー風のステンシル・モノクロに加工！ */
             filter: grayscale(100%) contrast(200%) brightness(80%);
             object-fit: cover;
             width: 100%;
@@ -304,6 +322,7 @@
             .vision-title { font-size: 3.5rem; }
             header { flex-direction: column; padding: 1rem; }
             .founder-wrap { flex-direction: column; padding: 1.5rem; }
+            #challenger-community { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -314,10 +333,10 @@
         <nav>
             <ul>
                 <li><a href="#vision">VISION</a></li>
-                <li><a href="#services">SERVICES</a></li>
                 <li><a href="#works-wrapper">WORKS</a></li>
                 <li><a href="#founder">FOUNDER</a></li>
                 <li><a href="#values">VALUES</a></li>
+                <li><a href="#services">SERVICES</a></li>
                 <li><a href="#company">COMPANY</a></li>
                 <li><a href="#contact" class="btn-contact">JOIN US!</a></li>
             </ul>
@@ -325,16 +344,16 @@
     </header>
 
     <section id="vision">
-        <img src="hero-bg.jpg" alt="サカエマチHOLICの渦" class="hero-bg-art grayscale-art">
+        <img src="hero-bg.jpg" alt="サカエマチHOLICの渦" class="hero-bg-art">
         <div class="vision-content">
             <h1 class="vision-title">CULTIVATING A LOCAL CHALLENGER ECOSYSTEM!!</h1>
             <p class="vision-text">「地方には何もない」「挑戦できる環境がない」？
-            HA！そんな退屈な常識は、僕らの手で面白く塗りつぶしてしまえばいい！
+            退屈な常識は、僕らの手で面白く塗りつぶしてしまえばいい。
 
             私たちがここ、愛媛県西条市で創り出しているのは、単なる「場所」じゃない。
             一人ひとりの「偏愛」や「熱中」が交わり、周りをガンガン巻き込みながら巨大なうねりとなっていく<span class="highlight-red">「挑戦の渦」</span>だ！
 
-            サカエマチHOLICに集まる泥臭くて熱いリアルな繋がりを、テクノロジーの力で一気にスマートにブーストさせる。このハイブリッドな戦い方こそが、変化に負けないしなやかな地方を創るカギになるんだ。
+            サカエマチHOLICに集まる泥臭くて熱いリアルな繋がりを、テクノロジーの力で一気にスマートにブーストさせる。この戦い方こそが、変化に負けないしなやかな地方を創るカギになるんだ。
 
             「地方だからできない」を、<span class="highlight-red">「地方だからこそ、おもしろい！」</span>へ。
             西条から日本中へ、最高にエキサイティングなムーブメントを！
@@ -342,41 +361,17 @@
         </div>
     </section>
 
-    <section id="services">
-        <h2 class="section-title">THE RESISTANCE PLANS</h2>
-        <div class="services-grid">
-            <div class="service-panel">
-                <div class="service-title">① 個人向け起業支援</div>
-                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（孤独を脱し、次の一歩へ）</div>
-                <div class="benefit-box">
-                    <div class="benefit-title">💥 BOOM! 【起業の不安を「自信」へ！】</div>
-                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">独自の強みを磨き上げるブランディングと、熱い仲間のコミュニティを同時に提供。3ヶ月後には確信を持って次の一歩を踏み出せるヒーローになろう！</p>
-                </div>
-            </div>
-            <div class="service-panel">
-                <div class="service-title">② チャレンジコミュニティ創造支援</div>
-                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（自治体向けマニフェスト）</div>
-                <div class="benefit-box">
-                    <div class="benefit-title">💥 POW! 【本物の「地域活性」を！】</div>
-                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">協力隊の定着や起業家輩出に、泥臭く伴走して確実な「成果」を叩き出す！予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築き上げよう！</p>
-                </div>
-            </div>
-            <div class="service-panel">
-                <div class="service-title">③ レンタルアガタDX</div>
-                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（中小・個人事業主の右腕）</div>
-                <div class="benefit-box">
-                    <div class="benefit-title">💥 BAM! 【経営者の爆速の右腕、参上！】</div>
-                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">採用リスクゼロ！戦略の壁打ちからAIによる業務効率化まで丸投げOK！面倒な「作業」から解放され、経営者が本来やるべき「未来を創る仕事」に専念できる環境を即構築！</p>
-                </div>
-            </div>
-            <div class="service-panel">
-                <div class="service-title">④ コワーキングコミュニティ事業</div>
-                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（挑戦者の生態系）</div>
-                <div class="benefit-box">
-                    <div class="benefit-title">💥 BOOM! 【助け合いこそが成功への道！】</div>
-                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">ここは単なる作業場じゃない。一人の「やりたい！」が仲間の力で即プロジェクト化！失敗を笑い飛ばし面白がる文化の中で、確信を持って一歩踏み出せる最高の居場所！</p>
-                </div>
-            </div>
+    <section id="challenger-community">
+        <img src="https://via.placeholder.com/640x480/000000/FFFFFF?text=COMMUNITY+SCENE" alt="サカエマチHOLICの活気" class="community-img">
+        <div class="community-info">
+            <h2 class="section-title" style="font-size:3rem; margin-bottom:1.5rem; border-bottom: 3px solid var(--color-red);">STRONG COMMUNITY</h2>
+            <p>西条市、人口10万弱のこのまちで、私たちは圧倒的なチャレンジャーコミュニティを築き上げました。<br><br>
+            <strong style="font-size:1.5rem;">会員数<br>
+            <span style="font-size:3rem; color:var(--color-red);">115人・社</span><br>
+            <span style="font-size:0.8rem; color:var(--color-gray);">(2026年3月31日時点)</span><br>
+            </strong><br>
+            サカエマチHOLICを中心に、このコミュニティからさまざまなプロジェクトが日々生まれています。一人の「やりたい！」が仲間の力で即プロジェクト化し、圧倒的スピードで実行に移される。このダイナミックな流れを、WORKSでぜひ体感してください。</p>
+            <p style="margin-top:2rem;"><a href="#works-wrapper"> 👉 WORKSでプロジェクトを見る</a></p>
         </div>
     </section>
 
@@ -386,19 +381,19 @@
             <div class="slider-container" id="auto-slider">
                 <div class="work-item grayscale-art">
                     <strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業
-                    <p style="font-size:0.9rem; font-weight:700;">（西条市のローカルベンチャーを牽引！💥）</p>
+                    <p style="font-size:0.9rem; font-weight:700;">（西条市のローカルベンチャーを牽引！）</p>
                 </div>
                 <div class="work-item grayscale-art">
                     <strong>実績②</strong><br>四国初の<br>市民コミュニティ財団設立
-                    <p style="font-size:0.9rem; font-weight:700;">（資金循環の仕組みを地域に創出！BAM!💥）</p>
+                    <p style="font-size:0.9rem; font-weight:700;">（資金循環の仕組みを地域に創出！）</p>
                 </div>
                 <div class="work-item grayscale-art">
                     <strong>実績③</strong><br>100人超の<br>起業家コミュニティ創造
-                    <p style="font-size:0.9rem; font-weight:700;">（延べ300件超の起業支援、調達額3000万円超！POW!💥）</p>
+                    <p style="font-size:0.9rem; font-weight:700;">（延べ300件超の起業支援、調達額3000万円超！💥）</p>
                 </div>
                 <div class="work-item grayscale-art">
                     <strong>実績④</strong><br>事業用<br>空き家バンク設立
-                    <p style="font-size:0.9rem; font-weight:700;">（遊休資産を活用して挑戦の場をハック！💥）</p>
+                    <p style="font-size:0.9rem; font-weight:700;">（遊休資産を活用して挑戦の場をハック！）</p>
                 </div>
             </div>
         </section>
@@ -431,6 +426,36 @@
         </div>
     </div>
 
+    <section id="services">
+        <h2 class="section-title">SERVICES</h2>
+        <div class="services-grid">
+            <div class="service-panel">
+                <div class="service-title">① 個人向け起業支援</div>
+                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（孤独を脱し、次の一歩へ）</div>
+                <div class="benefit-box">
+                    <div class="benefit-title">💥 【起業の不安を「自信」へ！】</div>
+                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">独自の強みを磨き上げるブランディングと、熱い仲間のコミュニティを同時に提供。確信を持って次の一歩を踏み出せるヒーローになろう！</p>
+                </div>
+            </div>
+            <div class="service-panel">
+                <div class="service-title">② チャレンジコミュニティ創造支援</div>
+                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（自治体向けパートナーシップ）</div>
+                <div class="benefit-box">
+                    <div class="benefit-title">💥 【本物の「地域活性」を！】</div>
+                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">協力隊の定着や起業家輩出に、泥臭く伴走して確実な「成果」を叩き出す！予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築き上げよう！</p>
+                </div>
+            </div>
+            <div class="service-panel">
+                <div class="service-title">③ レンタルアガタDX</div>
+                <div style="font-weight:700; font-size:0.9rem; margin-bottom:1rem;">（中小・個人事業主の右腕）</div>
+                <div class="benefit-box">
+                    <div class="benefit-title">💥 【経営者の爆速の右腕、参上！】</div>
+                    <p style="margin:0; font-weight:700; font-size:1rem; line-height:1.4;">戦略の壁打ちからAIによる業務効率化まで丸投げOK！経営者が本来やるべき「未来を創る仕事」に専念できる環境を即構築！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="company">
         <h2 class="section-title">ACCESS ZONE</h2>
         <div class="company-wrap">
@@ -442,24 +467,24 @@
                     西条市ふるさと納税で挑戦者を生み出すパワーを！
                 </a>
             </div>
-            <div class="map-container grayscale-art">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.9701198565554!2d133.1818224!3d33.9161665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3551d0de49a1dcc5%3A0x67b5eb7a4140733!2z44K144Kr44Ko44Oe44OBSE9MSUM!5e0!3m2!1sja!2sjp!4v1715000000000!5m2!1sja!2sjp" width="100%" height="100%" style="border:0; min-height: 350px;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="map-container comic-box" style="background:var(--color-white); border:var(--border-thick); padding:1rem; display:flex; align-items:center; justify-content:center;">
+                <p style="font-weight:900;"><a href="https://maps.app.goo.gl/R92TNxAnNTY88SL48" target="_blank">👉 Google Maps で場所を確認する</a></p>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <h2 class="section-title">JOIN THE RESISTANCE💥</h2>
-        <p style="text-align:center; font-weight:900; margin-bottom:2rem; font-size:1.2rem;">既存の常識を塗りつぶす悪巧み（作戦会議）を始めよう。まずは無料で「壁打ち」してみないか？👉</p>
+        <h2 class="section-title">JOIN THE MOVEMENT💥</h2>
+        <p style="text-align:center; font-weight:900; margin-bottom:2rem; font-size:1.2rem;">既存の常識を塗りつぶす、新しいムーブメントを共に。<br>まずは無料で「壁打ち」してみませんか？👉</p>
         
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('MISSION RECEIVED! 💥 作戦を受領しました！');">
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('MISSION RECEIVED! 💥 メッセージを受領しました！');">
             <div>
                 <label>YOUR NAME (お名前)</label>
-                <input type="text" required placeholder="匿名希望（西条太郎）">
+                <input type="text" required placeholder="西条太郎">
             </div>
             <div>
                 <label>EMAIL (メールアドレス)</label>
-                <input type="email" required placeholder="hidden@example.com">
+                <input type="email" required placeholder="your.name@example.com">
             </div>
             <div>
                 <label>CATEGORY (お問い合わせ種別)</label>
@@ -472,10 +497,10 @@
                 </select>
             </div>
             <div>
-                <label>MESSAGE (作戦計画書)</label>
+                <label>MESSAGE (お問い合わせ内容)</label>
                 <textarea required placeholder="君の熱い想いや漠然とした悩みをここに書き込んでくれ！"></textarea>
             </div>
-            <button type="submit" class="btn-submit">SEND MISSION! 💥</button>
+            <button type="submit" class="btn-submit">SEND MESSAGE! 💥</button>
         </form>
     </section>
 
@@ -490,4 +515,12 @@
         // スムーススクロール
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
