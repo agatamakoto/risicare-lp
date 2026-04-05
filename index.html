@@ -47,6 +47,7 @@
             width: 100px; height: 10px; background: var(--color-red); filter: blur(1px); opacity: 0.8;
         }
 
+        /* HEADER */
         header {
             position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); border-bottom: var(--border-thick);
             display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 3rem; z-index: 1000;
@@ -57,6 +58,7 @@
         .btn-contact-nav { background: var(--color-red); color: var(--color-white); border: var(--border-thick); padding: 0.5rem 1.2rem; font-weight: 900; text-transform: uppercase; transition: 0.2s;}
         .btn-contact-nav:hover { background: var(--color-black); }
 
+        /* VISION */
         #vision { max-width: 100%; padding: 0; position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .hero-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(150%) brightness(40%); }
         .vision-content { z-index: 10; text-align: center; max-width: 900px; padding: 0 2rem; color: var(--color-white); }
@@ -67,6 +69,7 @@
         .btn-toggle { background: transparent; color: var(--color-white); border: 2px solid var(--color-white); padding: 0.5rem 2rem; font-size: 1.2rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
         .btn-toggle:hover { background: var(--color-white); color: var(--color-black); }
 
+        /* FOUNDER & COMMUNITY */
         #intro-split { display: flex; flex-wrap: wrap; max-width: 100%; padding: 0; border-bottom: var(--border-thick); }
         .split-panel { flex: 1; min-width: 400px; padding: 5rem 3rem; background: var(--color-white); display: flex; flex-direction: column; }
         .split-panel:first-child { border-right: var(--border-thick); }
@@ -75,11 +78,11 @@
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.9rem; }
         .community-img-wrap { margin-top: 2rem; border: var(--border-thick); overflow: hidden; cursor: pointer; }
 
-        /* WORKS - 固定と最前面表示の修正 */
+        /* WORKS - 吹き出し修正版 */
         #works-wrapper { 
             position: relative;
             background-color: var(--color-black); 
-            padding: 12rem 0 8rem 0; /* 吹き出しのために上の余白を大きく確保 */
+            padding: 12rem 0 8rem 0; 
             color: var(--color-white); 
             overflow: hidden;
         }
@@ -108,23 +111,23 @@
             font-size: 1.1rem; 
             text-align: center; 
             z-index: 30;
-            display: block;
+            display: block; /* リンク全体をブロックに */
         }
-        .work-item:hover { transform: translateY(-10px); z-index: 100; } /* ホバーしたカードを前面に */
+        .work-item:hover { transform: translateY(-10px); z-index: 100; }
         .work-item img { width:100%; height:180px; object-fit:cover; margin-bottom:1rem; border-bottom:2px solid var(--color-black); filter: grayscale(100%); transition: 0.3s;}
         .work-item:hover img { filter: grayscale(0%); }
         
-        /* 🛠 吹き出しの最終修正版 */
+        /* 🛠 吹き出しのCSSをaタグ直下で動くように再定義 */
         .work-tooltip {
             position: absolute; 
-            bottom: 125%; /* 位置を高く */
+            bottom: 125%; 
             left: 50%; 
             transform: translateX(-50%) translateY(20px);
             background: rgba(0, 0, 0, 0.95); 
             color: var(--color-white); 
             padding: 1.5rem; 
             border: 3px solid var(--color-red);
-            width: 320px; 
+            width: 300px; 
             font-size: 1rem; 
             font-weight: 900; 
             line-height: 1.6;
@@ -132,10 +135,10 @@
             visibility: hidden; 
             transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
             pointer-events: none; 
-            z-index: 999; /* 確実に最前面 */
+            z-index: 9999; /* リンクよりも絶対的に上 */
             box-shadow: 0 -15px 30px rgba(0,0,0,0.8);
-            pointer-events: none;
         }
+        /* 吹き出しの三角形 */
         .work-tooltip::after { 
             content: ''; 
             position: absolute; 
@@ -147,10 +150,11 @@
             border-color: var(--color-red) transparent transparent transparent; 
         }
         
+        /* カード（リンク）にホバーした時にツールチップを出す */
         .work-item:hover .work-tooltip { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateX(-50%) translateY(0); 
+            opacity: 1 !important; 
+            visibility: visible !important; 
+            transform: translateX(-50%) translateY(0) !important; 
         }
 
         #holic-feature { background-color: #E0E0E0; padding: 5rem 2rem; border-bottom: var(--border-thick); }
@@ -203,7 +207,6 @@
             header { flex-direction: column; padding: 1rem; }
             .split-panel { min-width: 100%; border-right: none; padding: 3rem 2rem; }
             .work-tooltip { width: 280px; left: 50%; bottom: 110%; }
-            #works-wrapper { padding-top: 8rem; }
         }
     </style>
 </head>
@@ -311,106 +314,4 @@
             <a href="https://sites.google.com/view/saijosoup/" target="_blank" class="work-item">
                 <img src="work7.jpg" alt="実績7">
                 <strong>実績⑦</strong><br>チャレンジプレゼン大会<br>の創出
-                <div class="work-tooltip">今までに計7回、延べ35組のチャレンジを応援！</div>
-            </a>
-        </div>
-    </div>
-
-    <section id="holic-feature">
-        <h2 class="section-title">特集：サカエマチHOLIC</h2>
-        <div class="feature-box">
-            <h3>廃れた商店街にあるコワーキングスペースで起こっている静かな革命</h3>
-            <p>
-                3.5％ルール。それは全人口のわずか3.5%が積極的に参加すれば、社会変革は成功するという理論だ。<br><br>
-                保守的な地方の空気を変えるため、私たちはコミュニティを運用している。今や115人の挑戦者が集まり、市外・県外からの参加も2割に達した。西条市とそれ以外を結ぶローカルコワーキングコミュニティがサカエマチHOLICだ。
-            </p>
-            <div class="feature-img-wrap grayscale-art hover-color">
-                <img src="community-scene.jpg" alt="活気ある風景" style="display:block; width:100%;">
-            </div>
-            <p style="margin-top: 2rem;">
-                日々生まれる助け合いや変化は、10年後にこのまちのDNAとなって花開くはずだ。
-            </p>
-            <a href="https://shisaly.com/recipients/311" target="_blank" class="feature-link">👉 視察についての詳細はこちらから</a>
-        </div>
-    </section>
-
-    <section id="services">
-        <img src="KZ39DSCF2928.jpg" alt="安形 真" class="services-bg-art">
-        <div class="services-content">
-            <h2 class="section-title" style="color: var(--color-white);">SERVICES</h2>
-            <div class="services-grid">
-                <div class="service-panel">
-                    <div class="service-title">起業コンサルティング</div>
-                    <div class="service-target">対象：これから起業したい個人の方</div>
-                    <div class="benefit-box">
-                        <div class="benefit-title">不安を「自信」へ</div>
-                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">独自の強みを磨き上げるブランディングと仲間とのコミュニティを提供。確信を持って次の一歩を踏み出せるあなたへ。</p>
-                    </div>
-                </div>
-                <div class="service-panel">
-                    <div class="service-title">コミュニティ創造支援</div>
-                    <div class="service-target">対象：地方創生でお困りの自治体</div>
-                    <div class="benefit-box">
-                        <div class="benefit-title">本物の「地域活性」</div>
-                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">地域おこし協力隊の定着や起業家輩出を泥臭く伴走。予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築きます。</p>
-                    </div>
-                </div>
-                <div class="service-panel">
-                    <div class="service-title">レンタルアガタDX</div>
-                    <div class="service-target">対象：中小零細企業・個人事業主</div>
-                    <div class="benefit-box">
-                        <div class="benefit-title">爆速の右腕、参上</div>
-                        <p style="margin:0; font-size:0.85rem; font-weight: normal;">戦略の壁打ちからAI効率化まで。採用リスクゼロで経営者が本来の仕事に専念できる環境を即構築します。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2 class="section-title">CONTACT</h2>
-        <p style="text-align:center; font-weight:900; margin-bottom:4rem; font-size:1.3rem;">
-            新しい風を、一緒に。まずは気軽な「壁打ち」から始めてみませんか？<br>
-            あなたの想いを聞かせてください。
-        </p>
-        <div style="text-align: center;">
-            <a href="https://forms.gle/csHdYp6i4ABMamp39" target="_blank" rel="noopener noreferrer" class="btn-submit-big">サクッと相談してみる！</a>
-        </div>
-    </section>
-
-    <div id="audio-player">
-        <span>TAPE: bgm.mp3</span>
-        <audio id="bgm" src="bgm.mp3" loop></audio>
-        <button onclick="document.getElementById('bgm').play()" class="tape-btn">▶ PLAY</button>
-        <button onclick="document.getElementById('bgm').pause()" class="tape-btn">■ STOP</button>
-    </div>
-
-    <script>
-        function toggleVision() {
-            const textBox = document.getElementById('vision-text-box');
-            const btn = document.querySelector('.btn-toggle');
-            if (textBox.classList.contains('open')) {
-                textBox.classList.remove('open');
-                btn.innerHTML = 'READ OUR VISION ▼';
-            } else {
-                textBox.classList.add('open');
-                btn.innerHTML = 'CLOSE VISION ▲';
-            }
-        }
-        const slider = document.getElementById('auto-slider');
-        let isDown = false;
-        setInterval(() => { if(!isDown) { slider.scrollLeft += 1; if(slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 5)) slider.scrollLeft = 0; } }, 30);
-        slider.addEventListener('mouseenter', () => isDown = true);
-        slider.addEventListener('mouseleave', () => isDown = false);
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if(href.startsWith('#')) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                <div class="work-tooltip">今までに計7回、延べ35組のチャレンジを応援
