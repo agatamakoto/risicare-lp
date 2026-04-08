@@ -23,12 +23,17 @@
 
         html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; background-color: var(--color-bg); }
         body { font-family: var(--font-jp); background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png'); color: var(--color-black); line-height: 1.8; }
+        
         h1, h2, h3, h4 { margin: 0; }
         a { text-decoration: none; color: inherit; transition: 0.2s; }
         ul { list-style: none; padding: 0; margin: 0; }
-        img { max-width: 100%; height: auto; }
+        img { max-width: 100%; height: auto; display: block; transition: 0.5s ease; }
 
-        section { position: relative; padding: 6rem 1.5rem; max-width: 1100px; margin: 0 auto; box-sizing: border-box; z-index: 10; }
+        /* 📸 画像ホバーでカラー化設定 */
+        .grayscale-art { filter: grayscale(100%) contrast(120%); }
+        .hover-color:hover { filter: grayscale(0%) contrast(100%) !important; }
+
+        section { position: relative; padding: 6rem 1.5rem; max-width: 1100px; margin: 0 auto; box-sizing: border-box; z-index: 10; clear: both; }
         
         .section-title {
             font-family: var(--font-stencil); font-size: 3.5rem; text-transform: uppercase;
@@ -36,7 +41,7 @@
         }
         .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 8px; background: var(--color-red); filter: blur(1px); opacity: 0.8; }
 
-        /* HEADER & LOGO AUTO-HIDE */
+        /* HEADER */
         header {
             position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); border-bottom: var(--border-thick);
             display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem; z-index: 1000;
@@ -47,76 +52,82 @@
 
         /* VISION */
         #vision { padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .hero-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(150%) brightness(40%); }
+        .hero-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(150%) brightness(40%); z-index: 1; }
         .vision-content { z-index: 10; text-align: center; padding: 0 1.5rem; color: var(--color-white); max-width: 900px;}
         .vision-title { font-family: var(--font-stencil); font-size: 3rem; line-height: 1; letter-spacing: -2px; text-shadow: 2px 2px 0 var(--color-black); }
+        
         .vision-details { max-height: 0; overflow: hidden; transition: max-height 0.8s ease-in-out; }
         .vision-details.open { max-height: 1500px; }
-        .vision-text { font-size: 1rem; font-weight: 700; white-space: pre-line; margin-top: 2rem; color: rgba(255, 255, 255, 0.95); text-align: left; background: rgba(0,0,0,0.4); padding: 1.5rem; border-left: 4px solid var(--color-red); }
-        .btn-toggle { background: transparent; color: var(--color-white); border: 2px solid var(--color-white); padding: 0.5rem 1.5rem; font-size: 0.9rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
+        .vision-text { font-size: 1rem; font-weight: 700; white-space: pre-line; margin-top: 2rem; color: rgba(255, 255, 255, 0.95); text-align: left; background: rgba(0,0,0,0.6); padding: 1.5rem; border-left: 4px solid var(--color-red); }
+        
+        .btn-toggle { background: transparent; color: var(--color-white); border: 2px solid var(--color-white); padding: 0.8rem 1.5rem; font-size: 0.9rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s; position: relative; z-index: 20;}
         .btn-toggle:hover { background: var(--color-white); color: var(--color-black); }
 
-        /* INTRO SPLIT */
-        #intro-split { display: flex; flex-wrap: wrap; padding: 0; border-bottom: var(--border-thick); }
-        .split-panel { flex: 1; min-width: 300px; padding: 4rem 1.5rem; background: var(--color-white); box-sizing: border-box; border-bottom: var(--border-thick); }
+        /* FOUNDER & COMMUNITY */
+        #intro-split { display: flex; flex-wrap: wrap; padding: 0; border-bottom: var(--border-thick); background: var(--color-white); }
+        .split-panel { flex: 1; min-width: 320px; padding: 4rem 1.5rem; box-sizing: border-box; display: flex; flex-direction: column;}
         .stats-number { font-size: 4rem; color: var(--color-red); font-family: var(--font-stencil); line-height: 1; }
-        .founder-img { border: var(--border-thick); width: 100%; max-width: 220px; margin-bottom: 1.5rem; filter: grayscale(100%); }
+        .founder-img { border: var(--border-thick); width: 100%; max-width: 220px; margin-bottom: 1.5rem; }
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.85rem; }
+        .community-img-wrap { margin-top: 2rem; border: var(--border-thick); overflow: hidden; }
 
         /* WORKS SLIDER */
-        #works-wrapper { position: relative; background-color: var(--color-black); width: 100%; display: block; z-index: 50; }
-        .works-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: grayscale(100%) brightness(40%); }
-        #works-wrapper .section-title { position: relative; z-index: 10; color: var(--color-white); padding-top: 6rem; margin-bottom: 0;}
-        .slider-container { position: relative; z-index: 20; display: flex; overflow-x: auto; gap: 1.5rem; padding: 12rem 1.5rem 6rem 1.5rem; -webkit-overflow-scrolling: touch; }
+        #works-wrapper { position: relative; background-color: var(--color-black); width: 100%; z-index: 50; padding: 4rem 0 8rem 0;}
+        .works-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: grayscale(100%) brightness(40%); z-index: 1; }
+        #works-wrapper .section-title { position: relative; z-index: 10; color: var(--color-white); margin-bottom: 0;}
+        
+        .slider-container { position: relative; z-index: 20; display: flex; overflow-x: auto; gap: 1.5rem; padding: 10rem 1.5rem 4rem 1.5rem; -webkit-overflow-scrolling: touch; }
         .slider-container::-webkit-scrollbar { display: none; }
-        .work-item { flex: 0 0 280px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 1.5rem; position: relative; text-align: center; display: block; }
-        .work-tooltip { position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%) translateY(15px); background: rgba(0, 0, 0, 0.95); color: var(--color-white); padding: 1.2rem; border: 3px solid var(--color-red); width: 260px; font-size: 0.9rem; font-weight: 900; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 9999; pointer-events: none; }
+        
+        .work-item { flex: 0 0 280px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 1.5rem; position: relative; text-align: center; display: block; z-index: 30;}
+        .work-tooltip { position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%) translateY(15px); background: rgba(0, 0, 0, 0.95); color: var(--color-white); padding: 1.2rem; border: 3px solid var(--color-red); width: 260px; font-size: 0.9rem; font-weight: 900; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 999; pointer-events: none; }
         .work-item:hover .work-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 
-        /* FEATURE: HOLIC (更新テキスト対応) */
+        /* FEATURE SECTION */
         #holic-feature { background-color: #E0E0E0; border-bottom: var(--border-thick); }
-        .feature-box { background: var(--color-white); padding: 2.5rem 1.5rem; border: var(--border-thick); max-width: 900px; margin: 0 auto;}
+        .feature-box { background: var(--color-white); padding: 2.5rem 1.5rem; border: var(--border-thick); max-width: 900px; margin: 0 auto; box-sizing: border-box;}
         .feature-box h3 { color: var(--color-red); font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.4; border-bottom: 3px solid var(--color-black); padding-bottom: 1rem; }
         .feature-subtitle { font-weight: 900; color: var(--color-black); margin-top: 2rem; font-size: 1.2rem; display: block;}
         .feature-img-wrap { margin: 2rem 0; border: var(--border-thick); background: #000; overflow: hidden;}
         .feature-link { display: inline-block; margin-top: 1.5rem; color: var(--color-red); text-decoration: underline; font-weight: 900; }
 
         /* SERVICES */
-        #services { position: relative; z-index: 50; overflow: hidden; padding: 0; }
-        .services-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; filter: grayscale(100%) brightness(30%); }
-        .services-content { z-index: 10; position: relative; max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem; }
+        #services { position: relative; z-index: 50; overflow: hidden; padding: 6rem 0; background: #000;}
+        .services-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; filter: grayscale(100%) brightness(30%); z-index: 1;}
+        .services-content { z-index: 10; position: relative; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
         .services-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-        .service-panel { background: rgba(255, 255, 255, 0.95); border: var(--border-thick); padding: 2rem 1.5rem; }
+        .service-panel { background: rgba(255, 255, 255, 0.95); border: var(--border-thick); padding: 2rem 1.5rem; transition: 0.3s; }
+        .service-panel:hover { transform: translateY(-5px); box-shadow: 10px 10px 0 var(--color-red); }
         .service-title { font-size: 1.4rem; font-weight: 900; border-bottom: 3px solid var(--color-red); display: inline-block; margin-bottom: 0.5rem;}
         .benefit-box { margin-top: 1.5rem; background: var(--color-black); color: var(--color-white); padding: 1.2rem; font-weight: 900; border-left: 5px solid var(--color-red); }
 
         /* CONTACT */
-        #contact { background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%); color: var(--color-white); border-bottom: var(--border-thick); padding: 6rem 1.5rem; text-align: center; }
-        .btn-submit-big { display: inline-block; padding: 1.2rem 2rem; background: var(--color-white); color: var(--color-black); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.2rem; width: 100%; max-width: 400px; transition: 0.3s; }
+        #contact { background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%); color: var(--color-white); border-bottom: var(--border-thick); padding: 8rem 1.5rem; text-align: center; }
+        .btn-submit-big { display: inline-block; padding: 1.2rem 2rem; background: var(--color-white); color: var(--color-black); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.2rem; width: 100%; max-width: 400px; box-shadow: 6px 6px 0 #000; }
 
-        #audio-player { position: fixed; bottom: 10px; left: 10px; z-index: 9999; background: #1a1a1a; color: #fff; padding: 8px; border: 2px solid #fff; font-size: 0.6rem; }
-        .tape-btn { background: #fff; border: 0; cursor: pointer; padding: 2px 8px; font-weight: 900; }
+        /* 🎵 AUDIO PLAYER (再前面表示) */
+        #audio-player { position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: #1a1a1a; color: #fff; padding: 10px; border: 2px solid #fff; font-size: 0.7rem; box-shadow: 5px 5px 0 #000; font-family: 'Anton', sans-serif; display: flex; align-items: center; gap: 10px; }
+        .tape-btn { background: #fff; border: 0; cursor: pointer; padding: 4px 10px; font-weight: 900; color: #000; }
+        .tape-btn:hover { background: var(--color-red); color: #fff; }
 
-        /* RESPONSIVE */
+        /* RESPONSIVE PC */
         @media (max-width: 768px) {
-            /* 💥 スマホでロゴを消してメニューのペシャンコを防止 */
             .header-logo { display: none; }
-            header { justify-content: center; } /* メニューを中央寄せ */
+            header { justify-content: center; }
             nav ul { gap: 0.8rem; }
             .section-title { font-size: 2.5rem; }
             .vision-title { font-size: 2.2rem; }
-            .vision-text { font-size: 0.9rem; }
         }
 
         @media (min-width: 769px) {
-            .section-title { font-size: 4.5rem; }
             header { padding: 0.8rem 3rem; }
             .header-logo img { height: 60px; }
             nav ul { gap: 2rem; font-size: 1rem; }
             .vision-title { font-size: 5rem; }
-            .split-panel { padding: 5rem 3rem; border-bottom: none; }
-            .split-panel:first-child { border-right: var(--border-thick); }
+            .split-panel { padding: 5rem 3rem; border-right: var(--border-thick); border-bottom: none; }
+            .split-panel:last-child { border-right: none; }
             .services-grid { grid-template-columns: repeat(3, 1fr); }
+            .work-item { flex: 0 0 340px; }
             .btn-submit-big { width: auto; font-size: 1.8rem; padding: 1.5rem 4rem; }
         }
     </style>
@@ -143,7 +154,7 @@
             <button class="btn-toggle" onclick="toggleVision()">READ OUR VISION ▼</button>
             <div id="vision-text-box" class="vision-details">
                 <p class="vision-text">「地方には何もない」「出る杭は打たれる」？
-                退屈な常識は、僕らの手でぶっ壊そう。そして余白を面白いことで塗りつぶそう。
+                退屈な常識は、僕らの手でぶっ壊そう。そして余白を面白いことで塗りつぶしよう。
                 僕らがここ、愛媛県西条市で創り出しているのは、単なる「場所」じゃない。
                 一人ひとりの「偏愛」が巨大なうねりとなっていく「挑戦の渦」だ！
                 挑戦を文化にしていこう。生き残る地域には挑戦者が必要だ。</p>
@@ -155,7 +166,7 @@
         <div class="split-panel">
             <h2 class="section-title" style="font-size: 2.2rem; text-align: left; letter-spacing: 0;">FOUNDER</h2>
             <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-                <img src="founder-main.jpg" alt="安形 真" class="founder-img">
+                <img src="founder-main.jpg" alt="安形 真" class="founder-img grayscale-art hover-color">
                 <div style="flex: 1; min-width: 240px;">
                     <h3 style="font-size: 1.5rem; font-weight: 900;">代表理事 安形 真</h3>
                     <p style="font-weight: 900; color: var(--color-red); margin-bottom: 0.8rem;">内閣府地域活性化伝道師</p>
@@ -169,5 +180,44 @@
         <div class="split-panel">
             <h2 class="section-title" style="font-size: 2.2rem; text-align: left; letter-spacing: 0;">COMMUNITY</h2>
             <div>会員数 <span class="stats-number">115</span> <span style="font-weight: 900;">人・社</span></div>
-            <p style="font-weight: 700; margin-top: 1rem;">愛媛県西条市。人口10万弱の街から、圧倒的な熱量を持つ挑戦者の生態系を耕しています。</p>
-            <div style="border: var(--border-thick); margin-top
+            <p style="font-weight: 700; margin-top: 1rem;">愛媛県西条市から、圧倒的な熱量を持つ挑戦者の生態系を耕しています。</p>
+            <div class="community-img-wrap grayscale-art hover-color">
+                <img src="CHALLENGER_COMMUNITY.jpg" alt="コミュニティ">
+            </div>
+        </div>
+    </section>
+
+    <div id="works-wrapper">
+        <img src="yuta2581611.jpg" alt="背景" class="works-bg-art">
+        <h2 class="section-title" style="color:white;">WORKS</h2>
+        <div class="slider-container" id="auto-slider">
+            <a href="https://www.city.saijo.ehime.jp/soshiki/sangyoshinko/saijoway.html" target="_blank" class="work-item">
+                <img src="work1.jpg" alt="実績1">
+                <strong>実績①</strong><br>ローカルベンチャー事業
+                <div class="work-tooltip">13人中11人が起業・定着。2021年年間売上約6000万達成。</div>
+            </a>
+            <a href="https://escf.jp/" target="_blank" class="work-item">
+                <img src="work2.jpg" alt="実績2">
+                <strong>実績②</strong><br>コミュニティ財団設立
+                <div class="work-tooltip">401名から428万超の寄付を得て、行政らと協定締結。</div>
+            </a>
+            <a href="https://sakaemachi-holic.com/" target="_blank" class="work-item">
+                <img src="work3.jpg" alt="実績3">
+                <strong>実績③</strong><br>起業家コミュニティ創造
+                <div class="work-tooltip">延べ300件超の起業支援、資金調達支援額3000万円超！</div>
+            </a>
+            <a href="https://sakaemachi-holic.com/vacant-house-bank/" target="_blank" class="work-item">
+                <img src="work4.jpg" alt="実績4">
+                <strong>実績④</strong><br>事業用空き家バンク設立
+                <div class="work-tooltip">起業と遊休資産をマッチングで地域課題解決へ</div>
+            </a>
+            <a href="https://sakaemachi-holic.com/column/column-1311/" target="_blank" class="work-item">
+                <img src="work5.jpg" alt="実績5">
+                <strong>実績⑤</strong><br>SHIBUYA QWSでの講演
+                <div class="work-tooltip">「越境」する挑戦の事例として注目！🚀</div>
+            </a>
+            <a href="https://democracy.co.jp/" target="_blank" class="work-item">
+                <img src="work6.jpg" alt="実績6">
+                <strong>実績⑥</strong><br>会員同士で会社を設立
+                <div class="work-tooltip">㈱Democracy始動！民主主義をアップデートせよ！🔥</div>
+            </a>
