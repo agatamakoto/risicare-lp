@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>一般社団法人リズカーレ | THE LOCAL INNOVATION AGENCY</title>
+    
+    <title>愛媛県西条市の起業支援・地方創生｜一般社団法人リズカーレ</title>
+    <meta name="description" content="愛媛県西条市で起業コンサルティング、DX支援、コミュニティ創造を行う一般社団法人リズカーレ。コワーキングスペース「サカエマチHOLIC」を拠点に、挑戦者の生態系を耕します。">
+    <meta name="keywords" content="西条市, 起業, 地方創生, コワーキング, DX, リズカーレ">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Anton&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
@@ -19,7 +26,6 @@
             --border-thick: 5px solid var(--color-black);
         }
 
-        /* 💥 スマホの右側見切れを防止しつつ、スクロールは正常に保つ */
         html, body {
             margin: 0;
             padding: 0;
@@ -43,14 +49,7 @@
         .grayscale-art { filter: grayscale(100%) contrast(150%); }
         .hover-color:hover { filter: grayscale(0%) contrast(100%); }
 
-        section { 
-            position: relative;
-            padding: 6rem 1.5rem; 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            box-sizing: border-box; 
-            z-index: 10;
-        }
+        section { position: relative; padding: 6rem 1.5rem; max-width: 1100px; margin: 0 auto; box-sizing: border-box; z-index: 10; }
         
         .section-title {
             font-family: var(--font-stencil); font-size: 3.5rem; text-transform: uppercase;
@@ -61,18 +60,14 @@
             width: 80px; height: 8px; background: var(--color-red); filter: blur(1px); opacity: 0.8;
         }
 
-        /* HEADER */
         header {
             position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); border-bottom: var(--border-thick);
             display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem; z-index: 1000;
         }
         .header-logo img { height: 45px; width: auto; display: block; mix-blend-mode: multiply; }
         nav ul { display: flex; gap: 1rem; font-weight: 900; align-items: center; font-size: 0.75rem;}
-        nav a:hover { color: var(--color-red); }
         .btn-contact-nav { background: var(--color-red); color: var(--color-white); border: 2px solid var(--color-black); padding: 0.3rem 0.6rem; font-weight: 900; text-transform: uppercase; }
-        .btn-contact-nav:hover { background: var(--color-black); color: var(--color-white); }
 
-        /* VISION */
         #vision { padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .hero-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(150%) brightness(40%); }
         .vision-content { z-index: 10; text-align: center; padding: 0 1.5rem; color: var(--color-white); max-width: 900px;}
@@ -83,7 +78,6 @@
         .btn-toggle { background: transparent; color: var(--color-white); border: 2px solid var(--color-white); padding: 0.5rem 1.5rem; font-size: 0.9rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.2s;}
         .btn-toggle:hover { background: var(--color-white); color: var(--color-black); }
 
-        /* FOUNDER & COMMUNITY */
         #intro-split { display: flex; flex-wrap: wrap; padding: 0; border-bottom: var(--border-thick); }
         .split-panel { flex: 1; min-width: 300px; padding: 4rem 1.5rem; background: var(--color-white); box-sizing: border-box; border-bottom: var(--border-thick); display: flex; flex-direction: column;}
         .stats-number { font-size: 4rem; color: var(--color-red); font-family: var(--font-stencil); line-height: 1; }
@@ -91,90 +85,27 @@
         .founder-links a { display: block; color: var(--color-red); text-decoration: underline; margin-bottom: 0.5rem; font-weight: 900; font-size: 0.85rem; }
         .community-img-wrap { margin-top: 2rem; border: var(--border-thick); overflow: hidden; cursor: pointer;}
 
-        /* 💥 WORKS SECTION */
-        #works-wrapper { 
-            position: relative;
-            background-color: var(--color-black); 
-            /* スクロールバーやはみ出しを防ぎつつ背景を設定 */
-            width: 100%;
-            display: block; 
-        }
-        .works-bg-art {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.35; filter: grayscale(100%) brightness(40%);
-        }
-        #works-wrapper .section-title { 
-            position: relative; z-index: 10; color: var(--color-white); 
-            padding-top: 6rem; /* タイトルの位置を調整 */
-            margin-bottom: 0;
-        }
+        #works-wrapper { position: relative; background-color: var(--color-black); width: 100%; display: block; z-index: 50; }
+        .works-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: grayscale(100%) brightness(40%); }
+        #works-wrapper .section-title { position: relative; z-index: 10; color: var(--color-white); padding-top: 6rem; margin-bottom: 0;}
         #works-wrapper .section-title::after { background: var(--color-white); }
-        
-        .slider-container { 
-            position: relative; 
-            z-index: 20; 
-            display: flex; 
-            overflow-x: auto; 
-            gap: 1.5rem; 
-            /* 💥 ここが最重要！吹き出しが上に飛び出しても切れないように上部余白（12rem）をしっかり取る */
-            padding: 12rem 1.5rem 6rem 1.5rem; 
-            -webkit-overflow-scrolling: touch;
-        }
+        .slider-container { position: relative; z-index: 20; display: flex; overflow-x: auto; gap: 1.5rem; padding: 12rem 1.5rem 6rem 1.5rem; -webkit-overflow-scrolling: touch; }
         .slider-container::-webkit-scrollbar { display: none; }
-        
-        .work-item { 
-            flex: 0 0 280px; 
-            background: var(--color-white); 
-            border: var(--border-thick); 
-            color: var(--color-black); 
-            padding: 1.5rem; 
-            position: relative; 
-            font-size: 1rem; 
-            text-align: center;
-            display: block; 
-            transition: transform 0.3s ease;
-        }
+        .work-item { flex: 0 0 280px; background: var(--color-white); border: var(--border-thick); color: var(--color-black); padding: 1.5rem; position: relative; font-size: 1rem; text-align: center; display: block; transition: transform 0.3s ease;}
         .work-item:hover { transform: translateY(-10px); z-index: 100; }
         .work-item img { width:100%; height:150px; object-fit:cover; margin-bottom:1rem; border-bottom:2px solid var(--color-black); filter: grayscale(100%); transition: 0.3s;}
         .work-item:hover img { filter: grayscale(0%); }
-        
-        /* 💥 吹き出しの絶対表示設定 */
-        .work-tooltip {
-            position: absolute; 
-            bottom: 110%; /* カードの少し上に配置 */
-            left: 50%; 
-            transform: translateX(-50%) translateY(15px);
-            background: rgba(0, 0, 0, 0.95); 
-            color: var(--color-white); 
-            padding: 1.2rem; 
-            border: 3px solid var(--color-red);
-            width: 260px; 
-            font-size: 0.9rem; 
-            font-weight: 900; 
-            line-height: 1.5;
-            opacity: 0; 
-            visibility: hidden; 
-            transition: opacity 0.3s ease, transform 0.3s ease; 
-            z-index: 9999;
-            box-shadow: 0 -10px 20px rgba(0,0,0,0.8);
-            pointer-events: none; /* マウスの邪魔にならないように */
-        }
-        .work-tooltip::after { 
-            content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; 
-        }
-        .work-item:hover .work-tooltip { 
-            opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); 
-        }
+        .work-tooltip { position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%) translateY(15px); background: rgba(0, 0, 0, 0.95); color: var(--color-white); padding: 1.2rem; border: 3px solid var(--color-red); width: 260px; font-size: 0.9rem; font-weight: 900; line-height: 1.5; opacity: 0; visibility: hidden; transition: 0.3s ease; z-index: 9999; box-shadow: 0 -10px 20px rgba(0,0,0,0.8); pointer-events: none; }
+        .work-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--color-red) transparent transparent transparent; }
+        .work-item:hover .work-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 
-        /* FEATURE SECTION (フルテキスト復元) */
-        #holic-feature { background-color: #E0E0E0; border-bottom: var(--border-thick); }
+        #holic-feature { background-color: #E0E0E0; border-bottom: var(--border-thick); position: relative; z-index: 50; }
         .feature-box { background: var(--color-white); padding: 2.5rem 1.5rem; border: var(--border-thick); font-weight: 700; box-shadow: 10px 10px 0 rgba(0,0,0,0.1); max-width: 900px; margin: 0 auto;}
         .feature-box h3 { color: var(--color-red); font-size: 1.3rem; margin-bottom: 1.5rem; line-height: 1.4; border-bottom: 2px dashed var(--color-black); padding-bottom: 1rem;}
         .feature-img-wrap { margin: 2rem 0; border: var(--border-thick); cursor: pointer; overflow: hidden; background: #000;}
         .feature-link { display: inline-block; margin-top: 1.5rem; color: var(--color-red); text-decoration: underline; font-weight: 900; }
 
-        /* SERVICES (フルテキスト復元) */
-        #services { overflow: hidden; padding: 0; }
+        #services { position: relative; z-index: 50; overflow: hidden; padding: 0; }
         .services-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; filter: grayscale(100%) brightness(30%); }
         .services-content { z-index: 10; position: relative; max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem; }
         .services-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; position: relative; z-index: 60; }
@@ -185,37 +116,26 @@
         .benefit-box { margin-top: 1.5rem; background: var(--color-black); color: var(--color-white); padding: 1.2rem; font-weight: 900; border-left: 5px solid var(--color-red); font-size: 0.85rem;}
         .benefit-title { color: var(--color-red); font-size: 1rem; margin-bottom: 0.5rem; }
 
-        /* CONTACT */
-        #contact { background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%); color: var(--color-white); border-bottom: var(--border-thick); padding: 6rem 1.5rem; text-align: center;}
+        #contact { position: relative; z-index: 50; background: linear-gradient(135deg, var(--color-red) 0%, var(--color-black) 100%); color: var(--color-white); border-bottom: var(--border-thick); padding: 6rem 1.5rem; text-align: center;}
         #contact .section-title { color: var(--color-white); }
         #contact .section-title::after { background: var(--color-white); }
-        .btn-submit-big { display: inline-block; padding: 1.2rem 2rem; background: var(--color-white); color: var(--color-black); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.2rem; width: 100%; max-width: 400px; box-shadow: 6px 6px 0 var(--color-black); transition: 0.3s;}
-        .btn-submit-big:hover { background: var(--color-black); color: var(--color-white); transform: translate(-4px, -4px); box-shadow: 10px 10px 0 var(--color-white); }
+        .btn-submit-big { display: inline-block; padding: 1.2rem 2rem; background: var(--color-white); color: var(--color-black); border: 3px solid var(--color-black); font-weight: 900; font-size: 1.2rem; width: 100%; max-width: 400px; box-shadow: 6px 6px 0 var(--color-black); transition: 0.3s; cursor: pointer;}
 
-        #audio-player { position: fixed; bottom: 10px; left: 10px; z-index: 9999; background: #1a1a1a; color: #fff; padding: 5px; border: 2px solid #fff; font-size: 0.6rem; box-shadow: 3px 3px 0 #000;}
+        #audio-player { position: fixed; bottom: 10px; left: 10px; z-index: 9999; background: #1a1a1a; color: #fff; padding: 8px; border: 2px solid #fff; font-size: 0.6rem; box-shadow: 3px 3px 0 #000; font-family: 'Anton', sans-serif;}
+        .tape-btn { background: #fff; border: 0; cursor: pointer; padding: 2px 8px; font-weight: 900; }
 
-        /* PC・タブレット調整 */
         @media (min-width: 769px) {
             .section-title { font-size: 4.5rem; }
             header { padding: 0.8rem 3rem; }
             .header-logo img { height: 60px; }
             nav ul { gap: 2rem; font-size: 1rem; }
             .vision-title { font-size: 5rem; }
-            .vision-text { font-size: 1.2rem; }
             .split-panel { padding: 5rem 3rem; border-bottom: none; }
             .split-panel:first-child { border-right: var(--border-thick); }
-            
-            /* WORKS PCレイアウト */
-            #works-wrapper .section-title { padding-top: 8rem; }
             .slider-container { gap: 3rem; padding: 8rem 2rem 6rem 2rem; }
-            .work-item { flex: 0 0 340px; padding: 2.5rem 2rem; font-size: 1.1rem;}
-            .work-tooltip { width: 320px; font-size: 1rem; padding: 1.5rem; bottom: 115%; }
-            
-            .feature-box { padding: 3rem; }
-            .feature-box h3 { font-size: 1.8rem; }
+            .work-item { flex: 0 0 340px; padding: 2.5rem 2rem; }
+            .work-tooltip { width: 320px; font-size: 1rem; }
             .services-grid { grid-template-columns: repeat(3, 1fr); }
-            .service-panel { padding: 2.5rem; }
-            #contact { padding: 8rem 2rem; }
             .btn-submit-big { width: auto; font-size: 1.8rem; padding: 1.5rem 4rem; }
         }
     </style>
@@ -223,7 +143,7 @@
 <body>
 
     <header>
-        <a href="#vision" class="header-logo"><img src="logo.png" alt="RISICARE LOGO"></a>
+        <a href="#vision" class="header-logo"><img src="logo.png" alt="一般社団法人リズカーレ ロゴ"></a>
         <nav>
             <ul>
                 <li><a href="#vision">VISION</a></li>
@@ -236,7 +156,7 @@
     </header>
 
     <section id="vision">
-        <img src="hero-bg.jpg" alt="サカエマチHOLICの渦" class="hero-bg-art">
+        <img src="hero-bg.jpg" alt="愛媛県西条市の風景とサカエマチHOLICの渦" class="hero-bg-art">
         <div class="vision-content">
             <h1 class="vision-title">CULTIVATING A LOCAL CHALLENGER ECOSYSTEM</h1>
             <button class="btn-toggle" onclick="toggleVision()">READ OUR VISION ▼</button>
@@ -253,9 +173,9 @@
         <div class="split-panel">
             <h2 class="section-title" style="font-size: 2.5rem; text-align: left; letter-spacing: 0;">FOUNDER</h2>
             <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
-                <img src="founder-main.jpg" alt="安形 真" class="founder-img grayscale-art hover-color">
+                <img src="founder-main.jpg" alt="リズカーレ代表理事 安形 真" class="founder-img grayscale-art hover-color">
                 <div style="flex: 1; min-width: 240px;">
-                    <h3 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 0.3rem;">代表理事 安形 真</h3>
+                    <h3 style="font-size: 1.8rem; font-weight: 900;">代表理事 安形 真</h3>
                     <p style="font-weight: 900; color: var(--color-red); margin-bottom: 0.8rem; font-size: 0.9rem;">内閣府地域活性化伝道師</p>
                     <p style="font-size: 0.9rem; font-weight: 700; margin-bottom: 1.2rem;">「おもしろき こともなき世を おもしろく」を地方で体現する起業家兼活動家。</p>
                     <div class="founder-links">
@@ -267,60 +187,52 @@
             </div>
         </div>
         <div class="split-panel">
-            <h2 class="section-title" style="font-size: 2.5rem; text-align: left; letter-spacing: 0;">CHALLENGER COMMUNITY</h2>
+            <h2 class="section-title" style="font-size: 2.5rem; text-align: left; letter-spacing: 0;">COMMUNITY</h2>
             <div style="margin-bottom: 1.5rem;">会員数 <span class="stats-number">115</span> <span style="font-size: 1.5rem; font-weight: 900;">人・社</span></div>
-            <p style="font-weight: 700; margin-bottom: 2rem;">サカエマチHOLICを中心に、このコミュニティから日々新しいプロジェクトが生まれています。人口10万弱のまちで、圧倒的な才能と熱量を持つ挑戦者の生態系を耕しています。</p>
-            <div class="community-img-wrap grayscale-art hover-color"><img src="CHALLENGER_COMMUNITY.jpg" alt="コミュニティの風景" style="display:block; width:100%;"></div>
+            <p style="font-weight: 700; margin-bottom: 2rem;">サカエマチHOLICを中心に、このコミュニティから日々新しいプロジェクトが生まれています。圧倒的な才能と熱量を持つ挑戦者の生態系を耕しています。</p>
+            <div class="community-img-wrap grayscale-art hover-color"><img src="CHALLENGER_COMMUNITY.jpg" alt="リズカーレ・チャレンジャーコミュニティの様子" style="display:block; width:100%;"></div>
         </div>
     </section>
 
     <div id="works-wrapper">
-        <img src="yuta2581611.jpg" alt="Works Background" class="works-bg-art">
+        <img src="yuta2581611.jpg" alt="ワークスペース背景" class="works-bg-art">
         <h2 class="section-title">WORKS</h2>
         <div class="slider-container" id="auto-slider">
-            
             <a href="https://www.city.saijo.ehime.jp/soshiki/sangyoshinko/saijoway.html" target="_blank" class="work-item">
-                <img src="work1.jpg" alt="実績1">
-                <strong>実績①</strong><br>ローカルベンチャー<br>誘致育成事業
+                <img src="work1.jpg" alt="ローカルベンチャー誘致育成事業">
+                <strong>実績①</strong><br>ローカルベンチャー事業
                 <div class="work-tooltip">13人中11人が起業・定着。2021年年間売上約6000万達成。</div>
             </a>
-
             <a href="https://escf.jp/" target="_blank" class="work-item">
-                <img src="work2.jpg" alt="実績2">
-                <strong>実績②</strong><br>四国初の<br>コミュニティ財団設立
+                <img src="work2.jpg" alt="四国初の市民コミュニティ財団">
+                <strong>実績②</strong><br>コミュニティ財団設立
                 <div class="work-tooltip">401名から428万超の寄付を得て、行政らと協定締結。</div>
             </a>
-
             <a href="https://sakaemachi-holic.com/" target="_blank" class="work-item">
-                <img src="work3.jpg" alt="実績3">
-                <strong>実績③</strong><br>100人超の<br>起業家コミュニティ創造
+                <img src="work3.jpg" alt="起業家コミュニティ創造">
+                <strong>実績③</strong><br>起業家コミュニティ創造
                 <div class="work-tooltip">延べ300件超の起業支援、資金調達支援額3000万円超！</div>
             </a>
-
             <a href="https://sakaemachi-holic.com/vacant-house-bank/" target="_blank" class="work-item">
-                <img src="work4.jpg" alt="実績4">
+                <img src="work4.jpg" alt="事業用空き家バンク設立">
                 <strong>実績④</strong><br>事業用空き家バンク設立
                 <div class="work-tooltip">起業と遊休資産をマッチングで地域課題解決へ</div>
             </a>
-
             <a href="https://sakaemachi-holic.com/column/column-1311/" target="_blank" class="work-item">
-                <img src="work5.jpg" alt="実績5">
+                <img src="work5.jpg" alt="SHIBUYA QWSでの講演">
                 <strong>実績⑤</strong><br>SHIBUYA QWSでの講演
                 <div class="work-tooltip">「越境」する挑戦の事例として注目！🚀</div>
             </a>
-
             <a href="https://democracy.co.jp/" target="_blank" class="work-item">
-                <img src="work6.jpg" alt="実績6">
+                <img src="work6.jpg" alt="株式会社Democracy始動">
                 <strong>実績⑥</strong><br>会員同士で会社を設立
                 <div class="work-tooltip">㈱Democracy始動！民主主義をアップデートせよ！🔥</div>
             </a>
-
             <a href="https://sites.google.com/view/saijosoup/" target="_blank" class="work-item">
-                <img src="work7.jpg" alt="実績7">
-                <strong>実績⑦</strong><br>チャレンジプレゼン大会<br>の創出
+                <img src="work7.jpg" alt="チャレンジプレゼン大会">
+                <strong>実績⑦</strong><br>チャレンジプレゼン大会
                 <div class="work-tooltip">今までに計7回、延べ35組のチャレンジを応援！</div>
             </a>
-
         </div>
     </div>
 
@@ -328,41 +240,35 @@
         <h2 class="section-title">特集：サカエマチHOLIC</h2>
         <div class="feature-box">
             <h3>廃れた商店街にあるコワーキングスペースで起こっている静かな革命</h3>
-            <p>
-                3.5％ルール。それは全人口のわずか3.5%が積極的に参加すれば、社会変革は成功するという理論だ。<br><br>
-                保守的な地方の空気を変えるため、私たちはコミュニティを運用している。今や115人の挑戦者が集まり、市外・県外からの参加も2割に達した。西条市とそれ以外を結ぶローカルコワーキングコミュニティがサカエマチHOLICだ。
-            </p>
-            <div class="feature-img-wrap grayscale-art hover-color">
-                <img src="community-scene.jpg" alt="活気ある風景" style="display:block; width:100%;">
-            </div>
-            <p style="margin-top: 2rem;">
-                日々生まれる助け合いや変化は、10年後にこのまちのDNAとなって花開くはずだ。
-            </p>
+            <p>3.5％ルール。それは全人口のわずか3.5%が積極的に参加すれば、社会変革は成功するという理論だ。<br><br>
+               保守的な地方の空気を変えるため、私たちはコミュニティを運用している。今や115人の挑戦者が集まり、市外・県外からの参加も2割に達した。<br><br>
+               日々生まれる助け合いや変化は、10年後にこのまちのDNAとなって花開くはずだ。</p>
+            <div class="feature-img-wrap grayscale-art hover-color"><img src="community-scene.jpg" alt="サカエマチHOLICでの交流シーン" style="display:block; width:100%;"></div>
             <a href="https://shisaly.com/recipients/311" target="_blank" class="feature-link">👉 視察についての詳細はこちらから</a>
         </div>
     </section>
 
     <section id="services">
-        <img src="KZ39DSCF2928.jpg" alt="安形 真" class="services-bg-art">
+        <img src="KZ39DSCF2928.jpg" alt="安形真によるサービス支援" class="services-bg-art">
         <div class="services-content">
             <h2 class="section-title" style="color: var(--color-white);">SERVICES</h2>
             <div class="services-grid">
                 <div class="service-panel">
                     <div class="service-title">起業コンサルティング</div>
                     <div class="service-target">対象：これから起業したい個人の方</div>
-                    <p style="margin:0; font-size:0.9rem;">独自の強みを磨き上げるブランディングと仲間とのコミュニティを提供。確信を持って次の一歩を踏み出せるあなたへ。</p>
+                    <p>独自の強みを磨き上げるブランディングと仲間とのコミュニティを提供。確信を持って次の一歩を踏み出せるあなたへ。</p>
                     <div class="benefit-box"><div class="benefit-title">不安を「自信」へ</div></div>
                 </div>
                 <div class="service-panel">
                     <div class="service-title">コミュニティ創造支援</div>
                     <div class="service-target">対象：地方創生でお困りの自治体</div>
-                    <p style="margin:0; font-size:0.9rem;">地域おこし協力隊の定着や起業家輩出を泥臭く伴走。予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築きます。</p>
+                    <p>地域おこし協力隊の定着や起業家輩出を泥臭く伴走。予算を未来への投資に変え、「挑戦者が自走し続ける強い街」の基礎を築きます。</p>
                     <div class="benefit-box"><div class="benefit-title">本物の「地域活性」</div></div>
                 </div>
                 <div class="service-panel">
                     <div class="service-title">レンタルアガタDX</div>
                     <div class="service-target">対象：中小零細企業・個人事業主</div>
-                    <p style="margin:0; font-size:0.9rem;">戦略の壁打ちからAI効率化まで。採用リスクゼロで経営者が本来の仕事に専念できる環境を即構築します。</p>
+                    <p>戦略の壁打ちからAI効率化まで。採用リスクゼロで経営者が本来の仕事に専念できる環境を即構築します。</p>
                     <div class="benefit-box"><div class="benefit-title">爆速の右腕、参上</div></div>
                 </div>
             </div>
@@ -371,20 +277,15 @@
 
     <section id="contact">
         <h2 class="section-title">CONTACT</h2>
-        <p style="font-weight:900; margin-bottom:3rem; font-size:1.1rem;">
-            新しい風を、一緒に。まずは気軽な「壁打ち」から始めてみませんか？<br>
-            あなたの想いを聞かせてください。
-        </p>
-        <div style="text-align: center;">
-            <a href="https://forms.gle/csHdYp6i4ABMamp39" target="_blank" rel="noopener noreferrer" class="btn-submit-big">サクッと相談してみる！</a>
-        </div>
+        <p style="text-align:center; font-weight:900; margin-bottom:3rem; font-size:1.1rem;">新しい風を、一緒に。まずは気軽な「壁打ち」から始めてみませんか？</p>
+        <div style="text-align: center;"><a href="https://forms.gle/csHdYp6i4ABMamp39" target="_blank" class="btn-submit-big">サクッと相談してみる！</a></div>
     </section>
 
     <div id="audio-player">
         <span>TAPE: bgm.mp3</span>
-        <audio id="bgm" src="bgm.mp3" loop></audio>
-        <button onclick="document.getElementById('bgm').play()" class="tape-btn">▶ PLAY</button>
-        <button onclick="document.getElementById('bgm').pause()" class="tape-btn">■ STOP</button>
+        <audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+        <button id="bgm-play" class="tape-btn">▶ PLAY</button>
+        <button id="bgm-stop" class="tape-btn">■ STOP</button>
     </div>
 
     <script>
@@ -399,6 +300,25 @@
                 btn.innerHTML = 'CLOSE VISION ▲';
             }
         }
+
+        const bgm = document.getElementById('bgm');
+        const playBtn = document.getElementById('bgm-play');
+        const stopBtn = document.getElementById('bgm-stop');
+
+        // 💥 スマホ対応：初回の画面操作でBGMの再生制限を解除する
+        const enableAudio = () => {
+            bgm.play().then(() => {
+                bgm.pause(); // 一度再生して即停止することで、スマホの「再生許可」をもらう
+                document.removeEventListener('touchstart', enableAudio);
+                document.removeEventListener('scroll', enableAudio);
+            }).catch(e => console.log("Audio waiting for user interaction"));
+        };
+        document.addEventListener('touchstart', enableAudio);
+        document.addEventListener('scroll', enableAudio);
+
+        playBtn.onclick = () => bgm.play();
+        stopBtn.onclick = () => bgm.pause();
+
         const slider = document.getElementById('auto-slider');
         let isDown = false;
         setInterval(() => { if(!isDown) { slider.scrollLeft += 1; if(slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 5)) slider.scrollLeft = 0; } }, 30);
@@ -406,6 +326,7 @@
         slider.addEventListener('mouseleave', () => isDown = false);
         slider.addEventListener('touchstart', () => isDown = true);
         slider.addEventListener('touchend', () => isDown = false);
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
