@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T7BDL8KZPH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T7BDL8KZPH');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スマホの困った・払いすぎ、無料相談会｜サカエマチHOLIC × AEC-FP事務所</title>
+<meta name="description" content="西条市栄町商店街のサカエマチHOLICで開催。スマホの買い替え・使い方・料金プランの無料相談会。1級ファイナンシャルプランナーが同席し、家計にやさしい見直しを一緒に。特定の会社の商品を売る会ではありません。参加無料・予約優先・当日もOK。ご参加で健康茶プレゼント。">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C89A2E;
+    --gold-light: #E8C060;
+    --blue: #2B6CB0;
+    --blue-light: #4A90D9;
+    --green: #2F6B3E;
+    --red: #D94040;
+    --cream: #FFFDF7;
+    --warm-white: #FFF9EE;
+    --dark: #2A1F0A;
+    --text: #2A1F0A;
+    --text-muted: #6E5F46;
+    --bg: #FFFDF7;
+    --bg2: #FFF4DC;
+    --border: rgba(200,154,46,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    /* 高齢者向けに基準文字を大きめに */
+    font-size: 18px;
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,253,247,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 3px solid var(--gold);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .site-header .logo {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+  .site-header .logo span { color: var(--green); }
+  .header-tel {
+    background: var(--green);
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.05rem;
+    padding: 10px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(47,107,62,0.35);
+    white-space: nowrap;
+  }
+  .header-tel small { font-weight: 700; font-size: 0.7rem; display:block; opacity:0.9; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 110px 20px 56px;
+    background: linear-gradient(160deg, #FFF9EE 0%, #FFF4DC 60%, #FFEDB8 100%);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 460px; height: 460px;
+    border-radius: 50%;
+    background: rgba(200,154,46,0.08);
+    top: -120px; right: -120px;
+  }
+  .hero-inner { max-width: 940px; margin: 0 auto; position: relative; z-index: 1; }
+
+  .hero-badges { display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 22px; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 900;
+    padding: 7px 18px;
+    border-radius: 50px;
+    letter-spacing: 0.04em;
+  }
+  .hero-badge.green { background: var(--green); }
+  .hero-badge.red { background: var(--red); }
+
+  .hero h1 {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    line-height: 1.35;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+  .hero h1 .hl {
+    color: var(--red);
+    background: linear-gradient(transparent 58%, rgba(217,64,64,0.15) 58%);
+  }
+  .hero h1 .hl-gold {
+    color: var(--gold);
+    background: linear-gradient(transparent 58%, rgba(200,154,46,0.22) 58%);
+  }
+
+  .hero-lead {
+    font-size: 1.15rem;
+    color: var(--text);
+    max-width: 640px;
+    margin-bottom: 32px;
+    font-weight: 700;
+  }
+  .hero-lead .thin { font-weight: 400; color: var(--text-muted); font-size: 1.02rem; }
+
+  /* 電話ボタン（主役） */
+  .tel-box {
+    background:#fff;
+    border: 3px solid var(--green);
+    border-radius: 22px;
+    padding: 22px 24px;
+    max-width: 460px;
+    box-shadow: 0 8px 26px rgba(47,107,62,0.18);
+  }
+  .tel-box .tel-lead { font-weight:900; font-size:1rem; color: var(--green); margin-bottom:6px; }
+  .tel-box a.tel-num {
+    display:flex; align-items:center; gap:10px;
+    font-family:'Zen Maru Gothic', sans-serif;
+    font-weight:900;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    color: var(--green);
+    text-decoration:none;
+    line-height:1.1;
+  }
+  .tel-box .tel-num .ico { font-size:0.9em; }
+  .tel-box .tel-hours { font-weight:700; font-size:0.95rem; color: var(--text-muted); margin-top:4px; }
+  .tel-box .tel-note { font-size:0.85rem; color: var(--text-muted); margin-top:10px; }
+
+  /* ── SUBTITLE STRIP ── */
+  .host-strip {
+    background: var(--bg2);
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
+    text-align:center;
+    padding: 16px 20px;
+    font-family:'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: var(--dark);
+  }
+  .host-strip .amp { color: var(--gold); margin: 0 8px; }
+
+  /* ── SECTION BASE ── */
+  section.sec { padding: 66px 20px; max-width: 940px; margin: 0 auto; }
+  .sec-label {
+    display: inline-block;
+    background: var(--bg2);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 900;
+    padding: 4px 14px;
+    border-radius: 50px;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+  }
+  .sec-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 4.2vw, 2.4rem);
+    line-height: 1.35;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .sec-title .hl { color: var(--gold); }
+  .divider-dot { width: 44px; height: 6px; background: var(--gold); border-radius: 3px; margin: 14px 0 36px; }
+
+  /* ── STORY（実例） ── */
+  .story-wrap { background: var(--bg2); padding: 66px 0; }
+  .story-inner { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+  .story-card {
+    background:#fff;
+    border: 3px solid var(--gold-light);
+    border-radius: 22px;
+    padding: 32px 28px;
+    box-shadow: 0 6px 22px rgba(200,154,46,0.14);
+  }
+  .story-quote { font-size:1.1rem; font-weight:700; color:var(--dark); margin-bottom:24px; }
+  .story-ba { display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:stretch; }
+  .ba-box { border-radius:16px; padding:20px 18px; text-align:center; }
+  .ba-before { background:#F3ECE0; border:2px solid #D9C9AA; }
+  .ba-after { background:#EAF4EC; border:2.5px solid var(--green); }
+  .ba-box .ba-tag { font-weight:900; font-size:0.85rem; margin-bottom:8px; display:inline-block; padding:3px 12px; border-radius:50px; }
+  .ba-before .ba-tag { background:#D9C9AA; color:#6E5F46; }
+  .ba-after .ba-tag { background:var(--green); color:#fff; }
+  .ba-box .ba-price { font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:1.5rem; line-height:1.25; color:var(--dark); }
+  .ba-after .ba-price { color: var(--green); }
+  .ba-box .ba-cap { font-size:0.8rem; color:var(--text-muted); margin-top:6px; }
+  .ba-arrow { display:flex; align-items:center; justify-content:center; font-size:2rem; color:var(--gold); font-weight:900; }
+  .story-note { font-size:0.85rem; color:var(--text-muted); margin-top:18px; }
+
+  /* ── CHECK（対象） ── */
+  .check-list { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top: 8px; }
+  .check-item {
+    background:#fff;
+    border:2.5px solid var(--gold-light);
+    border-radius:14px;
+    padding:18px 18px 18px 54px;
+    position:relative;
+    font-weight:700;
+    font-size:1.05rem;
+    color:var(--dark);
+  }
+  .check-item::before {
+    content:'✓';
+    position:absolute; left:16px; top:50%; transform:translateY(-50%);
+    width:28px; height:28px; border-radius:50%;
+    background:var(--green); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; font-size:1rem;
+  }
+  .check-lead { font-weight:900; font-size:1.15rem; color:var(--red); margin-bottom:20px; }
+
+  /* ── 相談できること ── */
+  .topic-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:8px; }
+  .topic-card {
+    background:#fff; border:2.5px solid var(--gold-light); border-radius:16px;
+    padding:26px 20px; text-align:center;
+  }
+  .topic-card .ico { font-size:2.6rem; display:block; margin-bottom:12px; }
+  .topic-card h3 { font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:1.15rem; margin-bottom:8px; color:var(--dark); }
+  .topic-card p { font-size:0.92rem; color:var(--text-muted); }
+
+  /* ── FLOW ── */
+  .flow-wrap { background: var(--bg2); padding: 66px 0; }
+  .flow-inner { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+  .flow-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:36px; }
+  .flow-step { background:#fff; border:2.5px solid var(--gold-light); border-radius:16px; padding:26px 18px; text-align:center; position:relative; }
+  .flow-step:not(:last-child)::after {
+    content:'→'; position:absolute; right:-16px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; color:var(--gold); font-weight:900;
+  }
+  .step-num {
+    width:48px; height:48px; border-radius:50%; background:var(--gold); color:#fff;
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:1.3rem;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 14px;
+  }
+  .flow-step h3 { font-weight:900; font-size:1.05rem; margin-bottom:6px; color:var(--dark); }
+  .flow-step p { font-size:0.9rem; color:var(--text-muted); }
+  .flow-time { display:inline-block; background:var(--bg2); border:2px solid var(--gold-light); color:var(--gold); font-weight:900; font-size:0.8rem; padding:2px 12px; border-radius:50px; margin-bottom:10px; }
+
+  /* ── HOST（主催・講師） ── */
+  .host-cards { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:8px; }
+  .host-card { background:#fff; border:2.5px solid var(--gold-light); border-radius:18px; padding:28px 24px; }
+  .host-card .cat { font-size:0.8rem; font-weight:900; letter-spacing:0.08em; color:var(--gold); background:rgba(200,154,46,0.1); display:inline-block; padding:4px 12px; border-radius:6px; margin-bottom:12px; }
+  .host-card h3 { font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:1.3rem; color:var(--dark); margin-bottom:4px; }
+  .host-card .sub { font-size:0.9rem; color:var(--text-muted); margin-bottom:14px; }
+  .host-card p { font-size:0.95rem; color:var(--text); }
+  .host-card a.morelink { display:inline-block; margin-top:12px; color:var(--blue); font-weight:700; font-size:0.9rem; }
+  .trust-band { background:#EAF4EC; border:2.5px solid var(--green); border-radius:16px; padding:20px 24px; margin-top:26px; text-align:center; }
+  .trust-band strong { color:var(--green); font-size:1.1rem; font-family:'Zen Maru Gothic',sans-serif; }
+
+  /* ── 開催概要 ── */
+  .info-wrap { background:var(--bg2); padding:66px 0; }
+  .info-inner { max-width:820px; margin:0 auto; padding:0 20px; }
+  .info-table { width:100%; background:#fff; border:2.5px solid var(--gold-light); border-radius:18px; overflow:hidden; border-collapse:separate; border-spacing:0; }
+  .info-table th, .info-table td { text-align:left; padding:18px 20px; vertical-align:top; border-bottom:1.5px solid var(--border); font-size:1.05rem; }
+  .info-table tr:last-child th, .info-table tr:last-child td { border-bottom:none; }
+  .info-table th { width:34%; background:var(--bg2); font-weight:900; color:var(--dark); white-space:nowrap; }
+  .info-table td .big { font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:1.2rem; color:var(--dark); }
+  .info-table .free { color:var(--red); }
+  .info-table .tbd { display:inline-block; background:var(--bg2); border:2px dashed var(--gold); color:var(--gold); font-weight:900; padding:4px 14px; border-radius:8px; }
+  .info-table .gift { color:var(--green); font-weight:900; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, #FFF9EE 0%, #FFF4DC 100%);
+    border-top: 3px solid var(--gold);
+    text-align: center;
+    padding: 74px 20px;
+  }
+  .cta-section h2 {
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900;
+    font-size:clamp(1.7rem,4.4vw,2.6rem); color:var(--dark); margin-bottom:14px; line-height:1.35;
+  }
+  .cta-section .cta-sub { color:var(--text); font-weight:700; font-size:1.1rem; margin-bottom:30px; }
+  .cta-tel {
+    display:inline-flex; flex-direction:column; align-items:center;
+    background:var(--green); color:#fff; text-decoration:none;
+    border-radius:24px; padding:24px 44px; box-shadow:0 8px 26px rgba(47,107,62,0.4);
+  }
+  .cta-tel .lbl { font-weight:900; font-size:1rem; margin-bottom:4px; }
+  .cta-tel .num { font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(2rem,7vw,2.8rem); line-height:1.1; }
+  .cta-tel .hrs { font-weight:700; font-size:0.95rem; opacity:0.95; margin-top:4px; }
+  .cta-note { font-size:0.9rem; color:var(--text-muted); margin-top:18px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); padding: 40px 20px; text-align:center; color:rgba(255,255,255,0.55); font-size:0.85rem; }
+  footer .footer-logo { font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:1rem; color:var(--gold); margin-bottom:6px; }
+  footer a { color:rgba(255,255,255,0.8); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    body { font-size:17px; }
+    .check-list { grid-template-columns:1fr; }
+    .topic-grid { grid-template-columns:1fr; }
+    .flow-steps { grid-template-columns:1fr; }
+    .flow-step:not(:last-child)::after { content:'↓'; right:auto; left:50%; top:auto; bottom:-14px; transform:translateX(-50%); }
+    .host-cards { grid-template-columns:1fr; }
+    .story-ba { grid-template-columns:1fr; }
+    .ba-arrow { transform:rotate(90deg); }
+    .info-table th { width:38%; }
+    .header-tel small { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">スマホ無料相談会<br><span>サカエマチHOLIC × AEC-FP</span></div>
+  <a href="tel:0897-47-6943" class="header-tel">☎ 0897-47-6943<small>受付 9:00〜15:00</small></a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badges">
+      <span class="hero-badge red">参加費 無料</span>
+      <span class="hero-badge green">予約優先・当日もOK</span>
+      <span class="hero-badge">ご参加で健康茶プレゼント🍵</span>
+    </div>
+    <h1>
+      その<span class="hl">スマホ代</span>、<br>
+      払いすぎていませんか？
+    </h1>
+    <p class="hero-lead">
+      毎月のスマホ代、見直すだけで<span class="hl-gold">年間3〜4万円</span>変わることも。<br>
+      <span class="thin">買い替え・使い方・料金プランの「困った」を、家計のプロ（ファイナンシャルプランナー）と一緒に無料でご相談いただけます。</span>
+    </p>
+
+    <div class="tel-box">
+      <div class="tel-lead">ご予約・お問い合わせはお電話で</div>
+      <a href="tel:0897-47-6943" class="tel-num"><span class="ico">☎</span>0897-47-6943</a>
+      <div class="tel-hours">受付時間 9:00〜15:00</div>
+      <div class="tel-note">※ 予約優先ですが、当日ふらっとお越しいただいてもOKです。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 主催ストリップ -->
+<div class="host-strip">
+  サカエマチHOLIC <span class="amp">×</span> AEC-FP事務所　合同開催
+</div>
+
+<!-- STORY（実例） -->
+<div class="story-wrap">
+  <div class="story-inner">
+    <div class="sec-label">実際にあったお話</div>
+    <h2 class="sec-title">お店で「10万円」と言われたスマホが、<br><span class="hl">相談したら4万円以下に。</span></h2>
+    <div class="divider-dot"></div>
+    <div class="story-card">
+      <p class="story-quote">
+        「バッテリーがふくらんできて、買い替えないといけなくなりました。お店に行ったら<strong>10万円</strong>と言われたのですが、サカエマチHOLICに相談したら、初期設定もぜんぶ含めて<strong>4万円以下</strong>で済んだんです。毎月の料金も夫婦で<strong>12,000円</strong>ほどだったのが、<strong>半額以下</strong>になりました。」
+      </p>
+      <div class="story-ba">
+        <div class="ba-box ba-before">
+          <span class="ba-tag">相談する前</span>
+          <div class="ba-price">本体 10万円<br><span style="font-size:1rem;">月額 夫婦で12,000円</span></div>
+        </div>
+        <div class="ba-arrow">➡</div>
+        <div class="ba-box ba-after">
+          <span class="ba-tag">相談したら</span>
+          <div class="ba-price">本体 4万円以下<br><span style="font-size:1rem;">月額 半額以下に</span></div>
+          <div class="ba-cap">初期設定もぜんぶ込み</div>
+        </div>
+      </div>
+      <p class="story-note">※ 実際のご相談例です。金額は機種・プランにより異なります。無理な契約変更はおすすめしません。</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHECK（対象） -->
+<section class="sec">
+  <div class="sec-label">こんな方へ</div>
+  <h2 class="sec-title">ひとつでも当てはまったら、<span class="hl">来る価値あり。</span></h2>
+  <div class="divider-dot"></div>
+  <p class="check-lead">とくに「毎月5,000円以上」払っている方は、見直しで大きく変わる可能性があります。</p>
+  <div class="check-list">
+    <div class="check-item">毎月のスマホ代が 5,000円以上</div>
+    <div class="check-item">お店ですすめられるまま、10万円近い機種を買った</div>
+    <div class="check-item">使い方や設定が、よく分からない</div>
+    <div class="check-item">買い替えたいが、何を選べばいいか分からない</div>
+    <div class="check-item">料金プランが自分に合っているか不安</div>
+    <div class="check-item">スマホのことを気軽に聞ける相手がいない</div>
+  </div>
+</section>
+
+<!-- 相談できること -->
+<div class="story-wrap" style="background:var(--bg);">
+  <div class="story-inner">
+    <div class="sec-label">相談できること</div>
+    <h2 class="sec-title">スマホの「困った」、<span class="hl">なんでもどうぞ。</span></h2>
+    <div class="divider-dot"></div>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <span class="ico">📱</span>
+        <h3>買い替え相談</h3>
+        <p>「損しない選び方」を中立の立場でアドバイス。高い機種を無理におすすめしません。</p>
+      </div>
+      <div class="topic-card">
+        <span class="ico">👆</span>
+        <h3>使い方・初期設定</h3>
+        <p>電話・LINE・写真・アプリなど、「分からない」をその場で解決します。</p>
+      </div>
+      <div class="topic-card">
+        <span class="ico">💰</span>
+        <h3>料金プランの見直し</h3>
+        <p>今の料金が高くないか一緒に確認。家計にやさしいプランをご提案します。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOW -->
+<div class="flow-wrap">
+  <div class="flow-inner">
+    <div class="sec-label">当日の流れ</div>
+    <h2 class="sec-title">全体で<span class="hl">1時間ほど</span>。むずかしくありません。</h2>
+    <div class="divider-dot"></div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <span class="flow-time">約30分</span>
+        <h3>ミニ講座</h3>
+        <p>「スマホ代のしくみ」「損しない選び方」を、やさしくお話しします。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">2</div>
+        <span class="flow-time">アンケート</span>
+        <h3>その場でワンポイント相談</h3>
+        <p>かんたんなアンケートにご記入。気になることをその場でお聞きします。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">3</div>
+        <span class="flow-time">ご希望の方</span>
+        <h3>後日、個別に無料相談</h3>
+        <p>じっくり相談したい方は、後日あらためて個別に。日程はその場で調整します。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOST（主催・講師） -->
+<section class="sec">
+  <div class="sec-label">主催・講師</div>
+  <h2 class="sec-title">お話しするのは、<span class="hl">この2者。</span></h2>
+  <div class="divider-dot"></div>
+  <div class="host-cards">
+    <div class="host-card">
+      <span class="cat">ファイナンシャルプランナー</span>
+      <h3>高橋 英士</h3>
+      <div class="sub">AEC-FP事務所 代表 ／ 1級ファイナンシャル・プランニング技能士</div>
+      <p>家計のプロとして、スマホ代の見直しはもちろん、ライフプランや資産運用のご相談まで幅広く対応。「特定の会社の味方」ではなく、あなたの家計の味方です。</p>
+      <a href="https://www.aec-fp.com/" target="_blank" class="morelink">AEC-FP事務所 のサイト →</a>
+    </div>
+    <div class="host-card">
+      <span class="cat">IT・コワーキングスペース</span>
+      <h3>サカエマチHOLIC</h3>
+      <div class="sub">一般社団法人リズカーレ 運営 ／ 西条・栄町商店街のIT拠点</div>
+      <p>スマホ・パソコン・ITに強い地域の拠点。買い替えや初期設定、使い方のサポート実績が豊富。地元で気軽に相談できる「まちのスマホ相談所」です。</p>
+      <a href="https://sakaemachi-holic.com/" target="_blank" class="morelink">サカエマチHOLIC のサイト →</a>
+    </div>
+  </div>
+  <div class="trust-band">
+    <strong>特定の会社の商品を売る会ではありません。無理な勧誘は一切いたしません。</strong>
+  </div>
+</section>
+
+<!-- 開催概要 -->
+<div class="info-wrap">
+  <div class="info-inner">
+    <div class="sec-label" style="display:block;text-align:center;margin:0 auto 14px;">INFORMATION</div>
+    <h2 class="sec-title" style="text-align:center;">開催概要</h2>
+    <div class="divider-dot" style="margin:14px auto 36px;"></div>
+    <table class="info-table">
+      <tr>
+        <th>日程</th>
+        <td><span class="tbd">日程は調整中です</span><br><span style="font-size:0.9rem;color:var(--text-muted);">9月中旬に3日間の開催を予定。決まり次第このページでお知らせします。</span></td>
+      </tr>
+      <tr>
+        <th>時間</th>
+        <td><span class="big">午前の部／午後の部</span>（各回 約1時間）<br><span style="font-size:0.9rem;color:var(--text-muted);">1日2回開催・各回 定員10〜15名</span></td>
+      </tr>
+      <tr>
+        <th>会場</th>
+        <td><span class="big">サカエマチHOLIC</span><br>〒793-0030 愛媛県西条市大町1663<br><span style="font-size:0.9rem;color:var(--text-muted);">西条・栄町商店街の中にあります</span></td>
+      </tr>
+      <tr>
+        <th>参加費</th>
+        <td><span class="big free">無料</span></td>
+      </tr>
+      <tr>
+        <th>特典</th>
+        <td><span class="gift">ご参加＋アンケートで、体にやさしい健康茶をプレゼント🍵</span></td>
+      </tr>
+      <tr>
+        <th>お申し込み</th>
+        <td><span class="big">予約優先（当日参加もOK）</span><br>お電話：<a href="tel:0897-47-6943" style="color:var(--green);font-weight:900;">0897-47-6943</a>（受付 9:00〜15:00）</td>
+      </tr>
+      <tr>
+        <th>主催</th>
+        <td>サカエマチHOLIC（一般社団法人リズカーレ）× AEC-FP事務所</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="sec-label">お申し込み</div>
+  <h2>まずはお電話ください。<br>どんな小さなことでもOK！</h2>
+  <p class="cta-sub">「話を聞くだけ」でも大歓迎です。しつこい勧誘はいたしません。</p>
+  <a href="tel:0897-47-6943" class="cta-tel">
+    <span class="lbl">☎ お電話でご予約・お問い合わせ</span>
+    <span class="num">0897-47-6943</span>
+    <span class="hrs">受付時間 9:00〜15:00</span>
+  </a>
+  <p class="cta-note">予約優先・当日参加もOK ／ 会場：サカエマチHOLIC（西条市大町1663・栄町商店街内）</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">スマホ無料相談会</div>
+  <p>主催：サカエマチHOLIC（一般社団法人リズカーレ）× AEC-FP事務所<br>〒793-0030 愛媛県西条市大町1663</p>
+  <p style="margin-top:6px;">お問い合わせ：<a href="tel:0897-47-6943">0897-47-6943</a>（9:00〜15:00）</p>
+  <p style="margin-top:6px;">© 2026 サカエマチHOLIC / リズカーレ</p>
+</footer>
+
+</body>
+</html>
