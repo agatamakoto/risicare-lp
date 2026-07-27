@@ -263,6 +263,10 @@
     font-size:1.2rem; color:var(--ink); margin-bottom:8px;
   }
   .venue-card p { font-size:0.96rem; color:var(--text); }
+  .venue-grid { display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:center; }
+  .venue-photo { margin:0; }
+  .venue-photo img { border-radius:14px; width:100%; aspect-ratio:4/3; object-fit:cover; }
+  .venue-photo figcaption { font-size:0.8rem; color:var(--muted); margin-top:8px; text-align:center; }
 
   .trust {
     margin-top:22px; background:#E9F7F5; border:2px solid var(--teal);
@@ -324,6 +328,7 @@
     .flow { grid-template-columns:1fr; }
     .flow-step:not(:last-child)::after { content:'↓'; right:auto; left:50%; top:auto; bottom:-13px; transform:translateX(-50%); }
     .host-main { grid-template-columns:1fr; }
+    .venue-grid { grid-template-columns:1fr; }
     .sched { grid-template-columns:1fr; }
     .ba { grid-template-columns:1fr; }
     .ba-arrow { transform:rotate(90deg); }
@@ -361,8 +366,8 @@
     <h1>その<span class="mark">スマホ代</span>、<br>払いすぎていませんか？</h1>
 
     <div class="hero-photo">
-      <img src="hero.jpg" alt="サカエマチHOLICでの相談会のようす。少人数でテーブルを囲んで話を聞く参加者たち">
-      <div class="cap">会場：サカエマチHOLIC（西条市大町1663・栄町商店街内）</div>
+      <img src="hero.jpg" alt="スマホの使い方を教わるシニアの男性と、となりで画面を指さして案内するスタッフ">
+      <div class="cap">「ここが分からない」をその場で。おひとりずつ、ゆっくりお聞きします（写真はイメージです）</div>
     </div>
 
     <p class="hero-lead">
@@ -509,9 +514,18 @@
       </div>
     </div>
     <div class="venue-card">
-      <h3>サカエマチHOLIC（一般社団法人リズカーレ）</h3>
-      <p>西条・栄町商店街にあるコワーキングスペース。パソコンやスマホ、ITの相談ごとを日常的に受けている地域のIT拠点です。買い替えの付き添いから初期設定まで、実際のサポート実績が豊富。「まちのスマホ相談所」として気軽にお使いください。</p>
-      <a href="https://sakaemachi-holic.com/" target="_blank" rel="noopener" class="host-link">サカエマチHOLICのサイトを見る →</a>
+      <div class="venue-grid">
+        <div>
+          <span class="host-cat">会場・共催</span>
+          <h3>サカエマチHOLIC（一般社団法人リズカーレ）</h3>
+          <p>西条・栄町商店街にあるコワーキングスペース。パソコンやスマホ、ITの相談ごとを日常的に受けている地域のIT拠点です。買い替えの付き添いから初期設定まで、実際のサポート実績が豊富。「まちのスマホ相談所」として気軽にお使いください。</p>
+          <a href="https://sakaemachi-holic.com/" target="_blank" rel="noopener" class="host-link">サカエマチHOLICのサイトを見る →</a>
+        </div>
+        <figure class="venue-photo">
+          <img src="holic.jpg" alt="サカエマチHOLICでのセミナーのようす。テーブルを囲んで話を聞く参加者たち">
+          <figcaption>いつもこんな雰囲気です（過去のセミナーより）</figcaption>
+        </figure>
+      </div>
     </div>
     <div class="trust">特定の会社の商品を売る会ではありません。無理な勧誘は一切いたしません。</div>
   </div>
