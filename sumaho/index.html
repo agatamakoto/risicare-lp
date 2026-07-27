@@ -11,10 +11,10 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>＜賢いスマホの付き合い方＞無料セミナー｜9/12(土)・9/20(日) サカエマチHOLIC × AEC-FP事務所</title>
+<title>＜知らないと損する スマホの話＞無料セミナー｜9/12(土)・9/20(日) サカエマチHOLIC × AEC-FP事務所</title>
 <meta name="description" content="スマホの困りごとをまるごと解決。9月12日(土)・20日(日)、西条市栄町商店街のサカエマチHOLICで開催する無料セミナー。1級FP技能士とITの専門家が、料金プラン・使い方・買い替えのお悩みにアドバイスします。参加無料・予約優先・当日もOK。ご参加＋アンケートで薬膳茶プレゼント。">
 <meta name="robots" content="index,follow">
-<meta property="og:title" content="＜賢いスマホの付き合い方＞無料セミナー｜サカエマチHOLIC × AEC-FP事務所">
+<meta property="og:title" content="＜知らないと損する スマホの話＞無料セミナー｜サカエマチHOLIC × AEC-FP事務所">
 <meta property="og:description" content="スマホの困りごとを、まるごと解決。9/12(土)・9/20(日) 西条市大町のサカエマチHOLICで開催。参加無料・予約優先。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://risicare.org/sumaho/">
@@ -141,6 +141,66 @@
     font-size:0.9rem; font-weight:700; color:var(--teal-dark); line-height:1.7;
   }
 
+  /* 実際にあった相談 */
+  .cases { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .case {
+    background:#fff; border:1px solid var(--cream-line); border-radius:18px;
+    padding:24px; display:flex; flex-direction:column;
+  }
+  .case-q {
+    font-weight:700; font-size:1rem; color:var(--ink); line-height:1.8;
+    padding-left:32px; position:relative; margin-bottom:16px;
+  }
+  .case-q::before {
+    content:'Q'; position:absolute; left:0; top:2px;
+    width:24px; height:24px; border-radius:50%; background:var(--navy); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:0.85rem;
+  }
+  .case-a {
+    background:var(--mint); border-radius:12px; padding:16px 18px; margin-top:auto;
+    font-size:0.94rem; color:var(--text); line-height:1.8;
+  }
+  .case-a strong { color:var(--teal-dark); font-weight:900; }
+  .case-result {
+    display:inline-block; margin-top:10px;
+    background:var(--teal); color:#fff; border-radius:999px;
+    padding:5px 16px; font-weight:900; font-size:0.92rem;
+    font-family:'Zen Maru Gothic',sans-serif;
+  }
+  .cases-note { font-size:0.82rem; color:var(--muted); margin-top:16px; text-align:center; }
+
+  /* 当日の流れ */
+  .flow { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .step {
+    background:#fff; border:1px solid var(--cream-line); border-radius:18px;
+    padding:26px 20px; text-align:center; position:relative;
+  }
+  .step:not(:last-child)::after {
+    content:'▶'; position:absolute; right:-13px; top:50%; transform:translateY(-50%);
+    font-size:0.9rem; color:var(--teal); z-index:1;
+  }
+  .step-num {
+    width:46px; height:46px; border-radius:50%; background:var(--teal); color:#fff;
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:1.25rem;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 12px;
+  }
+  .step-time {
+    display:inline-block; background:var(--cream); border:1px solid var(--cream-line);
+    color:var(--muted); font-weight:900; font-size:0.76rem;
+    padding:2px 14px; border-radius:999px; margin-bottom:10px;
+  }
+  .step h3 {
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900;
+    font-size:1.08rem; color:var(--ink); margin-bottom:8px; line-height:1.5;
+  }
+  .step p { font-size:0.9rem; color:var(--muted); line-height:1.8; }
+  .flow-note {
+    margin-top:20px; background:var(--mint); border-radius:14px;
+    padding:16px 22px; text-align:center;
+    font-weight:700; font-size:0.98rem; color:var(--teal-dark);
+  }
+
   /* セミナー概要 */
   .info-wrap { background:#fff; }
   .info-card {
@@ -209,7 +269,10 @@
   @media (max-width:860px){
     .worries { grid-template-columns:1fr 1fr; }
     .members { grid-template-columns:1fr; }
+    .cases { grid-template-columns:1fr; }
     .info-body { grid-template-columns:1fr; }
+    .flow { grid-template-columns:1fr; }
+    .step:not(:last-child)::after { content:'▼'; right:auto; left:50%; top:auto; bottom:-12px; transform:translateX(-50%); }
   }
   @media (max-width:620px){
     body { padding-bottom:70px; }
@@ -275,6 +338,31 @@
   </div>
 </section>
 
+<!-- 実際にあったこんな相談 -->
+<section style="background:#fff;">
+  <div class="inner">
+    <h2 class="sec">実際にあった、こんなご相談</h2>
+    <div class="rule"></div>
+    <div class="cases">
+      <div class="case">
+        <p class="case-q">バッテリーがふくらんできて買い替えが必要に。お店に行ったら「10万円」と言われたのですが、そんなものでしょうか？</p>
+        <div class="case-a">
+          使い方をうかがうと、そこまでの機種は必要ありませんでした。ご予算に合う機種を一緒に選び、<strong>初期設定もぜんぶ込み</strong>でお渡ししました。
+          <span class="case-result">10万円 → 4万円以下に</span>
+        </div>
+      </div>
+      <div class="case">
+        <p class="case-q">夫婦二人で毎月12,000円ほど払っています。高い気はするけれど、どこを見直せばいいのか分かりません。</p>
+        <div class="case-a">
+          実際の使用量を確認したところ、<strong>使っていないオプションと大きすぎるデータ容量</strong>が原因でした。使い方に合うプランに変更しました。
+          <span class="case-result">月額が半額以下に</span>
+        </div>
+      </div>
+    </div>
+    <p class="cases-note">※ 実際のご相談例です。金額は機種・プラン・使用状況によって異なります。無理な契約変更はおすすめしません。</p>
+  </div>
+</section>
+
 <!-- メンバー -->
 <section style="background:#fff;">
   <div class="inner">
@@ -303,11 +391,40 @@
   </div>
 </section>
 
+<!-- 当日の流れ -->
+<section>
+  <div class="inner">
+    <h2 class="sec">当日の流れ（約1時間）</h2>
+    <div class="rule"></div>
+    <div class="flow">
+      <div class="step">
+        <div class="step-num">1</div>
+        <span class="step-time">約30分</span>
+        <h3>ミニ講座</h3>
+        <p>「スマホ代のしくみ」「損しない選び方」を、やさしくお話しします。むずかしい用語は使いません。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <span class="step-time">約30分</span>
+        <h3>アンケート＋その場で相談</h3>
+        <p>かんたんなアンケートにご記入いただき、気になることをその場でお聞きします。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <span class="step-time">ご希望の方</span>
+        <h3>後日、個別に無料相談</h3>
+        <p>じっくり相談したい方は、後日あらためて個別に。日程はその場で調整します。</p>
+      </div>
+    </div>
+    <p class="flow-note">手ぶらでお越しいただいて大丈夫です。お使いのスマホをお持ちいただくと、その場で一緒に確認できます。</p>
+  </div>
+</section>
+
 <!-- セミナー概要 -->
 <section class="info-wrap" style="background:var(--cream);">
   <div class="inner">
     <div class="info-card">
-      <div class="info-head">＜賢いスマホの付き合い方＞無料セミナーのご案内</div>
+      <div class="info-head">＜知らないと損する スマホの話＞無料セミナーのご案内</div>
       <div class="info-body">
         <table class="info-rows">
           <tr>
@@ -355,7 +472,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="flogo">＜賢いスマホの付き合い方＞無料セミナー</div>
+  <div class="flogo">＜知らないと損する スマホの話＞無料セミナー</div>
   <p>主催：サカエマチHOLIC × AEC-FP事務所<br>〒793-0030 愛媛県西条市大町1663</p>
   <p style="margin-top:6px;">お問い合わせ：<a href="tel:0897-47-6943">0897-47-6943</a>（9:00〜15:00）</p>
   <p style="margin-top:8px;">© 2026 サカエマチHOLIC</p>
