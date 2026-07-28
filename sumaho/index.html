@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>＜知らないと損する スマホの話＞無料セミナー｜9/12(土)・9/20(日) サカエマチHOLIC主催</title>
-<meta name="description" content="スマホの困りごとをまるごと解決。9月12日(土)・20日(日)、西条市栄町商店街のサカエマチHOLICで開催する無料セミナー。1級FP技能士とITの専門家が、料金プラン・使い方・買い替えのお悩みにアドバイスします。参加無料・予約優先・当日もOK。ご参加＋アンケートで薬膳茶プレゼント。">
+<meta name="description" content="スマホの困りごとをまるごと解決。9月12日(土)・20日(日)、西条市栄町商店街のサカエマチHOLICで開催する無料セミナー。1級FP技能士とITの専門家が、料金プラン・使い方・買い替えのお悩みにアドバイスします。参加無料・予約優先・当日もOK。会場では薬膳茶をふるまいます。">
 <meta name="robots" content="index,follow">
 <meta property="og:title" content="＜知らないと損する スマホの話＞無料セミナー｜サカエマチHOLIC主催">
 <meta property="og:description" content="スマホの困りごとを、まるごと解決。9/12(土)・9/20(日) 西条市大町のサカエマチHOLICで開催。参加無料・予約優先。">
@@ -238,6 +238,31 @@
   .venue-photo img { border-radius:12px; width:100%; aspect-ratio:4/3; object-fit:cover; }
   .venue-photo figcaption { font-size:0.76rem; color:var(--muted); text-align:center; margin-top:6px; }
 
+  /* 地図・アクセス */
+  .map-card {
+    background:#fff; border:2px solid var(--navy); border-radius:18px; overflow:hidden;
+  }
+  .map-head {
+    background:var(--navy); color:#fff; text-align:center;
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900;
+    font-size:clamp(1.05rem,2.8vw,1.3rem); padding:14px 16px; line-height:1.5;
+  }
+  .map-body { padding:26px 22px 24px; }
+  .map-svg-wrap { width:100%; max-width:640px; margin:0 auto; }
+  .map-svg-wrap svg { width:100%; height:auto; display:block; }
+  .map-caption {
+    text-align:center; font-weight:900; font-size:1.15rem; color:var(--navy);
+    font-family:'Zen Maru Gothic',sans-serif; margin-top:16px; line-height:1.7;
+  }
+  .map-caption .hl { color:var(--teal-dark); }
+  .map-sub { text-align:center; font-size:0.92rem; color:var(--muted); margin-top:6px; line-height:1.8; }
+  .map-actions { display:flex; justify-content:center; margin-top:20px; }
+  .map-btn {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--teal); color:#fff; text-decoration:none; font-weight:900; font-size:0.96rem;
+    padding:13px 26px; border-radius:999px;
+  }
+
   /* ── CTA ── */
   .cta { background:var(--teal); text-align:center; padding:52px 18px; color:#fff; }
   .cta h2 {
@@ -306,7 +331,7 @@
     <div class="hero-badges">
       <span class="hero-badge">参加無料</span>
       <span class="hero-badge">予約優先・当日OK</span>
-      <span class="hero-badge gold">薬膳茶プレゼント</span>
+      <span class="hero-badge gold">会場で薬膳茶をふるまいます</span>
     </div>
     <h1>スマホの困りごとを、<br><span class="mark">まるごと解決。</span></h1>
 
@@ -445,13 +470,62 @@
         </table>
         <div>
           <div class="gift">
-            <div class="lbl">ご参加＋アンケートを<br>ご回答いただいた方に！</div>
-            <div class="name">薬膳茶を<br>プレゼント</div>
+            <div class="lbl">ご来場のみなさまに<br>会場で</div>
+            <div class="name">薬膳茶を<br>ふるまいます</div>
           </div>
           <figure class="venue-photo">
             <img src="holic.jpg" alt="サカエマチHOLICでのセミナーのようす">
             <figcaption>いつもこんな雰囲気です</figcaption>
           </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 地図・アクセス -->
+<section>
+  <div class="inner">
+    <div class="map-card">
+      <div class="map-head">アクセス（地図）</div>
+      <div class="map-body">
+        <div class="map-svg-wrap">
+          <svg viewBox="0 0 640 226" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="栄町商店街の案内図。やぶき塾とウエキ果物店の間にサカエマチHOLICがあります。">
+            <!-- 通り -->
+            <rect x="50" y="172" width="540" height="14" rx="7" style="fill:var(--cream-line)"></rect>
+            <line x1="60" y1="179" x2="580" y2="179" stroke="#fff" stroke-width="2" stroke-dasharray="10 8"></line>
+            <text x="320" y="212" text-anchor="middle" font-weight="900" font-size="16" style="fill:var(--muted)">栄町商店街</text>
+
+            <!-- やぶき塾 -->
+            <line x1="120" y1="126" x2="120" y2="172" style="stroke:var(--navy)" stroke-width="3"></line>
+            <circle cx="120" cy="100" r="26" fill="#fff" style="stroke:var(--navy)" stroke-width="3"></circle>
+            <text x="120" y="109" text-anchor="middle" font-weight="900" font-size="24" style="fill:var(--navy)">塾</text>
+            <text x="120" y="58" text-anchor="middle" font-weight="900" font-size="16" style="fill:var(--navy)">やぶき塾</text>
+
+            <!-- サカエマチHOLIC（中央・強調） -->
+            <circle cx="320" cy="100" r="48" fill="none" style="stroke:var(--teal)" stroke-width="3" opacity="0.35"></circle>
+            <line x1="320" y1="140" x2="320" y2="172" style="stroke:var(--navy)" stroke-width="4"></line>
+            <circle cx="320" cy="100" r="40" style="fill:var(--teal);stroke:var(--navy)" stroke-width="4"></circle>
+            <text x="320" y="105" text-anchor="middle" font-weight="900" font-size="15" fill="#fff">HOLIC</text>
+            <polygon points="320,36 309,52 331,52" style="fill:var(--navy)"></polygon>
+            <rect x="248" y="2" width="144" height="34" rx="17" style="fill:var(--navy)"></rect>
+            <text x="320" y="24" text-anchor="middle" font-weight="900" font-size="15" fill="#fff">会場はここ！</text>
+
+            <!-- ウエキ果物店 -->
+            <line x1="520" y1="126" x2="520" y2="172" style="stroke:var(--navy)" stroke-width="3"></line>
+            <circle cx="520" cy="100" r="26" fill="#fff" style="stroke:var(--navy)" stroke-width="3"></circle>
+            <text x="520" y="109" text-anchor="middle" font-size="22">🍊</text>
+            <text x="520" y="58" text-anchor="middle" font-weight="900" font-size="16" style="fill:var(--navy)">ウエキ果物店</text>
+          </svg>
+        </div>
+        <p class="map-caption">サカエマチHOLICは、<span class="hl">やぶき塾さん</span>と<span class="hl">ウエキ果物店さん</span>の間です</p>
+        <p class="map-sub">
+          栄町商店街の中／伊予西条駅から徒歩約7分<br>
+          〒793-0030 愛媛県西条市大町1663<br>
+          <span style="font-size:0.85em;">※ 分かりやすさのため簡略化した案内図です</span>
+        </p>
+        <div class="map-actions">
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=%E3%82%B5%E3%82%AB%E3%82%A8%E3%83%9E%E3%83%81HOLIC+%E6%84%9B%E5%AA%9B%E7%9C%8C%E8%A5%BF%E6%9D%A1%E5%B8%82%E5%A4%A7%E7%94%BA1663" target="_blank" rel="noopener">📍 Googleマップで見る</a>
         </div>
       </div>
     </div>
