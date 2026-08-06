@@ -1,0 +1,2126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Local Coworking Community</title>
+<style>
+:root{
+  --bg:#12141a; --panel:#1a1d25; --panel2:#21252f; --line:#2e3340;
+  --tx:#e8eaf0; --dim:#9aa2b4; --acc:#f0a848;
+  --moon:#7aa7ff; --earth:#5fbf8f; --sun:#f0a848;
+  --core:#f0a848; --mid:#7aa7ff; --edge:#8b93a6;
+  --good:#5fbf8f; --bad:#e2686b; --warn:#e8b34a;
+}
+@media (prefers-color-scheme: light){
+  :root{ --bg:#f4f5f8; --panel:#fff; --panel2:#eef0f5; --line:#dce0e8;
+         --tx:#1c1f27; --dim:#68708a; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  font-size:14px;line-height:1.65;-webkit-text-size-adjust:100%}
+#app{max-width:1140px;margin:0 auto;padding:14px}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:.02em}
+p{margin:0 0 9px}
+button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);
+  background:var(--panel2);border-radius:8px;padding:8px 12px;transition:.12s}
+button:hover:not(:disabled){border-color:var(--acc);transform:translateY(-1px)}
+button:disabled{opacity:.35;cursor:not-allowed}
+.pri{background:var(--acc);color:#12141a;border-color:var(--acc);font-weight:700}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.col{flex:1 1 320px;min-width:0}
+.dim{color:var(--dim)} .sm{font-size:12px} .xs{font-size:11px}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;
+  border:1px solid var(--line);background:var(--panel2);margin:1px 2px 1px 0;white-space:nowrap}
+.hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:8px;flex-wrap:wrap}
+#bar{position:sticky;top:0;z-index:20;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:10px 12px;margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.stat{display:flex;flex-direction:column;min-width:72px}
+.stat b{font-size:16px;font-variant-numeric:tabular-nums;line-height:1.25}
+.stat span{font-size:10.5px;color:var(--dim);letter-spacing:.04em}
+.meter{height:5px;border-radius:9px;background:var(--panel2);overflow:hidden;margin-top:3px}
+.meter i{display:block;height:100%;border-radius:9px}
+.zone{border:1px dashed var(--line);border-radius:10px;padding:8px;margin-bottom:8px;background:var(--panel2)}
+.zone h4{margin:0 0 6px;font-size:11px;color:var(--dim);font-weight:600;letter-spacing:.06em}
+.seats{display:flex;gap:6px;flex-wrap:wrap}
+.seat{width:82px;height:62px;border:1px solid var(--line);border-radius:8px;background:var(--panel);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10.5px;
+  cursor:pointer;padding:3px;text-align:center;line-height:1.3;overflow:hidden}
+.seat.empty{opacity:.38;border-style:dashed}
+.seat.sel{outline:2px solid var(--acc);outline-offset:1px}
+.seat.match,.chip.match{border-color:var(--good);box-shadow:0 0 0 1px var(--good) inset;
+  background:linear-gradient(180deg,rgba(95,191,143,.14),transparent)}
+.seat{position:relative}
+.spark{position:absolute;top:1px;right:3px;color:var(--good);font-size:12px;animation:tw 1.6s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
+.seat.tgt{border-color:var(--acc);background:rgba(240,168,72,.12)}
+.seat b{font-size:11.5px;font-weight:700}
+.dot{width:7px;height:7px;border-radius:99px;display:inline-block;margin-right:3px;vertical-align:middle}
+.chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:99px;
+  padding:3px 9px;margin:2px;font-size:11.5px;background:var(--panel2);cursor:pointer}
+.chip:hover{border-color:var(--acc)}
+.item{border:1px solid var(--line);border-radius:9px;padding:9px 10px;margin-bottom:7px;background:var(--panel2)}
+.item.done{opacity:.42}
+.opts{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.opts button{font-size:12px;padding:5px 9px}
+.acts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px}
+.acts button{text-align:left;padding:8px 10px;font-size:12.5px}
+.acts button i{display:block;font-style:normal;font-size:10.5px;color:var(--dim);margin-top:2px}
+.sl{margin-bottom:9px}
+.sl label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px}
+.sl input{width:100%;accent-color:var(--acc)}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.66);display:none;
+  align-items:center;justify-content:center;padding:14px;z-index:50}
+#modal.on{display:flex}
+#mbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:18px;max-width:620px;width:100%;max-height:88vh;overflow:auto}
+.bd{border-bottom:1px solid var(--line);padding:5px 0;display:flex;justify-content:space-between;gap:10px}
+.bd:last-child{border:0}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.mk{font-size:16px;font-weight:700;line-height:1}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.pick{width:100%;text-align:left;margin-bottom:6px}
+.hr{height:1px;background:var(--line);margin:12px 0;border:0}
+.note{background:var(--panel2);border-left:3px solid var(--acc);padding:9px 11px;border-radius:0 8px 8px 0;font-size:12.5px}
+.tierbar{display:flex;height:22px;border-radius:6px;overflow:hidden;border:1px solid var(--line);font-size:10.5px}
+.tierbar div{display:flex;align-items:center;justify-content:center;color:#12141a;font-weight:700;min-width:0}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:9px}
+.vcard{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--panel2);cursor:pointer;text-align:left}
+.vcard:hover{border-color:var(--acc)}
+.vcard.on{border-color:var(--acc);background:rgba(240,168,72,.12)}
+.vcard h3{font-size:14px;margin-bottom:4px}
+.hg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:9px;margin:10px 0}
+.hc{border:1px solid var(--line);border-radius:10px;padding:11px;background:var(--panel2)}
+.hc .ic{font-size:26px;line-height:1.1}
+.hc b{display:block;font-size:13.5px;margin:5px 0 3px}
+.hc span{font-size:11.5px;color:var(--dim);line-height:1.5}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0}
+.flow .st{flex:1 1 130px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--panel2);text-align:center}
+.flow .st .ic{font-size:24px}
+.flow .st b{display:block;font-size:13px;margin-top:3px}
+.flow .st span{font-size:11px;color:var(--dim)}
+.arw{color:var(--dim);font-size:18px}
+#flash{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:60;
+  background:var(--bg);pointer-events:none;flex-direction:column;gap:6px}
+#flash.on{display:flex;animation:fl 1.5s ease forwards}
+#flash b{font-size:44px;letter-spacing:.06em}
+#flash span{color:var(--dim);font-size:13px;letter-spacing:.2em}
+@keyframes fl{0%{opacity:0}18%{opacity:1}70%{opacity:1}100%{opacity:0}}
+#snd{position:fixed;right:12px;bottom:12px;z-index:30;font-size:12px;padding:6px 11px;
+  border-radius:99px;background:var(--panel);opacity:.85}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="flash"><b></b><span></span></div>
+<button id="snd" onclick="toggleSound()">♪</button>
+<div id="modal"><div id="mbox"></div></div>
+
+<script>
+"use strict";
+/* ================= The Local Coworking Community — MVP v3 ================= */
+
+const G = {
+  moon : {n:'月',  ax:'相手軸', c:'var(--moon)',  tempo:2.75, dist:3.25},
+  earth: {n:'地球', ax:'自分軸', c:'var(--earth)', tempo:2.50, dist:2.50},
+  sun  : {n:'太陽', ax:'気分軸', c:'var(--sun)',   tempo:4.25, dist:3.50},
+};
+const GA = { moon:{moon:+2,earth:-1,sun:0}, earth:{moon:-1,earth:+2,sun:-1}, sun:{moon:0,earth:-1,sun:+2} };
+/* 性格。良し悪しではない。組み合わせで場の空気が決まる */
+const TR = {
+  ikeike:{n:'いけいけ',      load:1, gift:2, w:9},
+  quiet :{n:'もの静か',      load:0, gift:2, w:9},
+  care  :{n:'世話好き',      load:1, gift:3, w:8},
+  focus :{n:'マイペース',    load:1, gift:1, w:9},
+  kori  :{n:'凝り性',        load:1, gift:2, w:8},
+  natsu :{n:'人なつっこい',  load:0, gift:2, w:9},
+  shikka:{n:'しっかり者',    load:0, gift:3, w:8},
+  yancha:{n:'やんちゃ',      load:2, gift:1, w:8},
+  // ここから下は、まれに現れる
+  right :{n:'空気が読めない',    load:3, gift:1, w:1.6, bad:1},
+  appr  :{n:'承認欲求が強い',    load:3, gift:0, w:1.6, bad:1},
+  talk  :{n:'人の話を聞かない',  load:3, gift:0, w:1.6, bad:1},
+};
+const TR_KEYS=Object.keys(TR);
+/* 性格どうしの噛み合い */
+const TR_PAIR={ ikeike:{quiet:1,natsu:1,appr:-1}, quiet:{ikeike:1,shikka:1,yancha:-1},
+  care:{natsu:1,quiet:1}, focus:{shikka:1,yancha:-1}, kori:{shikka:1,yancha:-2},
+  natsu:{ikeike:1,care:1,yancha:1}, shikka:{kori:1,focus:1,quiet:1}, yancha:{natsu:1,kori:-2,quiet:-1},
+  right:{}, appr:{ikeike:-1}, talk:{quiet:-1,kori:-1} };
+/* 事業のフェーズ。ここから「いくら払えそうか」を推し量る */
+const PHASE=['やってみたいと思っている','始めたばかり','少しずつ形になってきた','軌道に乗ってきた','長く続けている'];
+/* ── 会員の「やりたいこと」と「できること」 ── */
+const TAG={web:'Web・IT',design:'デザイン',money:'経理・資金',sales:'販路・営業',food:'食・農',
+  craft:'ものづくり',edu:'教育・子ども',local:'地域・行政',people:'人手・仲間',space:'場所・機材'};
+const TAGI={web:'💻',design:'🎨',money:'💰',sales:'📈',food:'🌾',
+  craft:'🔨',edu:'📚',local:'🏛',people:'👥',space:'🏠'};
+const WANT=[
+ {t:'ネットショップを始めたい',        need:['web','design']},
+ {t:'自分の商品を置ける場所がほしい',  need:['space','sales']},
+ {t:'一緒にイベントをやる仲間がほしい',need:['people','space']},
+ {t:'経理をどうにかしたい',            need:['money']},
+ {t:'補助金を取ってみたい',            need:['money','local']},
+ {t:'自分の教室を開きたい',            need:['space','edu']},
+ {t:'引っ越してきたので、知り合いがほしい',need:['people','local']},
+ {t:'作った野菜の売り先を広げたい',    need:['sales','food']},
+ {t:'会社を辞めて独立したい',          need:['money','people']},
+ {t:'子どもの居場所をつくりたい',      need:['edu','local']},
+ {t:'ホームページを直したい',          need:['web']},
+ {t:'商品のパッケージを作り直したい',  need:['design','craft']},
+ {t:'地域の困りごとを解決したい',      need:['local','people']},
+ {t:'仕事の相談ができる相手がほしい',  need:['people','money']},
+ {t:'外国から来た人と何かやってみたい',need:['people','local']},
+ {t:'自分の技術を誰かに教えたい',      need:['edu','people']},
+];
+const OFFER={web:'Webサイトが作れる',design:'デザインができる',money:'経理と補助金に詳しい',
+  sales:'販路を持っている',food:'畑と作物がある',craft:'ものづくりの技術がある',
+  edu:'教えるのが得意',local:'行政と地域に顔がきく',people:'人を集められる',space:'場所や機材を持っている'};
+/* 職業ごとに、持っていそうなもの */
+const OCC_OFFER={'自営業':['sales','space'],'士業':['money','local'],'フリーランス':['web','design'],
+  '企業の副業組':['sales','money'],'農業':['food','space'],'主婦・パート':['people','edu'],
+  '退職者':['local','people'],'移住・協力隊':['local','people'],'元教員':['edu'],
+  '創業予定者':['craft'],'金融機関':['money'],'商工会議所':['local'],'カフェ客':['people'],
+  'ママ友':['people','edu'],'民生委員':['local'],'ボランティア':['people'],'アーティスト':['design','craft'],
+  'イベント主催':['people'],'地域団体':['local','people'],'ワーケーション':['web','design'],
+  '外国人旅行者':['people'],'打合せ利用':['sales'],'高校生':[],'ひとり親':[],'保護者':['people'],'サイクリスト':[]};
+/* 月額いくらまでなら払うか。10万人都市の実勢：中央値3,500円前後、使い放題層で1万円超 */
+function makeBudget(){
+  const r=Math.random();
+  if(r<0.30) return ri(2000,3500);
+  if(r<0.70) return ri(3500,5500);
+  if(r<0.90) return ri(5500,9000);
+  return ri(10000,16000);
+}
+const SEI=['白石','真鍋','村上','渡部','近藤','曽我部','菊池','天野','藤原','丹下','玉井','河野','大西','日野',
+  '青野','十亀','加藤','佐々木','山内','宮内','高橋','田中','中村','伊藤','岡田','松本','三好','篠原','森','石川',
+  '井上','木村','竹内','原田','西山','続木','宇都宮','矢野','越智田','片山'];
+const GAIJIN=['グエン','マリア','ジャン','リー','キム','サーラ','アンナ','ラミレス','パク','タン','ホアン','ソフィ'];
+
+const OCC = [
+  {k:'自営業',w:20,q:.30},{k:'士業',w:10,q:.60},{k:'フリーランス',w:10,q:.70},
+  {k:'企業の副業組',w:15,q:.50},{k:'農業',w:10,q:.20},{k:'主婦・パート',w:15,q:.30},
+  {k:'退職者',w:15,q:.10},{k:'移住・協力隊',w:5,q:.20},
+];
+/* ── 6つの複合オプション ── */
+const OPT = {
+  cafe:  {i:'☕',n:'カフェ併設', cost:1800000, fix:180000,
+    d:'一般客が入ってくる。現金は最も安定する。そのぶん要求も来る。',
+    pool:[{k:'カフェ客',w:14,q:.15,pay:'c'},{k:'ママ友',w:8,q:.05,pay:'c'},{k:'打合せ利用',w:6,q:.20}]},
+  kodomo:{i:'🍚',n:'こども食堂', cost:800000, fix:30000,
+    d:'1円も生まない。かわりに、この街での信用が変わる。野菜や米が届きはじめる。',
+    pool:[{k:'民生委員',w:5,q:.30,pay:'n'},{k:'ひとり親',w:6,q:.35,pay:'n'},{k:'ボランティア',w:7,q:.25,pay:'n'}]},
+  juku:  {i:'📗',n:'学習塾・自習室', cost:600000, fix:80000,
+    d:'平日の夕方が埋まる。保護者経由で地域の信用が付く。成績という期待も付いてくる。',
+    pool:[{k:'高校生',w:10,q:.45,pay:'n'},{k:'保護者',w:6,q:.25,pay:'n'},{k:'元教員',w:5,q:.40}]},
+  kigyo: {i:'🚀',n:'起業支援', cost:200000, fix:0,
+    d:'金はかからない。かわりに、あなたの時間が消える。法人契約と受託の道が開く。',
+    pool:[{k:'創業予定者',w:9,q:.35},{k:'金融機関',w:4,q:.50},{k:'商工会議所',w:4,q:.40}]},
+  guest: {i:'🛏',n:'ゲストハウス', cost:3800000, fix:120000,
+    d:'外の血が入る。稼働率が全て。閑散期に固定費が刺さる。',
+    pool:[{k:'ワーケーション',w:8,q:.55,pay:'d'},{k:'サイクリスト',w:5,q:.25,pay:'d'},{k:'外国人旅行者',w:6,q:.30,pay:'d'}]},
+  event: {i:'🎪',n:'イベント施設', cost:1000000, fix:20000,
+    d:'音響と可動什器。主催したい人が輝く。イベントの日は、作業席が犠牲になる。',
+    pool:[{k:'イベント主催',w:8,q:.15},{k:'地域団体',w:6,q:.30,pay:'n'},{k:'アーティスト',w:5,q:.35}]},
+};
+const ZONES = [
+  {id:'big',  n:'大テーブル', seats:6, adj:'all'},
+  {id:'isl',  n:'島型4席',   seats:4, adj:'all'},
+  {id:'desk', n:'個別デスク', seats:4, adj:'line'},
+  {id:'booth',n:'集中ブース', seats:3, adj:'none'},
+];
+/* ハウスルール。sup = このルールがあると、その気配りはもう起きなくなる */
+const RULES = [
+  {id:'r1',i:'🚪',n:'入会は面談してから',
+   eff:'合わない人が入ってこなくなる',  bad:'新しい人は入りにくくなる', in:-.9, sup:['bz']},
+  {id:'r2',i:'📣',n:'イベントをやる人は席料タダ',
+   eff:'企画をやる人が増える',          bad:'そのぶん売上は落ちる',     in:0,   sup:[], evbonus:1},
+  {id:'r3',i:'📋',n:'「やったこと」を貼り出す',
+   eff:'もらうばかりの人が、動きはじめる', bad:'—',                     in:0,   sup:['fr']},
+  {id:'r4',i:'🤝',n:'いきなり出禁にしない（声かけ→面談→お休み）',
+   eff:'こじれる前に直せる。辞める人が減る', bad:'手間はかかる',         in:0,   sup:['wh']},
+  {id:'r5',i:'⚖️',n:'もめごと係を決めておく',
+   eff:'★もめごとを、あなた以外が収めてくれる', bad:'—',                in:0,   sup:['cf']},
+  {id:'r6',i:'📞',n:'電話は通話ブースで',
+   eff:'声の大きさで揉めなくなる',      bad:'—',                        in:0,   sup:['ph']},
+  {id:'r7',i:'🔇',n:'静かな席と、話していい席を分ける',
+   eff:'「うるさい」で人が辞めなくなる', bad:'—',                       in:0,   sup:['ki','cc']},
+  {id:'r8',i:'🚫',n:'場内での勧誘・売り込みは禁止',
+   eff:'変な商売に巻き込まれない',      bad:'—',                        in:-.2, sup:['bz']},
+  {id:'r9',i:'🧹',n:'掃除は当番制',
+   eff:'雑用があなたに集中しなくなる',  bad:'—',                        in:0,   sup:['nt'], apbonus:1},
+  {id:'r10',i:'🔑',n:'鍵はスマートロックにする',
+   eff:'鍵の管理から解放される',        bad:'導入に12万かかる',          in:0,   sup:['ke'], cost:120000},
+];
+const PROPS = [
+  {id:'p1',n:'商店街の空き店舗',tsubo:40,rent:100000,init:3000000,legit:+8,note:'通行人は少ない。だが、地域の目に入る'},
+  {id:'p2',n:'元銀行の重厚な建物',tsubo:80,rent:250000,init:8000000,legit:+14,note:'信用が付く。固定費で首が絞まる'},
+  {id:'p3',n:'郊外ロードサイド',tsubo:60,rent:150000,init:4000000,legit:0,note:'駐車場20台。歩いて来る人はいない'},
+  {id:'p4',n:'実家の空き倉庫',tsubo:30,rent:0,init:1500000,legit:-6,note:'家賃ゼロ。だが誰も知らない'},
+];
+const VISIONS = {
+  A:{n:'関係人口の玄関口',i:'🚪',d:'外から来た人が、この街と関わり続けるきっかけになる。',
+     kpi:'橋渡し62／累計入会34人／イベント9回',
+     ok:s=>s.commons.bridge>=62&&s.totalJoin>=34&&s.eventCount>=9,
+     prog:s=>(cl(s.commons.bridge/62,0,1)+cl(s.totalJoin/34,0,1)+cl(s.eventCount/9,0,1))/3*100,
+     win:'外から来た人が、ここを入口にして街と関わりはじめた。「また来ます」が、社交辞令ではなくなった。',
+     lose:'外に開く前に、12ヶ月が終わってしまった。中にいる人は居心地よさそうにしている。'},
+  B:{n:'ローカル起業の孵化器',i:'🚀',d:'この街で新しい仕事が生まれる。その最初の1歩がここで踏まれる。',
+     kpi:'法人契約4社／つながり12本／連結35',
+     ok:s=>s.corp>=4&&s.edges>=12&&s.commons.link>=35,
+     prog:s=>(cl(s.corp/4,0,1)+cl(s.edges/12,0,1)+cl(s.commons.link/35,0,1))/3*100,
+     win:'ここから、いくつかの仕事が生まれた。この街の経済に、確かに一行を足した。',
+     lose:'相談は来た。だが、形になる前に時間が尽きた。'},
+  C:{n:'まちの居場所',i:'🏠',d:'働く場所ではなく、いる場所。誰かの孤立が、ここで少し和らぐ。',
+     kpi:'信用75／コア＋中間22人／結束52',
+     ok:s=>legitimacy()>=75&&s.members.filter(m=>m.tier!=='edge').length>=22&&s.commons.bond>=52,
+     prog:s=>(cl(legitimacy()/75,0,1)+cl(s.members.filter(m=>m.tier!=='edge').length/22,0,1)+cl(s.commons.bond/52,0,1))/3*100,
+     win:'用がなくても寄れる場所になった。誰かが誰かの名前を呼ぶ声が、いつも聞こえる。',
+     lose:'居場所と呼ぶには、まだ人が定着していない。'},
+  D:{n:'地域の情報ハブ',i:'📡',d:'この街の情報と人が、ここを経由して流れる。',
+     kpi:'連結50／イベント12回／信用72',
+     ok:s=>s.commons.link>=50&&s.eventCount>=12&&legitimacy()>=72,
+     prog:s=>(cl(s.commons.link/50,0,1)+cl(s.eventCount/12,0,1)+cl(legitimacy()/72,0,1))/3*100,
+     win:'困ったらここに聞けばいい、という場所になった。行政も企業も、まずここに顔を出す。',
+     lose:'情報は集まりはじめている。だが、まだ流れてはいない。'},
+};
+
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const ri =(a,b)=>Math.floor(rnd(a,b+1));
+const cl =(v,a,b)=>Math.max(a,Math.min(b,v));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const wpick=a=>{let t=a.reduce((s,x)=>s+x.w,0),r=Math.random()*t;for(const x of a){r-=x.w;if(r<=0)return x;}return a[0];};
+const yen=v=>(v<0?'−':'')+'¥'+Math.abs(Math.round(v)).toLocaleString('ja-JP');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* ◎○—△× */
+function mk(v){ return v>=3?['◎','var(--good)']:v>=0.5?['○','var(--good)']:v>-0.5?['—','var(--dim)']:v>-3?['△','var(--warn)']:['×','var(--bad)']; }
+function mkR(v){ v=(typeof v==='number'&&isFinite(v))?v:0;
+  return v>=80?['◎','var(--good)']:v>=60?['○','var(--good)']:v>=38?['△','var(--warn)']:['×','var(--bad)']; }
+
+let S=null, MOVE=null, CB=null, PICKOPT={};
+
+/* ================= 音 ================= */
+let AC=null, BGM=null, SOUND=true;
+function ac(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+  if(AC&&AC.state==='suspended')AC.resume(); return AC; }
+function tone(f,t0,dur,type,vol){
+  const a=ac(); if(!a||!SOUND)return;
+  const o=a.createOscillator(), g=a.createGain();
+  o.type=type||'sine'; o.frequency.setValueAtTime(f,a.currentTime+t0);
+  g.gain.setValueAtTime(0,a.currentTime+t0);
+  g.gain.linearRampToValueAtTime(vol||0.07,a.currentTime+t0+0.015);
+  g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+t0+dur);
+  o.connect(g);g.connect(a.destination);o.start(a.currentTime+t0);o.stop(a.currentTime+t0+dur+0.05);
+}
+const SFX={
+  tap  :()=>tone(660,0,0.06,'sine',0.04),
+  good :()=>{[523,659,784].forEach((f,i)=>tone(f,i*0.07,0.28,'triangle',0.07));},
+  great:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,i*0.08,0.5,'triangle',0.08));
+             [131,165,196].forEach((f,i)=>tone(f,i*0.08,0.7,'sine',0.05));},
+  bad  :()=>{tone(330,0,0.18,'sawtooth',0.05);tone(233,0.09,0.3,'sawtooth',0.05);},
+  care :()=>tone(880,0,0.1,'sine',0.05),
+  month:()=>{[392,523,659].forEach((f,i)=>tone(f,i*0.11,0.45,'sine',0.06));},
+  coin :()=>{tone(988,0,0.08,'square',0.04);tone(1319,0.07,0.16,'square',0.04);},
+  warn :()=>{tone(392,0,0.12,'square',0.05);tone(311,0.11,0.22,'square',0.05);},
+};
+function sfx(k){ try{ (SFX[k]||SFX.tap)(); }catch(e){} }
+function toggleSound(){
+  SOUND=!SOUND;
+  const b=document.getElementById('snd');
+  if(SOUND){ b.textContent='♪'; b.style.opacity=.85; ac(); if(!BGM)bgmToggle(); sfx('tap'); }
+  else { b.textContent='♪ off'; b.style.opacity=.4; if(BGM)bgmToggle(); }
+}
+const MNAME=['','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月'];
+function flash(n,sub){
+  const f=document.getElementById('flash');
+  f.querySelector('b').textContent=n;
+  f.querySelector('span').textContent=sub||'';
+  f.classList.remove('on'); void f.offsetWidth; f.classList.add('on');
+  sfx('month');
+  setTimeout(()=>f.classList.remove('on'),1600);
+}
+function bgmToggle(){
+  if(BGM){ try{BGM.stop();}catch(e){} BGM=null; render(); return; }
+  const a=ac(); if(!a)return;
+  const g=a.createGain(); g.gain.value=0.022; g.connect(a.destination);
+  const o1=a.createOscillator(),o2=a.createOscillator(),o3=a.createOscillator();
+  o1.type='sine';o1.frequency.value=110; o2.type='sine';o2.frequency.value=164.8;
+  o3.type='triangle';o3.frequency.value=220;
+  const lfo=a.createOscillator(),lg=a.createGain();
+  lfo.frequency.value=0.07; lg.gain.value=0.012; lfo.connect(lg); lg.connect(g.gain);
+  [o1,o2,o3].forEach(o=>{o.connect(g);o.start();});
+  lfo.start();
+  BGM={stop(){[o1,o2,o3,lfo].forEach(o=>{try{o.stop();}catch(e){}});}};
+  render();
+}
+
+let LOAN=5500000;                       // 創業融資（100万〜1000万）
+const OWN=2500000;                      // 自己資金
+const repay=l=>Math.round(l/60/1000)*1000;   // 5年返済の月額
+function newState(src,vision,opts){
+  const prop=Object.assign({},src);
+  const o={cafe:0,kodomo:0,juku:0,kigyo:0,guest:0,event:0,virt:0};
+  let cost=0; opts.forEach(k=>{o[k]=1;cost+=OPT[k].cost;});
+  return {
+    phase:'play', month:1, ended:null, vision,
+    loan:LOAN, repay:repay(LOAN),
+    prop, cash: OWN + LOAN - prop.init - cost,
+    hp:100, hpMax:100, ap:12, mp:100, mpMax:100, basics:0,
+    commons:{bond:20,bridge:14,link:8},
+    openness:.5, density:.45,
+    price:{m:5000,d:800,corp:30000,cafe:600,kodomo:300,virt:5000,juku:12000,guest:5000,event:2000},
+    opt:o, members:[], prospects:2, corp:0, virtN:0, totalJoin:3, jukuN:6,
+    rules:[], stock:{rice:0,veg:0,vol:0},
+    eventStreak:0, kodomoCount:0, eventCount:0, marketing:0,
+    care:[], news:[], edges:0, lastReport:null, incident:null,
+    projects:[], done:0, recur:0,
+    fired:{}, seed:0, chaos:0, staffUp:0,
+  };
+}
+function optPool(){ let p=[]; for(const k in OPT) if(S.opt[k]) p=p.concat(OPT[k].pool); return p; }
+
+/* ---------- メンバー ---------- */
+function makeMember(){
+  const o=wpick(OCC.concat(optPool()));
+  const gk=pick(['moon','moon','moon','moon','earth','earth','earth','earth','sun','sun','sun','sun']);
+  const g=G[gk];
+  const tempo=cl(g.tempo+rnd(-1.1,1.1),1,5), dist=cl(g.dist+rnd(-1.1,1.1),1,5);
+  const cheap=S.price.m<3200, rich=S.price.m>9000;
+  // 性格は誰でも1〜2つ。安売りすると、扱いの難しい人が混じりやすくなる
+  const bag=TR_KEYS.map(k=>({w:TR[k].w*(TR[k].bad?(cheap?2.6:1):1),k}));
+  const traits=[];
+  const nT=Math.random()<.45?1:2;
+  while(traits.length<nT){const k=wpick(bag).k; if(!traits.includes(k))traits.push(k);}
+  if(o.pay==='n'&&o.k!=='高校生'&&Math.random()<.5&&!traits.includes('care'))traits[0]='care';
+  if(o.k==='イベント主催'&&Math.random()<.5&&!traits.includes('ikeike'))traits[0]='ikeike';
+  let gt=rnd(-2,2)+(rich?1.2:0)+(cheap?-1.4:0);
+  traits.forEach(t=>{ gt += TR[t].bad?-2.0 : (TR[t].gift-TR[t].load)*0.7; });
+  const name=(Math.random()<.12?pick(GAIJIN):pick(SEI))+'さん';
+  // 提供できること：職業から1〜2個
+  const base=(OCC_OFFER[o.k]||[]).slice();
+  const offer=[];
+  base.forEach(t=>{if(Math.random()<.8&&!offer.includes(t))offer.push(t);});
+  if(!offer.length&&base.length)offer.push(pick(base));
+  while(offer.length<2){const t=pick(Object.keys(TAG)); if(!offer.includes(t))offer.push(t);}
+  // 事業のフェーズ。会費をいくらまで出せるかは、だいたいここで決まる
+  const ph=pick([0,0,1,1,1,2,2,2,3,3,4]);
+  const solo=['自営業','士業','フリーランス','農業','創業予定者','アーティスト'].includes(o.k);
+  const phase=solo?PHASE[ph]:(o.pay==='n'?'―':pick(['勤めながら','勤めながら','独立を考えている']));
+  let budget=makeBudget();
+  if(solo) budget=Math.round(budget*(0.55+ph*0.28));
+  if(o.k==='士業'||o.k==='金融機関') budget=Math.round(budget*1.5);
+  if(o.pay==='n') budget=Math.round(budget*0.4);
+  budget=cl(Math.round(budget),1500,20000);
+  return {id:'m'+(S.seed++), name, occ:o.k, pay:o.pay||null, quiet:o.q, phase,
+    group:gk, tempo, dist, traits, gt:cl(gt,-5,5),
+    want:pick(WANT), offer, budget, inProject:false,
+    months:0, seat:null, revealed:0, links:0, belong:30+rnd(-12,22), tier:'mid', cared:false, joined:false};
+}
+function uniqName(m){let n=1; const b=m.name.replace('さん','');
+  while(S.members.some(x=>x!==m&&x.name===m.name)) m.name=b+(++n===2?'（２）':'（'+n+'）')+'さん'; return m;}
+
+function tierOf(m){ return m.belong>=67?'core':m.belong>=22?'mid':'edge'; }
+function tiers(){const t={core:[],mid:[],edge:[]};S.members.forEach(m=>t[m.tier].push(m));return t;}
+/* 静かに働きたい人は、自然とブースや個別デスクに座る */
+function reseat(){
+  S.members.forEach(m=>{ if(m.tier!=='core') m.seat=null; });
+  const core=S.members.filter(m=>m.tier==='core').sort((a,b)=>b.belong-a.belong);
+  const taken=new Set(core.filter(m=>m.seat).map(m=>m.seat));
+  const zoneKeys=z=>{const o=[];const zz=ZONES.find(x=>x.id===z);for(let i=0;i<zz.seats;i++)o.push(z+':'+i);return o;};
+  // 好みのゾーンは決まっているが、その中のどの席に座るかは日によって違う
+  const sh=a=>{const x=a.slice();for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;};
+  const quietFirst=sh(zoneKeys('booth')).concat(sh(zoneKeys('desk')),sh(zoneKeys('isl')),sh(zoneKeys('big')));
+  const socialFirst=sh(zoneKeys('big')).concat(sh(zoneKeys('isl')),sh(zoneKeys('desk')),sh(zoneKeys('booth')));
+  core.forEach(m=>{ if(m.seat)return;
+    const order=m.quiet>=0.5?quietFirst:socialFirst;
+    const f=order.find(k=>!taken.has(k));
+    if(f){m.seat=f;taken.add(f);} else {m.seat=null;m.belong-=4;} });
+}
+// 人口10万人の街で、1スペースが抱えられる会員数（市内に2〜3スペースある前提）
+function memberCap(){ return Math.round(18+S.commons.bond*0.18); }
+function seatList(){const o=[];ZONES.forEach(z=>{for(let i=0;i<z.seats;i++)o.push({z,i,key:z.id+':'+i});});return o;}
+function memberAt(k){return S.members.find(m=>m.seat===k)||null;}
+function adjacentPairs(){
+  const out=[];
+  ZONES.forEach(z=>{
+    const st=[]; for(let i=0;i<z.seats;i++){const m=memberAt(z.id+':'+i); if(m)st.push({i,m});}
+    if(z.adj==='all'){for(let a=0;a<st.length;a++)for(let b=a+1;b<st.length;b++)out.push([st[a].m,st[b].m]);}
+    else if(z.adj==='line'){for(let i=0;i<z.seats-1;i++){const A=memberAt(z.id+':'+i),B=memberAt(z.id+':'+(i+1));if(A&&B)out.push([A,B]);}}
+  }); return out;
+}
+function affinity(a,b){return GA[a.group][b.group]-0.6*Math.abs(a.tempo-b.tempo)-0.6*Math.abs(a.dist-b.dist);}
+function amplify(){return 0.6+S.density*0.9;}
+function balanceBonus(){
+  const n=S.members.length; if(n<3)return 0;
+  const r=k=>S.members.filter(m=>m.group===k).length/n;
+  return 10-22*(Math.abs(r('moon')-1/3)+Math.abs(r('earth')-1/3)+Math.abs(r('sun')-1/3));
+}
+function skew(){
+  const n=S.members.length; if(n<4)return null;
+  const c={moon:0,earth:0,sun:0}; S.members.forEach(m=>c[m.group]++);
+  for(const k in c) if(c[k]/n>=0.5)return k; return null;
+}
+function comfort(){
+  const pairs=adjacentPairs(); let ps=0;
+  if(pairs.length) ps=(pairs.reduce((s,[a,b])=>s+affinity(a,b),0)/pairs.length)*3*amplify();
+  const bal=balanceBonus(), n=Math.max(1,S.members.length);
+  let load=0,gift=0; S.members.forEach(m=>m.traits.forEach(t=>{load+=TR[t].load;gift+=TR[t].gift;}));
+  const tn=(gift-load)/n*6, rb=S.rules.length*1.5, dn=-(S.density-0.4)*22, ch=-S.chaos*1.4;
+  const pj=S.projects?S.projects.length*2.2+Math.min(S.done,8)*1.1:0;
+  const seats=seatList().length, used=S.members.filter(m=>m.seat).length;
+  const full=used>=seats?-6:used>=seats-1?-2.5:0;   // 満席は落ち着かない
+  const F=[{k:'隣り合った人の相性',v:ps},{k:'グループの配合',v:bal},{k:'メンバーの顔ぶれ',v:tn},
+    {k:'ハウスルール',v:rb},{k:'席の詰まり具合',v:dn}];
+  if(pj)F.push({k:'何かが動いている',v:pj});
+  if(full)F.push({k:'席が空いていない',v:full});
+  if(S.chaos)F.push({k:'先月の揉めごとを引きずっている',v:ch});
+  return {score:cl(50+ps+bal+tn+rb+dn+ch+pj+full,0,100),factors:F,pairs:pairs.length};
+}
+function legitimacy(){
+  // 掃除が行き届いている、Wi-Fiが切れない、聞けば答えが返ってくる。信用はまずそこから
+  return cl(12+S.openness*20+S.commons.link*0.75+Math.min(S.kodomoCount,10)*2.0
+    +Math.min(S.basics,14)*1.3
+    +(S.opt.kodomo?6:0)+(S.opt.juku?5:0)+(S.opt.kigyo?4:0)+S.prop.legit
+    +(S.price.kodomo===0&&S.opt.kodomo?6:0),0,100);
+}
+function jisou(){
+  const c=S.members.filter(m=>m.traits.includes('care')&&m.tier!=='edge').length;
+  // 自走の証拠は「会員同士が何かを成し遂げたか」
+  return S.commons.bond*0.28+S.rules.length*4.5+c*6+S.edges*1.4+S.done*10
+       +(S.rules.includes('r5')?10:0)+tiers().core.length*0.5;
+}
+function news(t){S.news.push(t);}
+function freeSeat(z){for(const s of seatList()){if(z&&s.z.id!==z)continue;if(!memberAt(s.key))return s.key;}return null;}
+function joinMember(){
+  if(S.members.length>=memberCap())return null;
+  const m=uniqName(makeMember()); S.members.push(m); S.totalJoin++; m.tier=tierOf(m); S.commons.bridge+=1.0;
+  news(m.name+'（'+m.occ+'）が入会した'); return m;
+}
+
+/* ================= 噛み合いとプロジェクト ================= */
+// Aが必要としているものを、Bが持っているか
+function matchScore(a,b){
+  if(!a.want||!b.offer)return 0;
+  const hit=a.want.need.filter(t=>b.offer.includes(t)).length;
+  let p=0; a.traits.forEach(x=>b.traits.forEach(y=>{p+=(TR_PAIR[x]&&TR_PAIR[x][y])||0;}));
+  return hit*4 + (affinity(a,b)>0?1:0) + (affinity(a,b)>1.5?1:0) + p;
+}
+/* この人につなげる相手がいるか（2回以上聞いていないと分からない） */
+function hasMatch(a){
+  if(a.revealed<2||a.inProject)return 0;
+  const b=bestMatchFor(a); return b?b.v:0;
+}
+function bestMatchFor(a){
+  let best=null,bv=0;
+  S.members.forEach(b=>{ if(b===a||b.inProject)return;
+    const v=matchScore(a,b); if(v>bv){bv=v;best=b;} });
+  return best?{m:best,v:bv}:null;
+}
+const PROJ_VERB=['をはじめた','の準備がはじまった','に取りかかった'];
+function startProject(a,b){
+  const hit=a.want.need.filter(t=>b.offer.includes(t));
+  const p={id:'p'+(S.seed++), a:a.id, b:b.id, an:a.name, bn:b.name,
+    t:a.want.t, tag:hit[0]||null, need:ri(2,3), prog:0, boost:0};
+  S.projects.push(p); a.inProject=true; b.inProject=true;
+  a.belong+=18; b.belong+=14; a.links++; b.links++; S.edges++;
+  S.commons.bridge+=4; S.commons.bond+=3;
+  news('★ '+a.name+'の「'+a.want.t+'」に、'+b.name+'が加わった');
+  sfx('good');
+  return p;
+}
+function tickProjects(R){
+  const done=[];
+  S.projects.forEach(p=>{
+    p.prog += 1 + p.boost; p.boost=0;
+    if(p.prog>=p.need) done.push(p);
+  });
+  done.forEach(p=>{
+    S.projects=S.projects.filter(x=>x!==p);
+    const a=S.members.find(m=>m.id===p.a), b=S.members.find(m=>m.id===p.b);
+    if(a){a.inProject=false;a.belong+=26;a.gt+=1.2;a.want=pick(WANT);}
+    if(b){b.inProject=false;b.belong+=20;b.gt+=1;}
+    const cash=ri(120000,320000)*(S.opt.kigyo?1.4:1);
+    S.cash+=cash; S.commons.bond+=7; S.commons.bridge+=8; S.commons.link+=4;
+    S.hp=cl(S.hp+7,-20,S.hpMax); S.mp=cl(S.mp+12,0,S.mpMax);
+    S.done++; S.marketing+=1.2; S.prospects+=ri(1,3);
+    // ここから生まれた仕事の一部が、毎月この場に還ってくる
+    const rec=ri(18000,45000); S.recur+=rec;
+    news('　（この件から、毎月 '+yen(rec)+' がこの場に入るようになった）');
+    // 「あそこに行くと何かが起きる」という評判になる
+    S.members.filter(m=>m.tier!=='edge').slice(0,5).forEach(m=>m.belong+=7);
+    news('🎉 '+p.t+'　── 形になった（'+p.an+'／'+p.bn+'）　'+yen(cash));
+    if(R){R.hp.push({k:'「'+p.t+'」が形になった',v:5});
+      R.mp.push({k:'★「'+p.t+'」が形になった',v:16});}
+  });
+  return done.length;
+}
+
+/* ================= 気配り ================= */
+const CARE=[
+ {id:'nc',w:9,if:s=>s.prospects>0, t:s=>'入口で立ち止まっている人がいる（見込み '+s.prospects+'人）',
+  warn:'入るかどうか、まだ決めかねている様子だ',
+  o:[{l:'名前を聞いて呼ぶ',ap:1,hp:1,f:()=>{const m=joinMember();if(m)m.belong+=12;S.prospects--;}},
+     {l:'席まで案内し、誰かに紹介する',ap:2,hp:2,f:()=>{const m=joinMember();if(m){m.belong+=22;m.cared=true;}S.prospects--;S.commons.bond+=1.5;}},
+     {l:'様子を見る',ap:0,hp:0,f:()=>{S.prospects=Math.max(0,S.prospects-1);S.commons.bridge-=1.2;news('入口にいた人は、そのまま帰った');}}]},
+ {id:'tk',w:8,if:s=>anyTrait('talk'), t:s=>tName('talk')+'が、こちらの話をまったく聞かずに喋り続けている',
+  warn:'隣の人が、さっきから同じページを見ている',
+  o:[{l:'割って入る',ap:1,hp:3,f:()=>{S.commons.bond+=1;}},
+     {l:'席を離す',ap:1,hp:1,f:()=>{const m=tMem('talk');const s=freeSeat('booth')||freeSeat('desk');if(m&&s){m.seat=s;m.belong-=5;}}},
+     {l:'聞ける人を隣にする',ap:2,hp:1,f:()=>{const m=tMem('talk');const l=S.members.find(x=>x!==m&&x.group==='moon'&&x.tempo<3.2&&x.seat);
+        if(m&&l){swapNear(m,l);S.commons.bond+=3;m.belong+=6;l.belong-=3;news(m.name+'の隣に'+l.name+'が座った。話が成立している');}}},
+     {l:'黙って見る',ap:0,hp:0,f:()=>{S.commons.bond-=1.6;}}]},
+ {id:'cf',w:8,if:s=>worstPair()&&worstPair()[2]<-2.2,
+  t:s=>{const w=worstPair();return w[0].name+'と'+w[1].name+'が、どうも噛み合っていない';},
+  warn:'本人たちは、たぶん気づいていない',
+  o:[{l:'個別に伝える',ap:2,hp:4,f:()=>{S.commons.bond+=2.5;}},
+     {l:'席を分ける',ap:1,hp:1,f:()=>{const w=worstPair();const s=freeSeat();if(w&&s)w[1].seat=s;}},
+     {l:'仲裁役に任せる',ap:0,hp:0,f:()=>{if(S.rules.includes('r5')&&S.commons.bond>=32){S.commons.bond+=4;news('まぁまぁ会が動いた。こちらは何もしていない');}
+        else{S.commons.bond-=3;S.hp-=2;S.chaos++;news('誰も動かなかった。結局こじれた');}}},
+     {l:'黙って見る',ap:0,hp:0,f:()=>{S.commons.bond-=2.2;S.chaos++;}}]},
+ {id:'ed',w:9,if:s=>tiers().edge.length>=2, t:s=>{const e=tiers().edge[0];return e.name+'（'+e.occ+'）を最近見ていない';},
+  warn:'最後に来たのは、3週間前だった',
+  o:[{l:'連絡してみる',ap:1,hp:2,f:()=>{const e=tiers().edge[0];if(e){e.belong+=16;e.cared=true;news(e.name+'に連絡した。「また行きます」と返ってきた');}}},
+     {l:'来たときに繋げる相手を用意しておく',ap:2,hp:2,f:()=>{const e=tiers().edge[0];if(e){e.belong+=26;e.cared=true;e.links++;S.commons.bond+=2;}}},
+     {l:'そっとしておく',ap:0,hp:0,f:()=>{const e=tiers().edge[0];if(e)e.belong-=8;}}]},
+ {id:'mid',w:8,if:s=>tiers().mid.length>=3, t:s=>{const m=pick(tiers().mid);return m.name+'が久しぶりに顔を出している';},
+  warn:'「久しぶりです」と言って、少し所在なさげにしている',
+  o:[{l:'名前を呼んで、近況を聞く',ap:1,hp:1,f:()=>{const m=pick(tiers().mid);if(m){m.belong+=14;m.cared=true;}}},
+     {l:'今やってる企画に誘う',ap:2,hp:2,f:()=>{const m=pick(tiers().mid);if(m){m.belong+=24;m.cared=true;S.commons.bond+=1.5;}}},
+     {l:'忙しいので後で',ap:0,hp:0,f:()=>{const m=pick(tiers().mid);if(m)m.belong-=6;}}]},
+ {id:'oc',w:6,if:s=>S.members.filter(m=>m.months>=4&&m.seat&&m.seat.startsWith('big')).length>=3,
+  t:()=>'常連が大テーブルを占領している', warn:'新しく来た人が、座る場所を探して立っている',
+  o:[{l:'それとなく席を移す',ap:1,hp:2,f:()=>{const o=S.members.filter(m=>m.months>=4&&m.seat&&m.seat.startsWith('big'));
+      const m=pick(o);const s=freeSeat('desk')||freeSeat('isl');if(s&&m){m.seat=s;m.belong-=4;}S.commons.bridge+=2.5;}},
+     {l:'ルールを持ち出す',ap:1,hp:1,f:()=>{if(S.rules.length){S.commons.bridge+=3;}else{S.commons.bond-=2;news('ルールが無いので、ただの小言になった');}}},
+     {l:'黙って見る',ap:0,hp:0,f:()=>{S.commons.bridge-=2.5;S.commons.bond+=1;}}]},
+ {id:'ad',w:10,if:()=>true,
+  t:()=>pick(['掃除・備品補充・請求処理・SNS投稿','領収書の整理と、来月の予約表づくり',
+    '切れた電球と、詰まったトイレと、Wi-Fiの再起動','ゴミ出し・タオルの洗濯・コーヒー豆の補充']),
+  warn:'今日やらないと、明日はもっと増える',
+  o:[{l:'ちゃんとやる',ap:2,hp:2,f:()=>{S.commons.bridge+=1;S.basics+=1.5;}},
+     {l:'ざっと済ませる',ap:1,hp:1,f:()=>{S.basics+=0.5;}},
+     {l:'後回しにする',ap:0,hp:0,f:()=>{S.commons.bond-=1.4;S.basics=Math.max(0,S.basics-1.5);
+       S.marketing=Math.max(0,S.marketing-.3);}}]},
+ {id:'gd',w:7,if:s=>bestPair(), t:s=>{const b=bestPair();return b[0].name+'と'+b[1].name+'の会話が盛り上がっている';},
+  warn:'2人とも、時間を忘れているらしい',
+  o:[{l:'黙って見る',ap:0,hp:0,f:()=>{S.commons.bond+=2.5;const b=bestPair();if(b){b[0].belong+=5;b[1].belong+=5;}news('いい時間が流れていた');}},
+     {l:'混ざる',ap:1,hp:1,f:()=>{S.commons.bond+=1;}}]},
+ {id:'fr',w:6,if:s=>anyTrait('right'), t:s=>tName('right')+'が、この場で知り合った人を次々に紹介してもらっている',
+  warn:'もらうばかりで、自分からは誰も紹介していない',
+  o:[{l:'Giveボードを見せる',ap:1,hp:1,f:()=>{if(S.rules.includes('r3')){const m=tMem('right');if(m){m.gt+=1.5;m.belong+=6;}news('数字を見て、本人が気まずそうにしていた');}else{S.hp-=2;news('見せるものが無かった');}}},
+     {l:'直接言う',ap:2,hp:4,f:()=>{const m=tMem('right');if(m){if(Math.random()<.5){m.gt+=2;news(m.name+'は素直に受け止めた');}else{m.belong-=25;S.chaos++;news(m.name+'は逆上した。「そんなつもりじゃない」');}}}},
+     {l:'何も言わない',ap:0,hp:1,f:()=>{S.commons.bond-=2;}}]},
+ {id:'ap',w:6,if:s=>anyTrait('appr'), t:s=>tName('appr')+'が、自分の実績をかなり大きめに語っている',
+  warn:'まわりが相槌を打つのをやめてから、声が大きくなった',
+  o:[{l:'イベントの主催を任せる',ap:2,hp:1,f:()=>{const m=tMem('appr');if(m){m.belong+=28;m.gt+=1.5;S.commons.bridge+=3;news(m.name+'が主催者になった。人が変わったように動いている');}}},
+     {l:'話を聞く',ap:1,hp:2,f:()=>{const m=tMem('appr');if(m)m.belong+=10;}},
+     {l:'流す',ap:0,hp:0,f:()=>{const m=tMem('appr');if(m)m.belong-=5;S.commons.bond-=1.2;}}]},
+ {id:'sn',w:5,if:s=>s.members.length>=6, t:()=>'冷蔵庫に、名前の書かれていない食べ物が3つある',
+  warn:'一番古いものは、日付が2ヶ月前だ',
+  o:[{l:'貼り紙をする',ap:1,hp:1,f:()=>{S.commons.bond+=0.5;}},
+     {l:'全部捨てる',ap:1,hp:1,f:()=>{if(Math.random()<.4){S.chaos++;S.commons.bond-=2.5;news('捨てた中に、誰かの大事なものが入っていた');}else news('誰も気づかなかった');}},
+     {l:'放っておく',ap:0,hp:1,f:()=>{if(Math.random()<.5){S.hp-=2;S.chaos++;news('冷蔵庫の件で、2人が険悪になっている');}}}]},
+ {id:'ph',w:5,if:s=>s.members.filter(m=>m.seat).length>=5&&!s.fired.booth, t:()=>'電話の声が大きい人がいる',
+  warn:'3人が、同じタイミングでイヤホンをつけた',
+  o:[{l:'個別に伝える',ap:1,hp:3,f:()=>{S.commons.bond+=1.5;}},
+     {l:'全体アナウンスにする',ap:1,hp:1,f:()=>{S.commons.bond-=0.8;news('全体に言ったので、誰も自分のことだと思わなかった');}},
+     {l:'通話ブースを作る（3万円）',ap:2,hp:1,f:()=>{S.cash-=30000;S.commons.bond+=3;S.fired.booth=1;news('通話ブースを作った。それ以来、誰も揉めていない');}},
+     {l:'我慢する',ap:0,hp:2,f:()=>{S.commons.bond-=1.5;}}]},
+ {id:'sm',w:5,if:s=>s.members.some(m=>m.occ==='退職者'), t:()=>'スマホの操作を聞かれて、もう40分になる',
+  warn:'まだ半分も終わっていない',
+  o:[{l:'最後まで付き合う',ap:2,hp:3,f:()=>{const m=S.members.find(x=>x.occ==='退職者');if(m){m.belong+=20;m.cared=true;}S.commons.bond+=2;}},
+     {l:'詳しい会員に振る',ap:1,hp:1,f:()=>{if(S.commons.bond>=30){S.commons.bond+=3.5;news('別の会員が引き受けてくれた');}else{S.hp-=2;news('誰も引き受けてくれなかった。結局自分でやった');}}},
+     {l:'次の予定があると言う',ap:0,hp:1,f:()=>{const m=S.members.find(x=>x.occ==='退職者');if(m)m.belong-=12;}}]},
+ {id:'wh',w:5,if:s=>s.members.length>=8, t:()=>'誰かが、誰かの悪口を小声で言っている',
+  warn:'聞こえない位置に移動することもできる',
+  o:[{l:'その場で話題を変える',ap:1,hp:2,f:()=>{S.commons.bond+=0.5;}},
+     {l:'あとで本人に事実を確かめる',ap:2,hp:4,f:()=>{if(Math.random()<.6){S.commons.bond+=3;news('誤解だった。解けた');}else{S.chaos++;S.commons.bond-=3;news('本当だった。しかも、もっと根が深かった');}}},
+     {l:'聞かなかったことにする',ap:0,hp:1,f:()=>{S.commons.bond-=1.8;}}]},
+ {id:'ki',w:5,if:s=>s.opt.kodomo||s.opt.juku, t:()=>'子どもが走り回っている',
+  warn:'子どもは楽しそうだ。大人は黙っている',
+  o:[{l:'子どもを注意する',ap:1,hp:2,f:()=>{S.commons.link-=1.5;S.commons.bond+=1;}},
+     {l:'コワーカーに事情を説明する',ap:1,hp:2,f:()=>{if(Math.random()<.65){S.commons.bond+=2.5;news('分かってくれた');}
+        else{const q=S.members.filter(m=>m.quiet>.5);if(q.length)pick(q).belong-=22;news('「だったら他の場所を探します」と言われた');}}},
+     {l:'時間帯を分ける',ap:2,hp:1,f:()=>{S.commons.bond+=3;news('時間をずらした。手間は増えた');}},
+     {l:'黙って見る',ap:0,hp:1,f:()=>{const q=S.members.filter(m=>m.quiet>.5);if(q.length)pick(q).belong-=12;}}]},
+ {id:'cc',w:5,if:s=>s.opt.cafe, t:()=>'カフェのお客さんが、コワーキング席を1杯で4時間占領している',
+  warn:'マグカップは、とっくに空になっている',
+  o:[{l:'声をかける',ap:1,hp:2,f:()=>{if(Math.random()<.65)news('素直に移動してくれた');else{S.hp-=2;S.chaos++;news('「客に向かってその態度は何だ」と言われた');}}},
+     {l:'席の区分けを表示する',ap:2,hp:1,f:()=>{S.commons.bond+=2;news('区分けを掲示した。少し窮屈な場所になった');}},
+     {l:'何も言わない',ap:0,hp:1,f:()=>{const c=S.members.filter(m=>m.tier==='core');if(c.length)pick(c).belong-=10;}}]},
+ {id:'q1',w:4,if:()=>true, t:()=>'見学の人に「ここって、何をする場所なんですか」と聞かれた',
+  warn:'いつも、うまく答えられない',
+  o:[{l:'丁寧に説明する',ap:1,hp:1,f:()=>{S.prospects++;}},
+     {l:'常連に説明してもらう',ap:0,hp:0,f:()=>{if(S.commons.bond>=28){S.prospects+=2;S.commons.bond+=2;news('常連が、自分の言葉で説明してくれた');}else news('誰も口を開かなかった');}},
+     {l:'パンフレットを渡す',ap:0,hp:0,f:()=>{if(Math.random()<.3)S.prospects++;}}]},
+ {id:'ev',w:4,if:s=>s.eventStreak>=1, t:()=>'次のイベント、今のところ申込みが2人',
+  warn:'会場は押さえてある',
+  o:[{l:'それでもやる',ap:1,hp:2,f:()=>{S.commons.bond+=1.5;news('2人でやった。その2人が、次を手伝うと言った');}},
+     {l:'声をかけて回る',ap:2,hp:3,f:()=>{S.commons.bond+=1;S.marketing+=0.6;}},
+     {l:'中止する',ap:0,hp:1,f:()=>{S.eventStreak=Math.max(0,S.eventStreak-2);news('中止した');}}]},
+ {id:'bz',w:4,if:s=>s.members.length>=7, t:()=>'会員が、別の会員に何かの商材を熱心に売り込んでいる',
+  warn:'テーブルにパンフレットが並んでいる',
+  o:[{l:'すぐ止める',ap:1,hp:3,f:()=>{const m=pick(S.members);m.belong-=30;S.commons.bond+=2;news('止めた。本人は納得していない');}},
+     {l:'様子を見て判断する',ap:1,hp:2,f:()=>{if(Math.random()<.5)news('ただの仕事の話だった');
+        else{S.chaos+=2;S.commons.bond-=5;const v=S.members.filter(m=>m.tier!=='edge');if(v.length)pick(v).belong-=40;news('後日、被害を訴える会員が出た');}}},
+     {l:'ルールを作る',ap:2,hp:2,f:()=>{S.commons.bond+=3.5;news('勧誘行為の取り決めを作った');}},
+     {l:'見なかったことにする',ap:0,hp:1,f:()=>{S.chaos++;S.commons.bond-=3;}}]},
+ {id:'ke',w:4,if:s=>s.members.length>=6&&!s.fired.lock, t:()=>'鍵を返さない人がいる。3回目',
+  warn:'前の2回も、結局そのままになった',
+  o:[{l:'本人に言う',ap:1,hp:2,f:()=>{S.commons.bond+=0.5;}},
+     {l:'性善説を通す',ap:0,hp:0,f:()=>{if(Math.random()<.75){S.commons.bond+=2;news('翌日、そっと返ってきた');}else{S.cash-=ri(20000,60000);news('鍵を作り直した');}}},
+     {l:'スマートロックを入れる（12万円）',ap:1,hp:1,f:()=>{S.cash-=120000;S.hp+=2;S.fired.lock=1;news('鍵の管理から解放された');}}]},
+ {id:'ss',w:4,if:s=>s.members.length>=10, t:()=>'誰かが勝手に机の配置を変えていた',
+  warn:'朝来たら、レイアウトが変わっていた',
+  o:[{l:'戻す',ap:1,hp:1,f:()=>{S.commons.bond-=0.5;}},
+     {l:'そのまま採用する',ap:0,hp:0,f:()=>{S.commons.bond+=2.5;const c=S.members.filter(m=>m.tier==='core');if(c.length)pick(c).belong+=10;
+       news('意外と使いやすかった。やった人が、少し誇らしそうだった');}},
+     {l:'誰がやったか聞いて回る',ap:2,hp:3,f:()=>{S.commons.bond-=2;S.chaos++;news('犯人探しになってしまった');}}]},
+ {id:'sq',w:4,if:s=>anyTrait('quiet')&&!s.fired.light, t:s=>tName('quiet')+'が、蛍光灯のちらつきが辛いと言っている',
+  warn:'「前から言おうと思ってたんですけど」と切り出された',
+  o:[{l:'照明を替える（4万円）',ap:1,hp:1,f:()=>{S.cash-=40000;S.commons.bond+=3;S.fired.light=1;const m=tMem('quiet');if(m){m.belong+=20;m.cared=true;}news('照明を替えた');}},
+     {l:'席を移す',ap:1,hp:1,f:()=>{const m=tMem('quiet');const s=freeSeat('booth');if(m&&s){m.seat=s;m.belong+=8;}}},
+     {l:'我慢してもらう',ap:0,hp:1,f:()=>{const m=tMem('quiet');if(m)m.belong-=18;}}]},
+ {id:'ca',w:6,if:s=>anyTrait('care')&&!s.fired.cm, t:s=>tName('care')+'が、今月も新しい人の面倒を見てくれている',
+  warn:'今月だけで、もう4人の相手をしている',
+  o:[{l:'ちゃんと礼を言う',ap:1,hp:0,f:()=>{const m=tMem('care');if(m){m.belong+=18;m.cared=true;}S.hp+=2;S.commons.bond+=2;}},
+     {l:'役割として正式に頼む',ap:2,hp:1,f:()=>{const m=tMem('care');if(m){m.belong+=26;m.cared=true;m.gt+=1;}
+        S.commons.bond+=4;S.fired.cm=1;news('コミュニティマネージャーを正式に頼んだ');}},
+     {l:'甘える',ap:0,hp:0,f:()=>{const m=tMem('care');if(m)m.belong-=14;news('また任せてしまった');}}]},
+ {id:'wish',w:12,if:s=>s.members.some(m=>m.revealed>=2&&!m.inProject),
+  t:s=>{const m=wishMem();return m.name+'が「'+m.want.t+'」と言っている';},
+  warn:'必要なものを持っている人が、この場にいるかもしれない',
+  o:[{l:'合いそうな人につなぐ',ap:2,hp:2,f:()=>{const m=wishMem(); if(m)setTimeout(()=>chooseMatch(m),60);}},
+     {l:'自分が相談に乗る',ap:1,hp:3,f:()=>{const m=wishMem(); if(m){m.belong+=15;m.cared=true;} S.commons.bond+=2;
+       news('2時間、話を聞いた。前には進んでいない');}},
+     {l:'覚えておく',ap:0,hp:0,f:()=>{}}]},
+ {id:'wish2',w:8,if:s=>s.members.filter(m=>m.revealed<2).length>=4,
+  t:()=>'名前は知っているが、何をしている人なのか知らない会員が何人かいる',
+  warn:'その人が何をしたいのかは、聞かないと分からない',
+  o:[{l:'ひとりずつ話を聞く',ap:2,hp:2,f:()=>{
+       S.members.filter(m=>m.revealed<2).slice(0,2).forEach(m=>{
+         m.revealed++; m.belong+=10; m.cared=true;
+         news('◆ '+m.name+'と話した'+(m.revealed>=2?'。「'+m.want.t+'」らしい':''));
+       }); S.commons.bond+=2;}},
+     {l:'そのうち聞く',ap:0,hp:0,f:()=>{S.commons.bond-=1;}}]},
+ {id:'n1',w:6,if:s=>s.members.length>=8, t:()=>'新しく入った人が、3週間ずっと同じ席で黙って作業している',
+  warn:'誰とも話していない',
+  o:[{l:'誰かに紹介する',ap:2,hp:2,f:()=>{const n=S.members.filter(m=>m.months<=2);
+      if(n.length){const m=pick(n);m.belong+=24;m.cared=true;m.links++;S.commons.bond+=2.5;news(m.name+'を常連に紹介した');}}},
+     {l:'コーヒーを持っていく',ap:1,hp:1,f:()=>{const n=S.members.filter(m=>m.months<=2);
+      if(n.length){const m=pick(n);m.belong+=12;m.cared=true;}}},
+     {l:'集中したいのかもしれない',ap:0,hp:0,f:()=>{const n=S.members.filter(m=>m.months<=2&&m.quiet<0.4);
+      if(n.length)pick(n).belong-=10;}}]},
+ {id:'n2',w:5,if:s=>s.members.length>=10, t:()=>'誰かが、勝手に他の会員の分までコーヒーを淹れている',
+  warn:'そういう人が、ひとりいるだけで場は変わる',
+  o:[{l:'ちゃんと見ていると伝える',ap:1,hp:0,f:()=>{S.commons.bond+=4;
+      const v=S.members.filter(m=>m.gt>0);if(v.length){const m=pick(v);m.belong+=16;m.cared=true;}}},
+     {l:'豆代を出す',ap:1,hp:0,f:()=>{S.cash-=ri(3000,8000);S.commons.bond+=5;news('豆代はこちら持ちにした');}},
+     {l:'気づかなかったことにする',ap:0,hp:0,f:()=>{}}]},
+ {id:'n3',w:5,if:s=>s.members.length>=12, t:()=>'イベントの後片付けが、いつも同じ人になっている',
+  warn:'その人は、何も言わない',
+  o:[{l:'当番制を提案する',ap:2,hp:2,f:()=>{S.commons.bond+=4;news('片付け当番を決めた');}},
+     {l:'一緒に片付ける',ap:1,hp:2,f:()=>{S.commons.bond+=2;const v=S.members.filter(m=>m.traits.includes('care'));
+      if(v.length){const m=pick(v);m.belong+=14;m.cared=true;}}},
+     {l:'そのままにする',ap:0,hp:0,f:()=>{const v=S.members.filter(m=>m.traits.includes('care'));
+      if(v.length)pick(v).belong-=16;}}]},
+ {id:'n4',w:5,if:s=>s.projects&&s.projects.length>0, t:s=>'「'+s.projects[0].t+'」の2人が、行き詰まっているように見える',
+  warn:'相談されてはいない',
+  o:[{l:'声をかける',ap:1,hp:2,f:()=>{if(S.projects.length)S.projects[0].boost+=1;S.commons.bond+=2;}},
+     {l:'詳しい人を紹介する',ap:2,hp:2,f:()=>{if(S.projects.length)S.projects[0].boost+=2;S.commons.bridge+=3;S.edges++;}},
+     {l:'見守る',ap:0,hp:0,f:()=>{if(Math.random()<.5&&S.projects.length)S.projects[0].boost+=1;}}]},
+ {id:'n5',w:5,if:s=>s.members.length>=9, t:()=>'常連が、新しく来た人に持論を長々と語っている',
+  warn:'新しい人は、さっきから頷くだけになっている',
+  o:[{l:'間に入って話題を変える',ap:1,hp:2,f:()=>{S.commons.bond+=1;
+      const n=S.members.filter(m=>m.months<=2);if(n.length)pick(n).belong+=8;}},
+     {l:'新しい人を別の席に呼ぶ',ap:1,hp:1,f:()=>{const n=S.members.filter(m=>m.months<=2);
+      if(n.length){const m=pick(n);const s=freeSeat();if(s)m.seat=s;m.belong+=10;}}},
+     {l:'黙って見る',ap:0,hp:0,f:()=>{const n=S.members.filter(m=>m.months<=2);
+      if(n.length)pick(n).belong-=14;}}]},
+ {id:'n6',w:4,if:s=>s.month>=3, t:()=>'今月の売上が、先月より落ちている',
+  warn:'原因は、まだ分からない',
+  o:[{l:'会員に率直に聞いてみる',ap:2,hp:2,f:()=>{S.commons.bond+=3;
+      if(Math.random()<.6){S.marketing+=0.8;news('「値段より、来る理由がほしい」と言われた');}
+      else news('「特に不満はないです」で終わった');}},
+     {l:'数字を眺めて考える',ap:1,hp:2,f:()=>{if(Math.random()<.5){S.marketing+=0.5;news('曜日ごとの偏りに気づいた');}}},
+     {l:'いまは考えない',ap:0,hp:1,f:()=>{}}]},
+ {id:'nt',w:4,if:s=>s.members.length>=12, t:()=>'忘れ物のカゴが溢れている',
+  warn:'一番古い傘は、去年の秋のものだ',
+  o:[{l:'片付ける',ap:1,hp:1,f:()=>{S.commons.bond+=0.5;}},
+     {l:'見なかったことにする',ap:0,hp:1,f:()=>{}}]},
+];
+function wishMem(){return S.members.find(m=>m.revealed>=2&&!m.inProject)||S.members[0];}
+function anyTrait(t){return S.members.some(m=>m.traits.includes(t)&&m.tier!=='edge');}
+function tMem(t){return S.members.find(m=>m.traits.includes(t)&&m.tier!=='edge')||null;}
+function tName(t){const m=tMem(t);return m?m.name:'誰か';}
+function worstPair(){let w=null,v=99;adjacentPairs().forEach(([a,b])=>{const x=affinity(a,b);if(x<v){v=x;w=[a,b,x];}});return w;}
+function bestPair(){return adjacentPairs().find(([a,b])=>affinity(a,b)>1.2)||null;}
+function swapNear(a,b){
+  if(!a.seat)return;
+  const z=a.seat.split(':')[0],zz=ZONES.find(x=>x.id===z);
+  for(let i=0;i<zz.seats;i++){const k=z+':'+i;if(!memberAt(k)){b.seat=k;return;}}
+  const o=memberAt(z+':0');if(o&&o!==a){const t=b.seat;b.seat=o.seat;o.seat=t;}
+}
+function genCare(){
+  // 作ったルールが片付けてくれている分は、もう出てこない
+  const sup=new Set();
+  S.rules.forEach(id=>{const r=RULES.find(x=>x.id===id); if(r)(r.sup||[]).forEach(s=>sup.add(s));});
+  const pool=CARE.filter(c=>{ if(sup.has(c.id))return false;
+    try{return c.if(S);}catch(e){return false;}});
+  const n=cl(3+Math.floor(S.members.length/9)+(S.chaos?1:0),3,5);
+  const out=[],used=new Set();
+  for(let i=0;i<n&&pool.length;i++){
+    const av=pool.filter(c=>!used.has(c.id)); if(!av.length)break;
+    const c=wpick(av.map(x=>({w:x.w,x}))).x; used.add(c.id);
+    out.push({id:c.id,t:(typeof c.t==='function'?c.t(S):c.t),warn:c.warn,o:c.o,done:false});
+  }
+  return out;
+}
+
+/* ================= 毎月のできごと ================= */
+const INC=[
+ {id:'i1',w:8,if:()=>true,t:'常連が「ここは自分が育てた」と言い出した',
+  b:'初期から支えてくれた人ではある。新しく入った人が、少し萎縮しはじめている。',
+  o:[{l:'感謝を公式に伝え、役割を渡す',f:()=>{const c=tiers().core;if(c.length)pick(c).belong+=20;S.commons.bond+=4;S.hp-=2;return '「そういうことなら」と、新人の受け入れ役を引き受けてくれた。';}},
+     {l:'そういう空気を否定する',f:()=>{S.commons.bond-=4;S.hp-=4;S.chaos++;const c=tiers().core;if(c.length)pick(c).belong-=35;return 'その日から来なくなった。他の常連も、どこか余所余所しい。';}},
+     {l:'新人側に事情を説明する',f:()=>{S.hp-=3;if(Math.random()<.5){S.commons.bridge+=3;return '分かってくれた。むしろ面白がっている。';}const e=S.members.filter(m=>m.months<3);if(e.length)pick(e).belong-=30;return '「そういう場所なんですね」と言われた。次の週から来ていない。';}},
+     {l:'何もしない',f:()=>{S.chaos++;S.commons.bridge-=3;return '空気は変わらなかった。新人が2人、静かに減った。';}}]},
+ {id:'i2',w:7,if:()=>true,t:'SNSに、ここの悪口が書かれている',
+  b:'名指しではない。だが誰が読んでも分かる。書いたのは、たぶん先月辞めた人だ。',
+  o:[{l:'公式に反論する',f:()=>{S.hp-=5;if(Math.random()<.35){S.commons.link+=2;return '事実誤認が解けた。応援するコメントも付いた。';}S.marketing=0;S.prospects=0;S.chaos++;return '燃えた。しばらく見学の問い合わせが止まった。';}},
+     {l:'黙って、いつも通りやる',f:()=>{S.hp-=2;if(Math.random()<.7)return '2週間で誰も話題にしなくなった。';S.prospects=Math.max(0,S.prospects-2);return '見学の予約が2件キャンセルになった。';}},
+     {l:'書いた本人に連絡する',f:()=>{S.hp-=6;if(Math.random()<.45){S.commons.bond+=3;return '話したら、本当は別のことで傷ついていた。投稿は消えた。';}S.chaos+=2;return '火に油だった。投稿が増えた。';}},
+     {l:'会員に相談する',f:()=>{if(S.commons.bond>=30){S.commons.bond+=5;S.hp+=1;return '「気にしなくていいですよ」と何人にも言われた。それだけで、だいぶ違った。';}S.hp-=3;return '気を遣わせただけだった。';}}]},
+ {id:'i3',w:7,if:s=>s.month>=3,t:'補助金の実績報告が、3回目の差し戻しになった',
+  b:'様式が変わったらしい。担当者も引き継ぎで詳しくない。締切は今週金曜。',
+  o:[{l:'徹夜で書き直す',f:()=>{S.hp-=9;S.cash+=ri(200000,450000);return '通った。金は入った。3日分の記憶がない。';}},
+     {l:'担当課に食い下がる',f:()=>{S.hp-=5;if(Math.random()<.5){S.commons.link+=4;S.cash+=ri(200000,450000);return '担当者が一緒に直してくれた。以来、この人とは話が早い。';}S.hp-=3;return '「決まりなので」で終わった。結局、自分で書いた。';}},
+     {l:'会員の士業に頼む（5万円）',f:()=>{S.cash-=50000;S.cash+=ri(200000,450000);S.commons.bond+=2;S.hp-=2;return '半日で片付いた。最初から頼めばよかった。';}},
+     {l:'諦める',f:()=>{S.hp-=2;S.commons.link-=3;return '辞退の連絡を入れた。';}}]},
+ {id:'i4',w:6,if:s=>s.members.length>=8,t:'会員同士が付き合って、別れた',
+  b:'どちらもコアメンバー。同じ日に来ると、空気が凍る。',
+  o:[{l:'来る曜日をずらしてもらう',f:()=>{S.hp-=4;tiers().core.slice(0,2).forEach(m=>m.belong-=12);return '両方が少しずつ来なくなった。';}},
+     {l:'それぞれの話を聞く',f:()=>{S.hp-=7;S.commons.bond+=2;if(Math.random()<.55)return '両方とも、ただ聞いてほしかっただけだった。しばらくして普通に戻った。';const c=tiers().core;if(c.length)pick(c).belong-=40;return '片方から「味方だと思ってた」と言われた。';}},
+     {l:'何も見なかったことにする',f:()=>{S.chaos++;S.commons.bond-=3;return '周りが気を遣い続けている。';}},
+     {l:'仲裁役に振る',f:()=>{if(S.rules.includes('r5')){S.commons.bond+=4;return 'まぁまぁ会が引き受けた。こちらは一度も口を挟まなかった。';}S.hp-=5;S.chaos++;return '振る相手がいなかった。結局、自分が全部聞いた。';}}]},
+ {id:'i5',w:6,if:()=>true,t:'地域の有力者が「うちの会で使わせて」と言ってきた',
+  b:'無料で、という前提で話している。',
+  o:[{l:'無料で貸す',f:()=>{S.commons.link+=5;S.hp-=3;if(Math.random()<.5){S.corp+=1;return '後日、その人の紹介で法人契約が1件決まった。';}return '「また使わせてもらうわ」と言われた。料金の話は出なかった。';}},
+     {l:'料金を提示する',f:()=>{S.hp-=4;if(Math.random()<.55){S.cash+=ri(15000,40000);S.commons.link+=2;return '「そりゃそうやな」と、あっさり払ってくれた。';}S.commons.link-=5;return '「最近の若い人は」と言われた。地域の会合で、その話が回っている。';}},
+     {l:'会員価格でならと伝える',f:()=>{S.hp-=2;S.commons.link+=2;S.cash+=ri(5000,15000);return '入会してくれた。ただし一度も来ていない。';}},
+     {l:'断る',f:()=>{S.hp+=2;S.commons.link-=6;return '断った。体力は減らなかった。';}}]},
+ {id:'i6',w:6,if:s=>s.month>=4,t:'大家から「建物を売ろうと思ってる」と言われた',
+  b:'まだ決まった話ではない、とのこと。でも不動産屋がもう来ている。',
+  o:[{l:'買い取りを検討する',f:()=>{S.hp-=5;if(S.cash>4000000&&Math.random()<.45){S.cash-=3500000;S.prop.rent=0;return '頭金を入れた。家賃はゼロになった。現金は消えた。';}return '銀行に相談したが、実績が足りないと言われた。';}},
+     {l:'地域での実績を並べて交渉する',f:()=>{S.hp-=4;if(legitimacy()>=62){S.commons.link+=5;return '「まちのためになっとるならな」と、当面は据え置きになった。';}S.prop.rent=Math.round(S.prop.rent*1.25);return '話は通じなかった。むしろ家賃が上がった。';}},
+     {l:'次の物件を探しはじめる',f:()=>{S.hp-=6;S.commons.bond-=2;return '内見に3日使った。会員には言えていない。';}},
+     {l:'考えないことにする',f:()=>{S.hp-=1;S.fired.sell=1;return '今月は、何も起きなかった。';}}]},
+ {id:'i7',w:6,if:()=>true,t:'市議が「視察に来たい」と言っている。明後日',
+  b:'資料が要るらしい。ついでに写真も撮りたいとのこと。',
+  o:[{l:'資料を作って全力で迎える',f:()=>{S.hp-=6;S.commons.link+=7;return '「これは面白い」と言われた。名刺を3枚もらった。';}},
+     {l:'普段のまま見てもらう',f:()=>{S.hp-=1;if(Math.random()<.6){S.commons.link+=4;return '会員が普通に話しかけて、そのまま1時間居座っていった。';}S.commons.link+=1;return '「思ったより小さいんですね」と言われた。';}},
+     {l:'日程をずらしてもらう',f:()=>{S.hp-=2;S.commons.link-=2;if(Math.random()<.4)return '「じゃあまた今度」と言われ、それきり連絡はない。';return '来週に変わった。準備の時間ができた。';}},
+     {l:'断る',f:()=>{S.hp+=1;S.commons.link-=5;return '断った。誰も困らなかった。';}}]},
+ {id:'i8',w:5,if:s=>s.members.length>=10,t:'元会員が、歩いて5分の場所に新しいコワーキングを開いた',
+  b:'ここで人脈を作り、ここで運営を覚えていった人だ。',
+  o:[{l:'設備で対抗する（120万円）',f:()=>{S.cash-=1200000;S.hp-=4;return '新しい椅子とモニターを入れた。それでも3人が移った。';}},
+     {l:'今いる人との時間を増やす',f:()=>{S.hp-=3;S.commons.bond+=7;tiers().core.forEach(m=>m.belong+=8);return 'コアの人たちは、誰も動かなかった。';}},
+     {l:'挨拶に行って、連携を持ちかける',f:()=>{S.hp-=3;if(Math.random()<.6){S.commons.link+=5;S.commons.bridge+=4;return '合同イベントをやることになった。';}S.hp-=2;return '気まずいだけの30分だった。';}},
+     {l:'気にしない',f:()=>{const v=S.members.filter(m=>m.tier!=='core');v.slice(0,3).forEach(m=>m.belong-=25);return '4人が移った。理由は誰も言わなかった。';}}]},
+ {id:'i9',w:5,if:s=>s.opt.cafe,t:'保健所の抜き打ち検査が入った',
+  b:'記録の付け忘れが2件見つかった。担当者は淡々としている。',
+  o:[{l:'その場で全部直す',f:()=>{S.hp-=4;S.cash-=ri(20000,60000);return '半日つぶれた。指導は口頭で済んだ。';}},
+     {l:'改善報告書を出す',f:()=>{S.hp-=3;return '書類を1枚出して終わった。';}},
+     {l:'言い訳する',f:()=>{S.hp-=2;if(Math.random()<.5)return 'なぜか納得してもらえた。';S.cash-=ri(50000,120000);S.commons.link-=3;return '再検査になった。今度は厳しかった。';}}]},
+ {id:'i10',w:5,if:s=>s.opt.kodomo,t:'こども食堂に来ている子の家庭の話を、聞いてしまった',
+  b:'運営者には、どうすることもできない種類の話だった。',
+  o:[{l:'民生委員につなぐ',f:()=>{S.hp-=4;S.commons.link+=6;return '正しい判断だった。だが、しばらく眠りが浅かった。';}},
+     {l:'できる範囲で関わる',f:()=>{S.hp-=8;S.commons.bond+=5;S.commons.link+=2;return '毎週、その子の分を余分に作るようになった。';}},
+     {l:'何もしない',f:()=>{S.hp-=5;return '何もしなかった。';}},
+     {l:'会員に相談する',f:()=>{if(S.commons.bond>=32){S.commons.bond+=4;S.hp-=2;return '同じことを気にしていた人がいた。1人で抱えなくてよくなった。';}S.hp-=6;return '重すぎて、誰も言葉が出なかった。';}}]},
+ {id:'i11',w:5,if:()=>true,t:'テレビの取材が入った。放送は30秒',
+  b:'撮影に4時間かかると言われた。',
+  o:[{l:'受ける',f:()=>{S.hp-=5;S.marketing+=2.5;S.prospects+=ri(2,6);if(Math.random()<.4){S.commons.bond-=2;return '30秒流れた。問い合わせは増えたが、うるさかったと言われた。';}return '30秒流れた。翌週、見学が何件か来た。';}},
+     {l:'会員に確認してから受ける',f:()=>{S.hp-=3;S.commons.bond+=3;S.marketing+=1.8;S.prospects+=ri(1,4);return '数人が「顔は映さないで」と言った。聞いておいてよかった。';}},
+     {l:'断る',f:()=>{S.hp+=1;return '断った。';}}]},
+ {id:'i12',w:5,if:s=>s.members.length>=6,t:'会員のひとりが、急に来なくなった',
+  b:'連絡もつかない。前回来たとき、少し様子が変だった気もする。',
+  o:[{l:'電話をかける',f:()=>{S.hp-=3;if(Math.random()<.6){const e=tiers().edge[0]||tiers().mid[0];if(e)e.belong+=25;return '出た。仕事が立て込んでいただけだった。';}return '出なかった。留守電も入れた。';}},
+     {l:'共通の知人に聞く',f:()=>{S.hp-=2;if(Math.random()<.7){S.commons.bond+=2;return '体調を崩していたらしい。落ち着いたら来る、とのこと。';}return '誰も知らなかった。';}},
+     {l:'待つ',f:()=>{const e=tiers().mid[0];if(e)e.belong-=20;return '来なかった。';}}]},
+ {id:'i13',w:5,if:s=>s.month>=5,t:'イベント当日、講師がドタキャンした',
+  b:'開始30分前。参加者は12人。会場は準備済み。',
+  o:[{l:'自分が代わりに話す',f:()=>{S.hp-=6;S.commons.bond+=5;S.eventStreak++;S.eventCount++;return 'ぐだぐだだった。だが、いちばん盛り上がった回になった。';}},
+     {l:'参加者で車座にする',f:()=>{S.hp-=2;S.commons.bond+=7;S.eventStreak++;S.eventCount++;S.edges++;return '全員が話した。ここから2つ、新しい企画が生まれた。';}},
+     {l:'中止して返金する',f:()=>{S.cash-=ri(10000,25000);S.hp-=4;S.eventStreak=Math.max(0,S.eventStreak-1);return '謝って回った。';}},
+     {l:'代わりの講師を探す',f:()=>{S.hp-=5;if(S.commons.bond>=30){S.commons.bond+=3;S.eventStreak++;S.eventCount++;return '会員のひとりが引き受けてくれた。30分前に。';}return '見つからなかった。結局、中止した。';}}]},
+ {id:'i14',w:4,if:()=>true,t:'今月、体調を崩した',
+  b:'熱ではない。ただ、朝、起きられない日が3日あった。',
+  o:[{l:'休む',f:()=>{S.hp+=12;S.commons.bond-=3;S.cash-=ri(20000,50000);return '3日閉めた。誰も文句を言わなかった。';}},
+     {l:'常連に鍵を預けて開けてもらう',f:()=>{if(S.commons.bond>=30){S.hp+=16;S.commons.bond+=5;return '普通に回っていた。';}S.hp+=4;S.chaos++;return '頼める人がいなかった。';}},
+     {l:'無理して出る',f:()=>{S.hp-=8;S.cash+=ri(10000,30000);return '出た。誰にも気づかれなかった。';}}]},
+ {id:'i15',w:4,if:s=>s.members.length>=12,t:'「もっと静かにしてほしい」「もっと交流したい」が同時に来た',
+  b:'どちらも、この場を大事に思っている人からだった。',
+  o:[{l:'エリアを分ける',f:()=>{S.hp-=3;S.cash-=ri(30000,80000);S.commons.bond+=4;return '仕切りを入れた。両方から「ありがとう」と言われた。';}},
+     {l:'時間帯を分ける',f:()=>{S.hp-=2;S.commons.bond+=2;return '午前は静かに、午後は自由に。運用は少し面倒になった。';}},
+     {l:'会員会議にかける',f:()=>{S.hp-=4;if(S.rules.length>=2){S.commons.bond+=6;return '会員同士で決まった。こちらは座っていただけだった。';}S.chaos++;S.commons.bond-=2;return '紛糾した。決まらなかった。';}},
+     {l:'どちらにもいい顔をする',f:()=>{S.hp-=4;S.chaos++;S.commons.bond-=3;return '両方から、少しずつ信用を失った。';}}]},
+ {id:'i16',w:5,if:()=>true,t:'今月は、特に何も起きなかった',
+  b:'誰も揉めず、誰も辞めず、誰も来なかった。',
+  o:[{l:'その時間で、会員と話す',f:()=>{S.hp-=1;S.commons.bond+=4;const v=S.members.filter(m=>m.tier!=='core');v.slice(0,3).forEach(m=>{m.belong+=12;m.cared=true;});return '3人と、長く話した。';}},
+     {l:'たまった事務を片付ける',f:()=>{S.hp-=2;S.cash+=ri(30000,90000);return '請求漏れが2件見つかった。';}},
+     {l:'外に営業に出る',f:()=>{S.hp-=3;S.marketing+=1.6;S.prospects+=ri(1,4);return '商工会と、隣町のスペースを回った。';}},
+     {l:'何もしない',f:()=>{S.hp+=8;return '何もしなかった。久しぶりに、夜きちんと眠れた。';}}]},
+ {id:'i17',w:4,if:s=>s.members.length>=9,t:'会員から「ここ、何のためにあるんですか」と聞かれた',
+  b:'純粋な疑問として聞かれた。',
+  o:[{l:'ビジョンを正面から話す',f:()=>{S.hp-=2;if(S.commons.bond>=28){S.commons.bond+=5;tiers().mid.slice(0,2).forEach(m=>m.belong+=15);return '「それ、手伝いますよ」と言われた。';}return '「なるほど」で終わった。';}},
+     {l:'逆に、その人がどう使いたいか聞く',f:()=>{S.hp-=1;S.commons.bond+=4;S.edges++;const v=S.members.filter(m=>m.tier==='mid');if(v.length){const m=pick(v);m.belong+=25;m.cared=true;}return '2時間話した。その人の企画が、来月から始まる。';}},
+     {l:'うまく答えられなかった',f:()=>{S.hp-=4;return 'その夜、ずっと考えていた。';}}]},
+ {id:'i18',w:4,if:s=>s.month>=6,t:'去年から関わっていた案件が、突然なくなった',
+  b:'先方の担当者が異動した。引き継ぎはされていない。',
+  o:[{l:'新しい担当に説明しに行く',f:()=>{S.hp-=5;if(Math.random()<.5){S.cash+=ri(200000,500000);S.commons.link+=4;return '続くことになった。ゼロから説明し直した。';}S.commons.link-=2;return '「前例がないので」と言われた。';}},
+     {l:'別の先を当たる',f:()=>{S.hp-=4;S.marketing+=1;if(Math.random()<.4){S.cash+=ri(100000,300000);return '別のところで話がまとまった。';}return '空振りだった。';}},
+     {l:'受け入れる',f:()=>{S.hp-=3;return 'こういうことは、よくある。';}}]},
+ {id:'i19',w:5,if:s=>s.opt.guest,t:'長期滞在の客が、1週間の予定を3ヶ月に延ばした',
+  b:'毎晩、誰かと飲んでいる。会員の何人かは、すっかり懐いている。',
+  o:[{l:'歓迎する',f:()=>{if(Math.random()<.6){S.commons.bridge+=8;S.edges++;S.commons.bond+=3;return 'この人を中心に、新しい集まりができた。';}S.chaos+=2;S.commons.bond-=4;return '場の空気が、完全にこの人のものになった。';}},
+     {l:'滞在ルールを決める',f:()=>{S.hp-=2;S.commons.bond+=2;S.cash+=ri(60000,140000);return '長期割引で正式契約にした。';}},
+     {l:'退去してもらう',f:()=>{S.hp-=4;S.commons.bridge-=3;return '角が立った。懐いていた会員が、こちらを見なくなった。';}}]},
+ {id:'i20',w:5,if:s=>s.opt.juku,t:'保護者から「成績が上がらない」と言われた',
+  b:'塾ではなく自習室のつもりだった、とは言いづらい空気だった。',
+  o:[{l:'方針を丁寧に説明する',f:()=>{S.hp-=3;if(Math.random()<.6){S.commons.link+=3;return '納得してくれた。むしろ紹介が増えた。';}S.jukuN=Math.max(2,S.jukuN-3);return '3人辞めた。';}},
+     {l:'講師を増やす（月5万円）',f:()=>{S.price.juku+=0;S.jukuN+=4;S.hp-=2;S.cash-=50000;return '手厚くした。月謝は据え置きにした。';}},
+     {l:'受け流す',f:()=>{S.hp-=2;S.jukuN=Math.max(2,S.jukuN-1);S.chaos++;return '口コミで、良くない評判が少し流れた。';}}]},
+ {id:'i21',w:5,if:s=>s.opt.kigyo,t:'伴走していた創業予定者が、8ヶ月目で「やっぱりやめます」と言った',
+  b:'投じた時間は、こちらの帳簿には載っていない。',
+  o:[{l:'最後まで付き合って送り出す',f:()=>{S.hp-=5;S.commons.bond+=4;if(Math.random()<.45){S.commons.link+=4;return '半年後、その人の紹介で別の相談が来た。';}return 'それきりだった。';}},
+     {l:'理由を掘り下げる',f:()=>{S.hp-=4;if(Math.random()<.5){S.commons.bond+=3;return '本当の理由は資金ではなかった。次の人には、そこを先に聞くようになった。';}return '言葉を濁された。';}},
+     {l:'切り替える',f:()=>{S.hp-=2;return '次の相談者の予定を入れた。';}}]},
+ {id:'i22',w:5,if:s=>s.opt.event,t:'イベントの日、作業しに来た常連が帰っていった',
+  b:'音が大きすぎた。何も言わずに、荷物をまとめて出ていった。',
+  o:[{l:'追いかけて謝る',f:()=>{S.hp-=3;S.commons.bond+=3;const c=tiers().core;if(c.length)pick(c).belong+=10;return '「いや、こっちこそ」と言われた。翌日また来てくれた。';}},
+     {l:'イベント日を事前告知する',f:()=>{S.hp-=2;S.commons.bond+=4;return 'カレンダーを貼り出した。以来、誰も困っていない。';}},
+     {l:'防音を入れる（25万円）',f:()=>{S.cash-=250000;S.commons.bond+=5;return '静かになった。イベントも作業も、両方できるようになった。';}},
+     {l:'仕方ないと割り切る',f:()=>{const c=tiers().core;if(c.length)pick(c).belong-=25;return '次のイベントの日も、その人は来なかった。';}}]},
+
+ /* ── 会員が増えてから起きること ── */
+ {id:'j1',w:9,if:s=>s.members.length>=16&&s.commons.link>=14,t:'市の担当課から、連携の相談が来た',
+  b:'「地域の事業者を集めた勉強会を、一緒にやれませんか」。予算は付くが、報告書も付く。',
+  o:[{l:'受けて、会員を巻き込む',f:()=>{S.cash+=ri(150000,350000);S.hp-=5;S.commons.link+=8;S.commons.bridge+=4;
+      S.members.filter(m=>m.tier!=='edge').slice(0,4).forEach(m=>m.belong+=12);
+      return '会員が講師に回った。「うちの人が呼ばれた」という空気が生まれた。';}},
+     {l:'受けて、自分で回す',f:()=>{S.cash+=ri(150000,350000);S.hp-=10;S.commons.link+=6;
+      return '無事に終わった。3週間、他のことが何もできなかった。';}},
+     {l:'内容を作り変えて提案し直す',f:()=>{S.hp-=6;if(Math.random()<.55){S.cash+=ri(250000,500000);S.commons.link+=10;
+      return 'こちらの企画が通った。次年度の話も出ている。';}S.commons.link-=2;return '「今年は前例通りで」と言われた。';}},
+     {l:'断る',f:()=>{S.hp+=2;S.commons.link-=4;return '断った。来年は声がかからないかもしれない。';}}]},
+ {id:'j2',w:8,if:s=>s.opt.guest&&s.month>=5,t:'外国から来た滞在客が、会員と話し込んでいる',
+  b:'翻訳アプリ越しに、もう2時間になる。どうやら、仕事の話らしい。',
+  o:[{l:'交流会を仕立てる',f:()=>{S.hp-=4;S.commons.bridge+=9;S.prospects+=ri(2,5);S.edges++;
+      return '20人が集まった。そのうち3人が、また来ると言った。';}},
+     {l:'そっとしておく',f:()=>{S.commons.bridge+=3;const v=S.members.filter(m=>m.tier!=='edge');
+      if(v.length)pick(v).belong+=15;return '2人だけの時間だった。後日、共同で何か始めたと聞いた。';}},
+     {l:'通訳を手配する（2万円）',f:()=>{S.cash-=20000;S.commons.bridge+=6;S.commons.link+=2;
+      return '話が一気に進んだ。「またここに泊まる」と言われた。';}}]},
+ {id:'j3',w:8,if:s=>s.members.length>=20,t:'他市のコワーキングから、視察の申し込みが来た',
+  b:'5人で来るらしい。うちを参考にしたい、とのこと。',
+  o:[{l:'全部見せる',f:()=>{S.hp-=3;S.commons.link+=6;S.commons.bridge+=4;
+      return '隠すものは何もなかった。以来、その街とは行き来がある。';}},
+     {l:'会員に案内してもらう',f:()=>{if(S.commons.bond>=34){S.commons.bond+=6;S.commons.link+=5;S.hp+=2;
+      return '会員が自分の言葉で語っていた。自分より上手かった。';}S.hp-=3;return '引き受けてくれる人がいなかった。';}},
+     {l:'有料の視察プログラムにする',f:()=>{S.cash+=ri(30000,80000);S.hp-=3;S.commons.link+=2;
+      return '値段をつけた。相手も真剣になった。';}}]},
+ {id:'j4',w:7,if:s=>s.done>=1,t:'ここから生まれた企画が、地元紙に載った',
+  b:'小さな記事だが、写真付きだった。',
+  o:[{l:'当人たちを祝う会を開く',f:()=>{S.hp-=2;S.commons.bond+=8;S.marketing+=1.4;S.prospects+=ri(2,4);
+      S.members.filter(m=>m.tier!=='edge').slice(0,5).forEach(m=>m.belong+=10);
+      return '「次は自分の番だ」という顔をしている人が、何人かいた。';}},
+     {l:'この事例で営業をかける',f:()=>{S.hp-=3;S.marketing+=2.2;S.commons.link+=4;S.prospects+=ri(3,6);
+      return '実績が1つあるだけで、話の通りが変わった。';}},
+     {l:'特に何もしない',f:()=>{S.commons.bond+=2;return '当人たちは、静かに嬉しそうだった。';}}]},
+ {id:'j5',w:7,if:s=>s.members.length>=22,t:'会員から「もっと会費を上げてもいいのでは」と言われた',
+  b:'「この場所が続かないと困る」というのが理由だった。',
+  o:[{l:'素直に値上げする',f:()=>{S.price.m=Math.round(S.price.m*1.25);S.hp-=3;
+      return '上げた。何人かは、静かに離れていくかもしれない。';}},
+     {l:'上位プランを作る',f:()=>{S.cash+=ri(30000,90000);S.commons.bond+=4;S.hp-=2;
+      return '「応援プラン」を作った。払いたい人だけが払う形にした。';}},
+     {l:'今のままでいく',f:()=>{S.commons.bond+=2;return '「そう言ってもらえるだけで十分です」と答えた。';}}]},
+ {id:'j6',w:6,if:s=>s.members.length>=18,t:'会員のひとりが亡くなった',
+  b:'常連だった。しばらく顔を見ていなかった。',
+  o:[{l:'席をしばらく空けておく',f:()=>{S.hp-=5;S.commons.bond+=6;
+      return '誰も、その席には座らなかった。';}},
+     {l:'みんなで送る会をする',f:()=>{S.hp-=6;S.commons.bond+=9;S.commons.link+=2;
+      return 'この場所が、どういう場所だったのかが分かった気がした。';}},
+     {l:'そっと日常を続ける',f:()=>{S.hp-=4;S.commons.bond+=2;return 'いつも通り、店を開けた。';}}]},
+ {id:'j7',w:7,if:s=>s.projects&&s.projects.length>=1,t:'動いている企画が、行き詰まっている',
+  b:'当人たちの間で、方向性が食い違いはじめた。',
+  o:[{l:'間に入って整理する',f:()=>{S.hp-=5;if(S.projects.length)S.projects[0].boost+=2;
+      return 'やりたいことは同じだった。言葉が違っただけだった。';}},
+     {l:'第三の人を入れる',f:()=>{S.hp-=3;S.commons.bridge+=4;if(S.projects.length)S.projects[0].boost+=1;S.edges++;
+      return '別の会員が入って、風向きが変わった。';}},
+     {l:'当人たちに任せる',f:()=>{if(S.commons.bond>=34){if(S.projects.length)S.projects[0].boost+=1;S.commons.bond+=4;
+      return '自分たちで折り合いをつけた。';}
+      const p=S.projects[0];if(p){S.projects=S.projects.filter(x=>x!==p);
+        [p.a,p.b].forEach(id=>{const m=S.members.find(x=>x.id===id);if(m){m.inProject=false;m.belong-=18;}});
+        S.commons.bond-=4;return '「'+p.t+'」は、そのまま立ち消えになった。';}
+      return '';}}]},
+ {id:'j8',w:6,if:s=>s.members.length>=15,t:'見学の予約が、今月だけで6件入った',
+  b:'何かがきっかけらしいが、心当たりがない。',
+  o:[{l:'全部、自分で対応する',f:()=>{S.hp-=6;S.prospects+=ri(4,7);return '6件、全部丁寧に回った。';}},
+     {l:'まとめて説明会にする',f:()=>{S.hp-=2;S.prospects+=ri(3,6);S.commons.bond+=2;
+      return '一度に済ませた。参加者同士が先に仲良くなっていた。';}},
+     {l:'常連に案内を任せる',f:()=>{if(S.commons.bond>=32){S.hp+=2;S.prospects+=ri(4,8);S.commons.bond+=5;
+      return '会員が案内した。入会率がいつもより高かった。';}S.hp-=4;S.prospects+=ri(1,3);return '結局、自分で回った。';}}]},
+ {id:'j9',w:6,if:s=>s.month>=7,t:'来年度の話を、そろそろ決めないといけない',
+  b:'契約更新、価格、体制。決めなければ、勝手には決まらない。',
+  o:[{l:'会員に相談して決める',f:()=>{S.hp-=3;S.commons.bond+=7;
+      return '「一緒に考えます」と言われた。それだけで、少し楽になった。';}},
+     {l:'ひとりで決める',f:()=>{S.hp-=6;S.cash+=ri(40000,120000);
+      return '効率はよかった。誰にも相談しなかった。';}},
+     {l:'先送りする',f:()=>{S.hp-=2;S.chaos++;return 'まだ時間はある、と思うことにした。';}}]},
+
+ /* ── 小さな街の、私生活のこと ── */
+ {id:'k1',w:8,if:s=>s.members.length>=10,t:'会員どうしが結婚することになった',
+  b:'この場所で出会った2人だった。報告に来たとき、少し照れていた。',
+  o:[{l:'場所を貸して、お祝いの会をやる',f:()=>{S.hp-=3;S.commons.bond+=10;S.marketing+=1.5;S.prospects+=ri(2,5);
+      S.members.filter(m=>m.tier!=='edge').slice(0,6).forEach(m=>m.belong+=10);
+      return '40人が集まった。「ここ、そういう場所なんですね」と何人にも言われた。';}},
+     {l:'そっとお祝いを渡す',f:()=>{S.cash-=ri(10000,30000);S.commons.bond+=5;
+      return '2人とも、しばらくして来る回数が減った。それはそれで、よかったのだと思う。';}},
+     {l:'いつも通りに接する',f:()=>{S.commons.bond+=2;return '「変わらないでいてくれて助かります」と言われた。';}}]},
+ {id:'k2',w:7,if:s=>s.month>=5&&s.members.length>=12,t:'常連の夫婦が、離婚することになった',
+  b:'どちらもここの会員だった。まだ2人とも、普通に通ってきている。',
+  o:[{l:'両方の話を聞く',f:()=>{S.hp-=8;if(Math.random()<.45){S.commons.bond+=4;
+      return '2人とも、ここには通い続けると言った。大人だった。';}
+      const c=tiers().core;if(c.length)pick(c).belong-=45;S.chaos++;
+      return '片方から「あなたはあっちの味方だ」と言われた。それきり来ていない。';}},
+     {l:'来る曜日を分けてもらう',f:()=>{S.hp-=4;tiers().core.slice(0,2).forEach(m=>m.belong-=15);
+      return '事務的に処理した。2人とも、少しずつ足が遠のいた。';}},
+     {l:'仲裁に入る',f:()=>{S.hp-=10;if(Math.random()<.3){S.commons.bond+=6;
+      return 'なぜかまとまった。運営者の仕事ではないが、そういうこともある。';}
+      return '完全に踏み込みすぎた。2人からも、周りからも距離を置かれた。';}},
+     {l:'何も知らないふりをする',f:()=>{S.hp-=2;S.chaos++;
+      return '知らないふりを続けた。周りは全員気づいている。';}}]},
+ {id:'k3',w:7,if:s=>s.members.length>=14,t:'ある会員が入ったら、別の会員が来なくなった',
+  b:'前の職場で何かあったらしい。小さな街では、こういうことが起きる。',
+  o:[{l:'来なくなった側に連絡する',f:()=>{S.hp-=4;if(Math.random()<.55){const e=tiers().edge[0]||tiers().mid[0];
+      if(e)e.belong+=30;S.commons.bond+=3;return '事情を聞いた。時間帯をずらすことで折り合った。';}
+      const e=tiers().mid[0];if(e)e.belong-=35;return '「気にしないでください」と言われたきり、来ていない。';}},
+     {l:'時間帯を分ける提案をする',f:()=>{S.hp-=3;S.commons.bond+=2;
+      return '両方に伝えた。気まずいが、両方とも残った。';}},
+     {l:'新しく入った側に事情を話す',f:()=>{S.hp-=5;if(Math.random()<.4){S.commons.bond+=4;
+      return '「自分が抜けます」と言われた。慌てて止めた。結局、両方残った。';}
+      S.chaos++;return '「なんで自分が気を遣うんですか」と言われた。もっともだった。';}},
+     {l:'どちらにも言わない',f:()=>{const m=tiers().mid[0];if(m)m.belong-=25;
+      return 'ひとり、静かに消えた。理由は誰にも言わなかった。';}}]},
+ {id:'k4',w:7,if:s=>s.members.length>=10,t:'会員のSNSが、少し様子がおかしい',
+  b:'深夜に、誰に向けたのか分からない投稿が続いている。ここのことも書いてある。',
+  o:[{l:'何も言わず、来たときに普通に話す',f:()=>{S.hp-=3;if(Math.random()<.7){S.commons.bond+=5;
+      const v=S.members.filter(m=>m.tier!=='edge');if(v.length){const m=pick(v);m.belong+=20;m.cared=true;}
+      return '2週間後、普通に笑っていた。何も聞かなかったのが正解だった。';}
+      return '来なくなった。投稿も止まった。';}},
+     {l:'直接、大丈夫か聞く',f:()=>{S.hp-=6;if(Math.random()<.5){S.commons.bond+=6;
+      const v=S.members.filter(m=>m.tier!=='edge');if(v.length)pick(v).belong+=28;
+      return '長い話になった。「気づいてくれたのが嬉しかった」と言われた。';}
+      const v=S.members.filter(m=>m.tier!=='edge');if(v.length)pick(v).belong-=30;
+      return '「見てたんですか」と言われた。距離ができた。';}},
+     {l:'詳しい人につなぐ',f:()=>{S.hp-=4;S.commons.link+=3;
+      return '相談先を書いた紙を、そっと渡した。使ったかどうかは分からない。';}},
+     {l:'関わらない',f:()=>{S.hp-=2;S.commons.bond-=2;return '運営者の仕事ではない、と自分に言い聞かせた。';}}]},
+ {id:'k5',w:6,if:s=>s.members.length>=8,t:'会員が「実は、来月から入院します」と言ってきた',
+  b:'誰にも言っていないらしい。なぜか、あなたには話した。',
+  o:[{l:'席をそのまま空けておくと伝える',f:()=>{S.hp-=2;S.commons.bond+=7;
+      const v=S.members.filter(m=>m.tier==='core');if(v.length)pick(v).belong+=15;
+      return '「帰る場所がある」と言われた。会費は止めておいた。';}},
+     {l:'会費を止めて、休会にする',f:()=>{S.commons.bond+=3;return '事務的に処理した。それも優しさではある。';}},
+     {l:'みんなに知らせていいか聞く',f:()=>{S.hp-=3;if(Math.random()<.6){S.commons.bond+=9;
+      return '寄せ書きが集まった。本人が泣いていた。';}return '「言わないでほしい」と言われた。約束は守った。';}}]},
+];
+function fireIncident(){
+  const av=INC.filter(c=>{if(S.fired['inc_'+c.id])return false;try{return c.if(S);}catch(e){return false;}});
+  if(!av.length){S.incident=null;return;}
+  const c=wpick(av.map(x=>({w:x.w,x}))).x; S.fired['inc_'+c.id]=1; S.incident=c;
+}
+
+/* ---------- 行動 ---------- */
+function act(name){
+  if(S.ap<=0&&name!=='rest'){toast('APが残っていません');return;}
+  ({
+    listen:()=>{const t=S.members.filter(m=>m.revealed<3);
+      if(!t.length){toast('もう、みんなのことは聞きました');return;}
+      choose('誰の話を聞きますか？',t,m=>{S.ap-=1;S.hp-=1;m.revealed++;m.belong+=9;m.cared=true;
+        sfx('care');
+        if(m.revealed===1)news(m.name+'と少し話した。どうやら'+G[m.group].n+'っぽい');
+        if(m.revealed===2)news('◆ '+m.name+'は「'+m.want.t+'」と言っている');
+        if(m.revealed===3)news('◆ '+m.name+'は'+(m.offer.length?m.offer.map(t=>OFFER[t]).join('、'):'特に何も持っていないと言う'));
+        S.commons.bond+=1.2;render();});},
+    connect:()=>{if(S.ap<2){toast('AP不足（2必要）');return;}
+      const c=S.members.filter(m=>!m.inProject&&m.revealed>=2)
+        .sort((x,y)=>hasMatch(y)-hasMatch(x));
+      if(!c.length){toast('まだ誰の「やりたいこと」も分かっていません。\n先に「話を聞く」を2回してください');return;}
+      choose('誰の「やりたいこと」を進めますか？',c,a=>{chooseMatch(a);});},
+    support:()=>{if(!S.projects.length){toast('いま動いている企画はありません');return;}
+      if(S.ap<2){toast('AP不足（2必要）');return;}
+      chooseRaw('どの企画を後押ししますか？',S.projects.map(p=>({
+        label:p.t, sub:p.an+'／'+p.bn+'　あと '+Math.max(0,p.need-p.prog)+' ヶ月', val:p})),
+        p=>{S.ap-=2;S.hp-=2;p.prog+=1;sfx('good');    // その場で1ヶ月ぶん進む
+          const left=Math.max(0,p.need-p.prog);
+          news('「'+p.t+'」を後押しした　→ 残り '+left+' ヶ月'+(left===0?'（今月中に形になります）':''));
+          render();});},
+    sales:()=>{if(S.ap<2){toast('AP不足（2必要）');return;}
+      S.ap-=2;S.hp-=2;S.marketing+=1.4;S.prospects+=ri(1,3);S.basics+=0.8;
+      news('チラシを配り、商工会に顔を出した');render();},
+    event:()=>{if(S.ap<2){toast('AP不足（2必要）');return;}
+      const cands=S.members.filter(m=>m.tier!=='edge'&&(m.traits.includes('ikeike')||m.traits.includes('appr')||m.traits.includes('natsu')));
+      const opts=[{label:'🙋 自分が企画して回す',sub:'AP3・体力4／確実にできる',val:'self'}];
+      if(cands.length) opts.push({label:'🤝 '+cands[0].name+'に任せる',
+        sub:'AP2・体力1／結束が薄いと失敗する。うまくいけば、その人が育つ',val:'host'});
+      opts.push({label:'🍻 みんなで持ち寄りにする',sub:'AP2・体力2／小さいが、場が温まる',val:'pot'});
+      chooseRaw('イベント、どうやりますか？',opts,how=>doEvent(how));},
+    kodomo:()=>{if(!S.opt.kodomo){toast('こども食堂をやっていません');return;}
+      if(S.ap<3){toast('AP不足（3必要）');return;}
+      S.ap-=3;S.hp-=2;S.kodomoCount++;
+      const att=ri(28,64),ad=Math.round(att*0.35);
+      S.cash+=ad*S.price.kodomo;
+      let food=att*180;
+      if(S.stock.veg>0){S.stock.veg--;food-=att*90;news('  '+'野菜の差し入れで食材費が浮いた');}
+      if(S.stock.rice>0){S.stock.rice--;food-=att*60;news('  寄付の米を使った');}
+      S.cash-=Math.max(0,food);
+      if(S.stock.vol>0){S.stock.vol--;S.hp+=2;news('  調理と片付けを手伝ってもらった');}else S.hp-=2;
+      S.commons.bond+=3.2;S.commons.link+=2.6;S.commons.bridge+=1.4;
+      S.members.filter(m=>m.tier!=='core').slice(0,4).forEach(m=>m.belong+=8);
+      news('こども食堂'+S.kodomoCount+'回目：'+att+'人が来た');render();},
+    rule:()=>{if(S.ap<2){toast('AP不足（2必要）');return;}
+      const av=RULES.filter(r=>!S.rules.includes(r.id));
+      if(!av.length){toast('もう作るルールがありません');return;}
+      chooseRaw('どのルールを作りますか？',av.map(r=>({label:r.i+' '+r.n,
+        sub:'◎ '+r.eff+(r.bad!=='—'?'　△ '+r.bad:'')+(r.cost?'　'+yen(r.cost):''),val:r})),
+        r=>{ if(r.cost&&S.cash<r.cost){toast('現金が足りません');return;}
+          S.ap-=2;S.hp-=1; if(r.cost)S.cash-=r.cost;
+          S.rules.push(r.id); S.care=S.care.filter(c=>!(r.sup||[]).includes(c.id));
+          sfx('good'); news('ルール「'+r.n+'」を作った');render();});},
+    rest:()=>{if(S.ap<=0){toast('今月はもう休めません');return;}
+      const g=6+S.ap*1.3, m=8+S.ap*1.7;
+      S.hp=cl(S.hp+g,0,S.hpMax); S.mp=cl(S.mp+m,0,S.mpMax);
+      S.ap=0;S.commons.bond-=1.4;
+      news('休んだ。体力 +'+Math.round(g)+'、メンタル +'+Math.round(m));render();},
+  }[name]||(()=>{}))();
+  if(['sales','event','kodomo','rest'].includes(name))render();
+}
+
+/* ---------- 月送り ---------- */
+function nextMonth(){
+  document.getElementById('modal').classList.remove('on');
+  if(!S.ended){ flash(S.month+'ヶ月目', MNAME[S.month]||''); setTimeout(render,420); }
+  else { sfx(S.ended==='true'||S.ended==='vision'?'great':'bad'); render(); }
+}
+function doEvent(how){
+  const base=[2,3,5,7,10,13,16,20][Math.min(7,S.eventStreak)];
+  let att=base, ok=true;
+  if(how==='self'){ S.ap-=3; S.hp-=4; att=Math.round(base*1.15); }
+  else if(how==='host'){
+    S.ap-=2; S.hp-=1;
+    const h=S.members.filter(m=>m.tier!=='edge'&&(m.traits.includes('ikeike')||m.traits.includes('appr')||m.traits.includes('natsu')))[0];
+    if(S.commons.bond>=26&&h){ att=Math.round(base*1.35); h.belong+=22; h.gt+=1; h.links++;
+      S.commons.bond+=3; news('★ '+h.name+'が仕切ってくれた。あなたは受付にいただけ'); }
+    else { ok=false; att=Math.round(base*0.4); S.hp-=3; S.commons.bond-=2;
+      news('△ 任せてみたが、当日ほとんど回らなかった。結局こちらが動いた'); }
+  } else { S.ap-=2; S.hp-=2; att=Math.round(base*0.8); S.commons.bond+=2.5;
+    news('持ち寄りにした。料理が余った'); }
+  if(S.opt.event) att=Math.round(att*1.4);
+  if(S.rules.includes('r2')) att=Math.round(att*1.15);
+  S.eventStreak++; S.eventCount++;
+  S.cash+=att*1000;
+  const j=S.members.filter(m=>m.tier!=='core').slice(0,Math.ceil(att*0.4));
+  j.forEach(m=>{m.belong+=6;m.joined=true;});
+  S.commons.bridge+=att*0.42; S.commons.bond+=att*0.18; S.prospects+=Math.max(0,Math.round(att/4));
+  news('イベント'+S.eventStreak+'回目：参加'+att+'人。たまに来る人が'+j.length+'人、顔を出した');
+  if(S.eventStreak===1)news('  1回目は、だいたいこんなものです');
+  sfx(ok?'good':'bad'); render();
+}
+function tryEndMonth(){ sfx('tap'); fireIncident(); if(S.incident)showIncident(); else endMonth(); }
+function showIncident(){
+  const c=S.incident;
+  modal(`<div class="dim sm">${S.month}ヶ月目 ── できごと</div>
+   <h2 style="margin:5px 0 8px">${esc(c.t)}</h2><p class="sm">${esc(c.b)}</p><hr class="hr">
+   ${c.o.map((o,i)=>`<button class="pick" onclick="resolveIncident(${i})">${esc(o.l)}</button>`).join('')}`);
+}
+function resolveIncident(i){
+  const c=S.incident,r=c.o[i].f()||''; S.incident=null; sfx('tap');
+  modal(`<div class="dim sm">${esc(c.t)}</div><h2 style="margin:6px 0 10px">${esc(c.o[i].l)}</h2>
+    <div class="note">${esc(r)}</div>
+    <div style="margin-top:16px"><button class="pri" style="width:100%;padding:11px" onclick="closeModal();endMonth()">月末へ ▶</button></div>`);
+}
+
+function endMonth(){
+  const R={month:S.month,hp:[],mp:[],money:[]};
+  let un=0; S.care.forEach(c=>{if(!c.done){un++;S.hp-=3;S.commons.bond-=4.5;}});
+  if(un){R.hp.push({k:'放置した気配り（'+un+'件）',v:-3*un});
+    S.mp-=5*un; R.mp.push({k:'拾えなかったことが、頭に残っている',v:-5*un});}
+  const handled=S.care.filter(c=>c.done).length;
+  if(handled){R.hp.push({k:'気配り（'+handled+'件対応）',v:0});
+    S.mp-=handled*1.9; R.mp.push({k:'人に気を遣った（'+handled+'件）',v:-handled*1.9});}
+  S.mp-=2.5; R.mp.push({k:'先が見えない',v:-2.5});
+  const CM=comfort();R.comfort=CM;
+  const T=tiers();
+
+  let inc=0,exp=0;
+  const pc=t=>T[t].filter(m=>m.pay!=='n'&&m.pay!=='c');
+  const cL=pc('core'),core=cL.length,mid=pc('mid').length,edge=pc('edge').length;
+  // コア層は使い放題プランに移る（払える範囲で、通常会費の2倍まで）
+  const vC=cL.reduce((s,m)=>s+Math.min(m.budget,S.price.m*2),0);
+  const vM=Math.round(mid*6.5*S.price.d),vE=Math.round(edge*1.5*S.price.d);
+  inc+=vC+vM+vE;
+  R.money.push({k:'コア層 '+core+'人（使い放題プラン）',v:vC});
+  R.money.push({k:'中間層 '+mid+'人（都度）',v:vM});
+  R.money.push({k:'周辺層 '+edge+'人',v:vE});
+  if(S.corp){const v=S.corp*S.price.corp;inc+=v;R.money.push({k:'法人契約 '+S.corp+'社',v});}
+  if(S.recur){inc+=S.recur;R.money.push({k:'ここから生まれた仕事の分け前',v:S.recur});}
+  if(S.opt.virt&&S.virtN){const v=S.virtN*S.price.virt;inc+=v;R.money.push({k:'住所貸し '+S.virtN+'件',v});}
+  if(S.opt.cafe){
+    const g=Math.round((280+S.commons.bridge*6.4+legitimacy()*2.8-(S.price.cafe-500)*0.42)*0.75);
+    const gr=Math.max(0,g)*S.price.cafe,cg=gr*0.30; inc+=gr;exp+=cg;
+    R.money.push({k:'カフェ（'+Math.max(0,g)+'杯）',v:gr});
+    R.money.push({k:'カフェ 原価',v:-cg});
+  }
+  if(S.opt.juku){
+    S.jukuN=Math.min(24,S.jukuN+(Math.random()<0.7?1:0)+(legitimacy()>60?1:0));
+    const v=S.jukuN*S.price.juku; inc+=v;
+    R.money.push({k:'学習塾 '+S.jukuN+'人',v});
+  }
+  if(S.opt.guest){
+    const occ=cl(0.16+S.commons.bridge/300+legitimacy()/380+rnd(-.07,.07),0.05,0.55);
+    const nights=Math.round(3*30*occ*0.75), v=nights*S.price.guest; inc+=v;
+    R.money.push({k:'ゲストハウス '+nights+'泊（稼働'+Math.round(occ*100)+'%・3室）',v});
+  }
+  if(S.opt.event){ const v=ri(2,6)*S.price.event*3; inc+=v; R.money.push({k:'イベント貸出',v}); }
+  // 人が増えれば、人手も要る
+  const staff=100000+Math.max(0,S.members.length-18)*2000;
+  const fixed=S.prop.rent+staff+50000+35000+S.repay;
+  exp+=fixed;R.money.push({k:'家賃・光熱・通信ほか',v:-(S.prop.rent+50000+35000)});
+  R.money.push({k:'スタッフ人件費'+(S.members.length>18?'（会員が増えて増員）':''),v:-staff});
+  if(S.repay)R.money.push({k:'借入の返済（'+Math.round(S.loan/10000)+'万円）',v:-S.repay});
+  for(const k in OPT) if(S.opt[k]&&OPT[k].fix){exp+=OPT[k].fix;R.money.push({k:OPT[k].i+' '+OPT[k].n+' 運営費',v:-OPT[k].fix});}
+  S.cash+=inc-exp;R.inc=inc;R.exp=exp;
+  tickProjects(R);
+
+  const pairs=adjacentPairs();
+  S.members.forEach(m=>{
+    m.months++;
+    let d=(CM.score-50)/9-5.4+m.links*1.4+m.gt*0.55;
+    if(m.cared)d+=7; if(m.joined)d+=4; if(m.seat)d+=2.5;
+    if(m.inProject)d+=5;
+    if(S.price.m>m.budget)d-=(S.price.m-m.budget)/900;   // 会費が高すぎる
+    pairs.forEach(([a,b])=>{if(a===m||b===m)d+=affinity(a,b)*0.8;});
+    if(m.traits.includes('right'))d-=2;
+    if(m.traits.includes('care')||m.traits.includes('quiet'))d+=1.5;
+    m.belong=cl(m.belong+d,0,100); m.cared=false; m.joined=false;
+  });
+  const out=[];
+  S.members.forEach(m=>{
+    let risk=0.02+(42-m.belong)/230+m.quiet*(S.density-0.4)*0.38-Math.min(m.links,3)*0.028;
+    if(m.months<2)risk+=0.05;
+    // 払える額を超えた会費は、そのまま退会理由になる
+    if(S.price.m>m.budget)risk+=cl((S.price.m-m.budget)/6000,0,0.45);
+    if(m.inProject)risk*=0.25;
+    if(m.tier==='core')risk*=0.35;
+    if(S.rules.includes('r3')&&m.traits.includes('right'))risk-=0.1;
+    if(S.rules.includes('r4'))risk*=0.85;
+    if(Math.random()<cl(risk,0.004,0.6))out.push(m);
+  });
+  out.forEach(m=>{S.members=S.members.filter(x=>x!==m);S.commons.bond-=0.8;
+    news('× '+m.name+'（'+m.occ+'）が来なくなった'+(m.tier==='core'?'。コアの人だった':''));});
+  R.left=out.length;
+
+  let flow=0.7+S.commons.bridge/26+legitimacy()/46+S.marketing;
+  for(const k in OPT) if(S.opt[k]) flow+=({cafe:1.3,kodomo:0.7,juku:0.8,kigyo:0.6,guest:1.0,event:0.9})[k];
+  S.rules.forEach(id=>{const r=RULES.find(x=>x.id===id);if(r)flow+=r.in;});
+  flow*=(0.35+S.openness*1.05);
+  // 相場から離れるほど、そもそも人が来ない
+  flow*=cl(1.25-Math.max(0,S.price.m-4000)/9000,0.35,1.35);
+  const nf=Math.max(0,Math.round(flow+rnd(-.4,.4)));
+  S.prospects+=nf;R.flow=nf;S.marketing=Math.max(0,S.marketing-0.7);
+  const conv=cl(0.10+(CM.score-45)/260+S.openness*0.20+S.commons.bond/260,0.03,0.7);
+  let joined=0;const tryN=S.prospects;
+  for(let i=0;i<tryN;i++){if(S.members.length>=memberCap())break;
+    if(Math.random()<conv){if(joinMember()){joined++;S.prospects--;}}}
+  S.prospects=Math.max(0,S.prospects-Math.round(S.prospects*0.3));R.joined=joined;
+
+  const before={core:T.core.length,mid:T.mid.length,edge:T.edge.length};
+  S.members.forEach(m=>m.tier=tierOf(m)); reseat();
+  const after=tiers();
+  R.tier={before,after:{core:after.core.length,mid:after.mid.length,edge:after.edge.length}};
+
+  const n=S.members.length;
+  S.commons.bond  +=(CM.score-50)/13+after.core.length*0.35-n*0.06;
+  S.commons.bridge+= nf*0.35-n*0.05;
+  S.commons.link  +=(S.kodomoCount>0?0.5:0)+(S.opt.kigyo?0.6:0)-0.25;
+  for(const k in S.commons)S.commons[k]=cl(S.commons[k],0,100);
+  S.chaos=Math.max(0,S.chaos-1);
+
+  const sk=skew();
+  if(sk&&n>=5){
+    if(sk==='moon'){S.commons.bridge-=2.2;news('月に偏っている：今月も、結局なにも決まらなかった');}
+    if(sk==='earth'){S.hp-=2;news('地球に偏っている：ハウスルールの解釈で口論になっている');}
+    if(sk==='sun'){S.hp-=2;S.commons.bond-=1.6;news('太陽に偏っている：先月の企画を、誰も片付けていない');}
+    R.hp.push({k:'グループの偏り（'+G[sk].n+'）',v:-2});
+  }
+  fireEvents(R);
+
+  if(n>=4){
+    const avg=S.members.reduce((s,m)=>s+m.gt,0)/n;
+    if(avg<-0.2){const d=Math.min(7,-avg*2.4);S.hp-=d;R.hp.push({k:'差し出す人より、受け取る人が多い',v:-d});}
+    else if(avg>1.2){const g=Math.min(4,avg*1.4);S.hp+=g;R.hp.push({k:'差し出す人のほうが多い場になっている',v:g});}
+  }
+  const coreN=after.core.length;
+  if(un===0&&S.care.length){S.hp+=3;S.commons.bond+=2;R.hp.push({k:'今月は、全部拾えた',v:3});}
+  if(S.commons.bond>30&&Math.random()<0.55){const g=ri(3,6)+Math.min(coreN*0.5,5);S.hp+=g;
+    R.hp.push({k:'名前を呼ばれ、礼を言われた',v:g});}
+  if(S.rules.includes('r5')&&S.commons.bond>30&&Math.random()<0.55){const g=ri(2,4)+Math.min(coreN*0.3,3);S.hp+=g;
+    R.hp.push({k:'会員に委ねられた',v:g});}
+  const cN=S.members.filter(m=>m.traits.includes('care')&&m.tier!=='edge').length;
+  if(cN){const g=Math.min(cN*2.2,7);S.hp+=g;R.hp.push({k:'世話焼きの人が肩代わりしてくれた',v:g});}
+  if(S.rules.length>=3){const g=S.rules.length*0.9;S.hp+=g;R.hp.push({k:'ルールが、判断を肩代わりしてくれた',v:g});}
+  if(n>26){const d=(n-26)*0.55;S.hp-=d;R.hp.push({k:'顔と名前が一致しない人がいる（'+n+'人）',v:-d});}
+
+  /* ── メンタル ────────────────────────────────
+     体力は動けば減る。メンタルは「報われたかどうか」で動く。振れ幅は体力より大きい */
+  const profit=R.inc-R.exp;
+  if(profit<0){
+    // 開業してすぐ赤字なのは、織り込み済み。効いてくるのは後半
+    const early=S.month<=4?0.4:1;
+    const d=Math.min(13,(-profit/45000+1.5)*early); S.mp-=d;
+    R.mp.push({k:S.month<=4?'赤字だが、まだ想定内':'今月も赤字だった',v:-d}); }
+  else { const g=Math.min(9,profit/35000+2.5); S.mp+=g;
+    R.mp.push({k:'黒字で終われた',v:g}); }
+  if(S.chaos){ S.mp-=S.chaos*3.5; R.mp.push({k:'揉めごとを引きずっている',v:-S.chaos*3.5}); }
+  if(R.left>=1){ S.mp-=R.left*2.5; R.mp.push({k:R.left+'人に辞められた',v:-R.left*2.5}); }
+  // 抱える人数が増えるほど、気にかけることが増えていく
+  if(S.members.length>14){ const d=Math.min(9,(S.members.length-14)*0.4);
+    S.mp-=d; R.mp.push({k:'気にかける人が増えた（'+S.members.length+'人）',v:-d}); }
+  if(S.mp<40){ S.mp-=3; R.mp.push({k:'よく眠れていない',v:-3}); }
+  if(un===0&&S.care.length){ S.mp+=4; R.mp.push({k:'今月は、全部拾えた',v:4}); }
+  if(after.core.length>=5&&S.commons.bond>34){ const g=Math.min(7,after.core.length*0.6);
+    S.mp+=g; R.mp.push({k:'会員が、勝手に場を回してくれている',v:g}); }
+  if(cN){ const g=Math.min(6,cN*2.5); S.mp+=g; R.mp.push({k:'支えてくれる人がいる',v:g}); }
+  if(S.rules.includes('r5')&&S.commons.bond>30){ S.mp+=3; R.mp.push({k:'もめごとを任せられた',v:3}); }
+  S.mp=cl(S.mp,0,S.mpMax);
+
+  // メンタルが落ちると、体が言うことを聞かなくなる
+  if(S.mp<50){ const d=(50-S.mp)*0.20; S.hp-=d;
+    R.hp.push({k:S.mp<25?'朝、起きられない日がある':'気持ちが追いついていない',v:-d}); }
+
+  S.hp=cl(S.hp,-20,S.hpMax);R.hpEnd=S.hp;R.mpEnd=S.mp;R.cashEnd=S.cash;S.lastReport=R;
+  if(S.cash<0)S.ended='bankrupt';
+  else if(S.mp<=0)S.ended='depression';
+  else if(S.hp<=0)S.ended='burnout';
+  else if(S.month>=12)S.ended=judge();
+  // 経営が回ってスタッフが増えると、自分の手が空く
+  const inc12=R.inc-R.exp;
+  let apNext=12;
+  if(S.staffUp||(inc12>80000&&S.cash>1200000&&S.month>=3)){
+    if(!S.staffUp){S.staffUp=1;news('★ スタッフをもう1人雇えた。手が空くようになった（AP +3）');}
+    apNext=15;
+  }
+  if(S.rules.includes('r9'))apNext+=1;
+  if(!S.ended){S.month++;S.ap=apNext;S.news=[];S.care=genCare();}
+  if(S.hp<25&&!S.ended)sfx('warn');
+  showReport(R);
+}
+
+function fireEvents(R){
+  const M=S.month;
+  if(M===4&&!S.fired.hojo){S.fired.hojo=1;
+    if(Math.random()<0.6){S.cash+=800000;S.commons.link+=4;news('★ 申請していた補助金が採択された。80万入った');}
+    else news('補助金は不採択だった');}
+  if(M>=6&&!S.fired.jutaku&&legitimacy()>=58){S.fired.jutaku=1;
+    const v=S.opt.kigyo?800000:500000; S.cash+=v;S.hp-=8;S.commons.link+=8;
+    news('★ 市の受託が決まった。'+Math.round(v/10000)+'万。会議が毎月増えた');}
+  if(M===9&&!S.fired.rent&&S.prop.rent>0&&!S.fired.sell){S.fired.rent=1;
+    if(legitimacy()>=62)news('大家から「これだけ地域でやってるんだから」と、家賃は据え置きになった');
+    else{S.prop.rent=Math.round(S.prop.rent*1.3);news('家賃が30%上がった（'+yen(S.prop.rent)+'）');}}
+  if(S.opt.kodomo&&Math.random()<cl(legitimacy()/140,0,.65)){
+    const r=Math.random();
+    if(r<.4){S.stock.veg+=ri(1,3);news('🎁 近所の農家が軽トラで野菜を積んできた。断れない');}
+    else if(r<.7){S.stock.vol+=ri(1,2);news('🎁 近所の人が「ひまやから」と調理を買って出た');}
+    else{S.stock.rice+=2;S.commons.link+=3;news('🎁 地元企業から米30kgが届いた。担当者が写真を撮りに来た');}}
+  if(S.opt.cafe&&S.members.some(m=>m.traits.includes('right')&&m.tier!=='edge')&&Math.random()<.28){
+    S.hp-=4;S.commons.bond-=1.5;news('「お金を払っているのに」と、長いクレームを受けた');
+    R.hp.push({k:'クレーム対応',v:-4});}
+  if(legitimacy()>=70&&!S.fired.media&&Math.random()<.45){S.fired.media=1;S.marketing+=1.8;S.commons.link+=3;news('★ 地元紙の取材が来た');}
+  const corpP=(S.opt.kigyo?.6:.42)+S.done*0.06, corpMax=(S.opt.kigyo?6:4)+Math.floor(S.done/2);
+  if(S.commons.link>=15&&S.corp<corpMax&&Math.random()<corpP){S.corp++;news('★ 法人契約が1社決まった');}
+  if(S.opt.virt){const room=Math.round(10+legitimacy()/7+S.commons.link/3.5);
+    if(S.virtN<room&&Math.random()<.85){const n=ri(1,3);S.virtN+=n;news('住所貸しの契約が'+n+'件増えた（計'+S.virtN+'件）');}}
+  if(S.opt.guest&&M===7&&!S.fired.gh){S.fired.gh=1;S.commons.bridge+=5;news('★ 泊まった人が、そのまま移住を検討しはじめた');}
+}
+function judge(){
+  const L=legitimacy(),J=jisou();
+  const v=VISIONS[S.vision].ok(S);
+  // 自走とは「会員同士が、あなた抜きで何かを成し遂げた」こと
+  if(v&&J>=78&&S.rules.length>=4&&S.done>=3&&S.mp>=55)return 'true';
+  if(v)return 'vision';
+  if(S.commons.bond>36&&S.commons.bridge<30&&L<66)return 'inner';
+  if(S.edges<=3&&tiers().core.length<=3)return 'stranger';
+  return 'survive';
+}
+/* 総合評価：ビジョンへの近さ・コモンズ・企画・経営・体力 */
+function scoreAll(){
+  const V=VISIONS[S.vision], c=S.commons;
+  const vis=V.ok(S)?100:cl(V.prog?V.prog(S):50,0,95);
+  const com=cl((c.bond+c.bridge+c.link*1.4)/2.6,0,100);
+  const prj=cl(S.done*22+S.projects.length*6,0,100);
+  const biz=cl(S.cash/40000,0,100);
+  const hp =cl((S.hp+S.mp)/2,0,100);   // 体力と気持ちの両方
+  const total=vis*0.30+com*0.26+prj*0.16+biz*0.10+hp*0.18;
+  return {vis,com,prj,biz,hp,total};
+}
+const RANK=[
+ {min:88,r:'S',t:'あなたは、最高のコワーキングマネージャーになれます',
+  d:'人の話を聞き、噛み合う相手を見つけ、場を任せる。この街に、この場所があってよかった。'},
+ {min:74,r:'A',t:'あなたは、この仕事に向いています',
+  d:'もう少し人を信じて手を離せば、この場はひとりでに動きはじめます。'},
+ {min:58,r:'B',t:'あなたは、けっこう上手に回せています',
+  d:'あと一歩、会員ひとりひとりが何をしたいのかを掴めれば、景色が変わります。'},
+ {min:38,r:'C',t:'あなたは、いま踏ん張っているところです',
+  d:'場を開けているだけでも立派ですが、その先に行くには、誰かと誰かをつなぐ必要があります。'},
+ {min:0, r:'D',t:'あなたは、ひとりで抱えすぎました',
+  d:'全部を自分でやろうとすると、必ずこうなります。頼っていいんです。'},
+];
+
+/* ================= 描画 ================= */
+function bar(v,max,c){return '<div class="meter"><i style="width:'+cl(v/max*100,0,100)+'%;background:'+c+'"></i></div>';}
+function render(){
+  if(!S){renderTitle();return;}
+  if(S.phase==='howto'){renderHowTo();return;}
+  if(S.phase==='vision'){renderVision();return;}
+  if(S.phase==='opt'){renderOpt();return;}
+  if(S.phase==='setup'){renderSetup();return;}
+  if(S.phase==='rules'){renderRules();return;}
+  if(S.ended){renderEnd();return;}
+  const CM=comfort(),L=legitimacy();
+  document.getElementById('app').innerHTML=statusBar(CM,L)+`
+  <div class="row">
+    <div class="col" style="flex:1 1 500px">${floorCard(CM)}${careCard()}</div>
+    <div class="col" style="flex:1 1 340px">${goalCard()}${projCard()}${actionCard()}${newsCard()}${settingCard()}${rulesCard()}</div>
+  </div>
+  <div style="text-align:center;margin:14px 0 30px">
+    <button class="pri" onclick="tryEndMonth()" style="padding:12px 34px;font-size:15px">次の月へ ▶</button>
+  </div>`;
+}
+function statusBar(CM,L){
+  const c=S.commons,hpC=S.hp>60?'var(--good)':S.hp>30?'var(--warn)':'var(--bad)',T=tiers();
+  const mpC=S.mp>=50?'var(--good)':S.mp>=25?'var(--warn)':'var(--bad)';
+  return `<div id="bar">
+   <div class="stat" style="min-width:112px"><b>${S.month} / 12 ヶ月目</b><span>小枠市・${S.prop.n}</span></div>
+   <div class="stat" style="min-width:110px"><b class="${S.cash<300000?'neg':''}">${yen(S.cash)}</b><span>現金</span></div>
+   <div class="stat"><b style="color:${hpC}">${Math.round(S.hp)}</b><span>❤ 体力</span>${bar(S.hp,100,hpC)}</div>
+   <div class="stat"><b style="color:${mpC}">${Math.round(S.mp)}</b><span>${S.mp<50?'⚠ ':'🧠 '}メンタル</span>${bar(S.mp,100,mpC)}</div>
+   <div class="stat"><b>${S.ap}</b><span>AP 行動</span></div>
+   <div class="stat"><b>${Math.round(CM.score)}</b><span>居心地</span>${bar(CM.score,100,'var(--acc)')}</div>
+   <div class="stat"><b>${Math.round(L)}</b><span>⚖ 信用</span>${bar(L,100,'var(--moon)')}</div>
+   <div class="stat" style="min-width:60px"><b class="sm">${S.basics>=10?'◎':S.basics>=5?'○':S.basics>=2?'△':'×'}</b><span>基本の仕事</span></div>
+   <div class="stat" style="min-width:146px"><b class="sm">結${Math.round(c.bond)} 橋${Math.round(c.bridge)} 連${Math.round(c.link)}</b><span>🤝 つながり</span></div>
+   <div class="stat"><b>${S.members.length}</b><span>会員（コア${T.core.length}）</span></div>
+  </div>`;
+}
+function goalCard(){
+  const V=VISIONS[S.vision];
+  return `<div class="card" style="padding:11px 13px">
+    <div class="sm"><b>${V.i} 目標：${V.n}</b></div>
+    <div class="xs dim">${V.kpi}　${V.ok(S)?'<span style="color:var(--good)">◎ 達成中</span>':'<span style="color:var(--warn)">△ まだ</span>'}</div></div>`;
+}
+function projCard(){
+  const wish=S.members.filter(m=>m.revealed>=2&&!m.inProject).slice(0,3);
+  if(!S.projects.length&&!wish.length)return '';
+  return `<div class="card"><div class="hd"><h2>動いている企画</h2>
+    <span class="sm dim">これまで ${S.done} 件</span></div>
+   ${S.projects.map(p=>`<div class="item">
+     <div class="sm"><b>${esc(p.t)}</b></div>
+     <div class="xs dim">${esc(p.an)} ＋ ${esc(p.bn)}</div>
+     <div class="meter" style="margin-top:5px"><i style="width:${cl(p.prog/p.need*100,0,100)}%;background:var(--acc)"></i></div>
+     <div class="xs dim" style="margin-top:2px">あと ${Math.max(0,p.need-p.prog)} ヶ月${p.boost?'（後押し済み）':''}</div></div>`).join('')}
+   ${wish.length?`<div class="xs dim" style="margin-top:${S.projects.length?'8px':'0'}">やりたいと言っている人</div>
+     ${wish.map(m=>`<div class="sm" style="padding:2px 0">・${esc(m.name)}「${esc(m.want.t)}」
+       <span class="xs dim">${m.want.need.map(t=>TAG[t]).join('・')}</span></div>`).join('')}`:''}
+  </div>`;
+}
+function floorCard(CM){
+  const n=S.members.length,T=tiers();
+  const cnt={moon:0,earth:0,sun:0};S.members.forEach(m=>cnt[m.group]++);
+  const sk=skew();
+  let zones='';
+  ZONES.forEach(z=>{
+    let s='';
+    for(let i=0;i<z.seats;i++){
+      const k=z.id+':'+i,m=memberAt(k);
+      if(m){const hm=hasMatch(m);
+        s+=`<div class="seat ${MOVE===m.id?'sel':''} ${hm>=7?'match':''}" onclick="clickSeat('${k}')">
+          ${hm>=7?'<div class="spark">✦</div>':''}
+          <b>${esc(m.name)}</b><div class="xs dim">${esc(m.occ)}</div>
+          <div class="xs">${talkDots(m)}${m.revealed>=3?' '+m.offer.map(t=>TAGI[t]).join(''):''}</div></div>`;
+      } else s+=`<div class="seat empty ${MOVE?'tgt':''}" onclick="clickSeat('${k}')">空席</div>`;
+    }
+    zones+=`<div class="zone"><h4>${z.n}</h4><div class="seats">${s}</div></div>`;
+  });
+  const pct=x=>n?Math.round(x/n*100):0;
+  const others=T.mid.concat(T.edge);
+  return `<div class="card">
+    <div class="hd"><h2>フロア</h2>
+      <span class="sm" style="color:${MOVE?'var(--acc)':'var(--dim)'}">${MOVE?'移動先の席を選んでください':'席をクリックすると、その人のカードが開きます'}</span></div>
+    <div class="tierbar">
+      <div style="flex:${Math.max(T.core.length,0.4)};background:var(--core)">コア ${T.core.length}</div>
+      <div style="flex:${Math.max(T.mid.length,0.4)};background:var(--mid)">中間 ${T.mid.length}</div>
+      <div style="flex:${Math.max(T.edge.length,0.4)};background:var(--edge)">周辺 ${T.edge.length}</div>
+    </div>
+    <div style="height:9px"></div>
+    <div class="sm" style="margin-bottom:6px">
+      <span style="color:var(--moon)">🌙月 ${cnt.moon}</span>　<span style="color:var(--earth)">🌍地球 ${cnt.earth}</span>　<span style="color:var(--sun)">☀太陽 ${cnt.sun}</span>
+      ${sk?`<span class="tag" style="border-color:var(--warn);color:var(--warn)">${G[sk].n}に偏っています（${pct(cnt[sk])}%）</span>`:''}</div>
+    ${zones}
+    ${others.length?`<div class="zone"><h4>今日は来ていない会員　<span style="text-transform:none">${others.length}人</span></h4>
+      ${others.slice(0,40).map(m=>`<span class="chip" onclick="showMember('${m.id}')">
+        <span class="dot" style="background:${m.tier==='mid'?'var(--mid)':'var(--edge)'}"></span>${esc(m.name)}
+        <span class="xs dim">${esc(m.occ)}</span>${talkDots(m)}${m.revealed>=3?m.offer.map(t=>TAGI[t]).join(''):''}</span>`).join('')}
+      ${others.length>40?'<span class="xs dim">ほか'+(others.length-40)+'人</span>':''}</div>`:''}
+  </div>`;
+}
+function careCard(){
+  if(!S.care.length)return '';
+  return `<div class="card"><div class="hd"><h2>今月の気配り</h2>
+    <span class="sm dim">${S.care.filter(c=>!c.done).length} 件が未対応</span></div>
+    ${S.care.map((c,i)=>`<div class="item ${c.done?'done':''}">
+      <div>${esc(c.t)}</div><div class="xs dim">${esc(c.warn)}</div>
+      ${c.done?`<div class="xs" style="color:var(--good)">→ ${esc(c.chosen)}</div>`
+        :`<div class="opts">${c.o.map((o,j)=>`<button onclick="doCare(${i},${j})">${esc(o.l)}<span class="xs dim"> ${o.ap?'AP'+o.ap:''}${o.hp?' 体力-'+o.hp:''}${!o.ap&&!o.hp?' 無償':''}</span></button>`).join('')}</div>`}
+    </div>`).join('')}</div>`;
+}
+function actionCard(){
+  const b=(id,l,s,d)=>`<button onclick="act('${id}')" ${d?'disabled':''}>${l}<i>${s}</i></button>`;
+  const un=S.members.filter(m=>m.revealed<3).length;
+  const apMax=(S.staffUp?15:12)+(S.rules.includes('r9')?1:0);
+  return `<div class="card"><div class="hd"><h2>行動</h2>
+    <span class="sm dim">AP ${S.ap} / ${apMax}${S.staffUp?'（スタッフ増員済）':''}</span></div>
+   <div class="acts">
+    ${b('listen','話を聞く','AP1・体力1／やりたいことが分かる（残り'+un+'人）',S.ap<1)}
+    ${b('connect','つなぐ','AP2・体力1／噛み合えば企画が動き出す',S.ap<2)}
+    ${S.projects.length?b('support','企画を後押しする','AP2・体力2／完成が早まる（'+S.projects.length+'件）',S.ap<2):''}
+    ${b('sales','営業する','AP2・体力2／見込み客を増やす',S.ap<2)}
+    ${b('event','イベント開催','AP3・体力3／たまに来る人が戻る（これまで'+S.eventStreak+'回）',S.ap<3)}
+    ${S.opt.kodomo?b('kodomo','こども食堂を開く','AP3・体力2／信用が上がる',S.ap<3):''}
+    ${b('rule','ハウスルールを作る','AP2・体力1',S.ap<2)}
+    ${b('rest','休む','残りAP全部／体力とメンタルが回復します',S.ap<1)}
+   </div></div>`;
+}
+function newsCard(){
+  if(!S.news.length)return '';
+  return `<div class="card"><h2 style="margin-bottom:8px">できごと</h2>
+    <div class="sm">${S.news.slice(-14).map(t=>'<div style="padding:2px 0;border-bottom:1px solid var(--line)">'+esc(t)+'</div>').join('')}</div></div>`;
+}
+function settingCard(){
+  const p=S.price;
+  const sl=(lab,min,max,st,val,path)=>`<div class="sl"><label><span>${lab}</span><span class="num">${yen(val)}</span></label>
+    <input type="range" min="${min}" max="${max}" step="${st}" value="${val}" oninput="setVal('${path}',this.value)"></div>`;
+  const rest=Object.keys(OPT).filter(k=>!S.opt[k]);
+  return `<div class="card"><div class="hd"><h2>価格とレイアウト</h2><span class="sm dim">いつでも変更可</span></div>
+    ${sl('月額会員',3000,30000,500,p.m,'price.m')}
+    ${sl('ドロップイン',0,3000,100,p.d,'price.d')}
+    ${S.opt.cafe?sl('コーヒー1杯',300,900,50,p.cafe,'price.cafe'):''}
+    ${S.opt.kodomo?sl('こども食堂 大人（子は無料）',0,800,100,p.kodomo,'price.kodomo'):''}
+    ${S.opt.juku?sl('学習塾 月謝',5000,25000,1000,p.juku,'price.juku'):''}
+    ${S.opt.guest?sl('宿泊 1泊',3000,12000,500,p.guest,'price.guest'):''}
+    ${S.opt.event?sl('イベント貸出 1時間',0,5000,500,p.event,'price.event'):''}
+    ${S.opt.virt?sl('住所貸し 月額',3000,15000,500,p.virt,'price.virt'):''}
+    <div class="sl"><label><span>席の間隔</span><span class="num">${S.density<.33?'ゆったり':S.density<.66?'ふつう':'ぎゅうぎゅう'}</span></label>
+      <input type="range" min="0" max="1" step="0.05" value="${S.density}" oninput="setVal('density',this.value)"></div>
+    <div class="sl"><label><span>入りやすさ</span><span class="num">${S.openness<.33?'紹介制':S.openness<.66?'ふつう':'誰でも歓迎'}</span></label>
+      <input type="range" min="0" max="1" step="0.05" value="${S.openness}" oninput="setVal('openness',this.value)"></div>
+    <div class="xs dim">
+      ${p.m<3200?'安さ目当ての人が集まりはじめます<br>':''}
+      ${p.m>9000?'この街の相場より、かなり高めです<br>':''}
+      ${S.density>.7?'席を詰めると会話は増え、静かに働きたい人は減ります<br>':''}
+      ${S.density<.3?'ゆったりさせると快適ですが、隣と話さなくなります<br>':''}
+      ${S.openness<.3?'紹介制にすると居心地は上がりますが、信用は落ちます':''}</div>
+    ${rest.length?`<hr class="hr"><div class="sm" style="margin-bottom:6px"><b>あとから増やす</b></div>
+    <div class="opts">${rest.map(k=>`<button onclick="addOpt('${k}')">${OPT[k].i} ${OPT[k].n} ${Math.round(OPT[k].cost/10000)}万</button>`).join('')}
+    ${!S.opt.virt?`<button onclick="addOpt('virt')">📮 住所貸し 20万</button>`:''}</div>`:''}
+    ${(S.stock.rice||S.stock.veg||S.stock.vol)?`<div class="note" style="margin-top:9px"><b>🎁 差し入れ</b><br>
+      ${S.stock.rice?'米 '+S.stock.rice*30+'kg　':''}${S.stock.veg?'野菜 '+S.stock.veg+'箱　':''}${S.stock.vol?'手伝い '+S.stock.vol+'人':''}</div>`:''}
+  </div>`;
+}
+function rulesCard(){
+  if(!S.rules.length)return '';
+  return `<div class="card"><h2 style="margin-bottom:7px">この場のルール</h2>
+    ${S.rules.map(id=>{const r=RULES.find(x=>x.id===id); if(!r)return '';
+      return `<div class="sm" style="padding:3px 0">${r.i} ${esc(r.n)}
+        <div class="xs dim" style="margin-left:20px">${esc(r.eff)}</div></div>`;}).join('')}</div>`;
+}
+
+/* ---------- 席の操作 ---------- */
+function clickSeat(key){
+  const m=memberAt(key);
+  if(MOVE){
+    const sel=S.members.find(x=>x.id===MOVE);
+    if(!sel){MOVE=null;render();return;}
+    if(sel.seat===key){MOVE=null;render();return;}
+    confirmMove(sel,m,key); return;
+  }
+  if(m)showMember(m.id);
+}
+function confirmMove(sel,other,key){
+  if(S.ap<1){toast('APが足りません');MOVE=null;render();return;}
+  const zn=ZONES.find(z=>z.id===key.split(':')[0]).n;
+  modal(`<h2>席を移しますか？</h2><hr class="hr">
+   <div class="bd"><span>${esc(sel.name)}</span><span>→ <b>${zn}</b></span></div>
+   ${other?`<div class="bd"><span>${esc(other.name)}</span><span>と入れ替わります</span></div>`:''}
+   <div class="bd"><span>コスト</span><span class="neg">AP 1</span></div>
+   <div class="opts" style="margin-top:14px">
+     <button class="pri" style="flex:1" onclick="doMove('${sel.id}','${other?other.id:''}','${key}')">移す</button>
+     <button style="flex:1" onclick="MOVE=null;closeModal()">やめる</button></div>`);
+}
+function doMove(selId,otherId,key){
+  const sel=S.members.find(m=>m.id===selId),other=otherId?S.members.find(m=>m.id===otherId):null;
+  S.ap-=1;S.hp-=1; sfx('tap'); const from=sel.seat;
+  if(other){other.seat=from;sel.seat=key;news(sel.name+'と'+other.name+'の席を入れ替えた');}
+  else{sel.seat=key;news(sel.name+'の席を移した');}
+  MOVE=null;closeModal();
+}
+function showMember(id){
+  const m=S.members.find(x=>x.id===id); if(!m)return;
+  const g=G[m.group],tn={core:'コア層',mid:'中間層',edge:'周辺層'}[m.tier];
+  const tc={core:'var(--core)',mid:'var(--mid)',edge:'var(--edge)'}[m.tier];
+  const gtM=mk(m.gt);
+  modal(`<h2>${esc(m.name)}</h2>
+   <div class="dim sm">在籍${m.months}ヶ月　つながり${m.links}本　　話を聞いた回数 ${talkDots(m)}</div><hr class="hr">
+   <div class="bd"><span>来店頻度</span><span><span class="dot" style="background:${tc}"></span><b>${tn}</b></span></div>
+   <div class="bd"><span>仕事</span><span>${esc(m.occ)}${m.phase&&m.phase!=='―'?'　<span class="dim">'+esc(m.phase)+'</span>':''}</span></div>
+   <div class="bd"><span>働き方</span><span>${m.quiet>=.6?'静かに集中したい':m.quiet>=.35?'場に合わせる':'みんなと話したい'}</span></div>
+   <div class="bd"><span>性格</span><span style="text-align:right">${m.traits.map(t=>
+     `<span class="tag" style="${TR[t].bad?'border-color:var(--warn);color:var(--warn)':''}">${TR[t].n}</span>`).join('')}</span></div>
+   <div class="bd"><span>タイプ</span><span>${m.revealed>=1?`<span class="dot" style="background:${g.c}"></span><b>${g.n}</b>（${g.ax}）`:'<span class="dim">？</span>'}</span></div>
+   <div class="bd"><span>やりたいこと</span><span style="text-align:right">${m.revealed>=2?`<b>${esc(m.want.t)}</b><br><span class="xs dim">要 ${m.want.need.map(t=>TAG[t]).join('・')}</span>`:'<span class="dim">？</span>'}</span></div>
+   <div class="bd"><span>できること</span><span style="text-align:right">${m.revealed>=3?(m.offer.length?m.offer.map(t=>TAGI[t]+' '+OFFER[t]).join('<br>'):'<span class="dim">特にない、と言う</span>'):'<span class="dim">？</span>'}</span></div>
+   <div class="bd"><span>貢献意欲</span><span class="mk" style="color:${gtM[1]}">${gtM[0]}</span></div>
+   ${m.inProject?`<div class="bd"><span>いま</span><span>企画に参加中</span></div>`:''}
+   <hr class="hr">
+   <div class="opts">
+     ${m.tier==='core'?`<button class="pri" style="flex:1" onclick="startMove('${m.id}')">席を移動する（AP1）</button>`
+       :`<div class="xs dim" style="flex:1">この人は今日、席にいません。</div>`}
+     <button onclick="closeModal()">閉じる</button></div>`);
+}
+function startMove(id){MOVE=id;closeModal();}
+function talkDots(m){ let s='';
+  for(let i=0;i<3;i++) s+=`<span class="dot" style="background:${i<m.revealed?'var(--acc)':'var(--line)'}"></span>`;
+  return s; }
+function doCare(i,j){
+  const c=S.care[i];if(c.done)return;
+  const o=c.o[j]; if(S.ap<o.ap){toast('AP不足');return;}
+  const cost=o.hp?o.hp+1:0;                     // 気配りは、思っているより削る
+  S.ap-=o.ap;S.hp-=cost;sfx(cost>=4?'warn':'care');
+  const before=S.news.length;
+  o.f();
+  // 何が起きたか必ず残す。「やった意味があったのか」が分からないのが一番きつい
+  if(S.news.length===before) news('・'+c.t.replace(/。$/,'')+' → '+o.l);
+  c.done=true;c.chosen=o.l;render();
+}
+function setVal(p,v){v=parseFloat(v);if(p.startsWith('price.'))S.price[p.split('.')[1]]=v;else S[p]=v;render();}
+function addOpt(k){
+  const cost=k==='virt'?200000:OPT[k].cost;
+  if(S.cash<cost){toast('現金が足りません（'+yen(cost)+'必要）');return;}
+  S.cash-=cost;S.opt[k]=true;S.hp-=(k==='virt'||k==='kigyo'?1:4);
+  news((k==='virt'?'📮 住所貸し':OPT[k].i+' '+OPT[k].n)+'をはじめた');render();
+}
+
+/* ---------- モーダル ---------- */
+function modal(h){document.getElementById('mbox').innerHTML=h;document.getElementById('modal').classList.add('on');}
+function closeModal(){document.getElementById('modal').classList.remove('on');render();}
+function toast(t){modal(`<div style="text-align:center"><div style="margin:10px 0 18px">${esc(t)}</div>
+  <button onclick="closeModal()">OK</button></div>`);}
+function choose(title,list,cb){
+  CB=cb;window.__l=list;
+  modal(`<h2>${esc(title)}</h2><hr class="hr">
+   ${list.map((m,i)=>{const g=G[m.group],gm=mk(m.gt),hm=hasMatch(m);
+     return `<button class="pick ${hm>=7?'match':''}" onclick="pickIdx(${i})">
+     <b>${esc(m.name)}</b> <span class="dim sm">${esc(m.occ)}${m.phase&&m.phase!=='―'?'・'+esc(m.phase):''}</span>
+     <span style="float:right">${hm>=7?'<span style="color:var(--good)">✦ 良い相手がいる</span>　':''}${talkDots(m)}</span>
+     <i style="display:block;font-style:normal" class="xs dim">
+       ${m.revealed>=2?'「'+esc(m.want.t)+'」':(m.revealed>=1?g.n+'タイプ':'まだ何も分かっていない')}
+       ／ 貢献意欲 <span style="color:${gm[1]}">${gm[0]}</span>${m.traits.map(t=>' ・'+TR[t].n).join('')}</i></button>`;}).join('')}
+   <button onclick="closeModal()" style="width:100%;margin-top:8px">やめる</button>`);
+}
+function pickIdx(i){const l=window.__l,f=CB;closeModal();if(f)f(l[i]);}
+
+/* つなぐ相手選び：噛み合いが見える */
+function chooseMatch(a){
+  // 相手のことが分かっていないと、噛み合うかどうかも分からない
+  const cand=S.members.filter(b=>b!==a&&!b.inProject&&b.revealed>=1)
+    .map(b=>({b,v:matchScore(a,b)})).sort((x,y)=>y.v-x.v).slice(0,10);
+  if(!cand.length){ toast('つなげる相手がまだいません。\n他の会員の話も聞いてみてください'); return; }
+  window.__l=cand.map(x=>x.b); CB=b=>doConnect(a,b);
+  const known=a.revealed>=2;
+  modal(`<div class="dim sm">${esc(a.name)}（${esc(a.occ)}）</div>
+   <h2 style="margin:4px 0 8px">${known?'「'+esc(a.want.t)+'」':'この人のやりたいことは、まだ分からない'}</h2>
+   ${known?`<div class="sm dim">必要なのは ${a.want.need.map(t=>'<span class="tag">'+TAG[t]+'</span>').join('')}</div>`
+     :`<div class="note sm">「話を聞く」を2回すると、この人が何をしたいのか分かります。<br>分からないまま繋いでも、うまくいくとは限りません。</div>`}
+   <hr class="hr">
+   ${cand.map((x,i)=>{const b=x.b, m=mkMatch(x.v), known=b.revealed>=2;
+     const off=b.revealed>=3?b.offer.map(t=>TAGI[t]+' '+OFFER[t]).join('　')
+       :(known?'できることは、まだ聞けていない':'この人のことは、ほとんど分かっていない');
+     const hit=known&&a.revealed>=2?a.want.need.filter(t=>b.offer.includes(t)):[];
+     return `<button class="pick ${x.v>=7?'match':''}" style="${known?'':'opacity:.55'}" onclick="pickIdx(${i})">
+       <b>${esc(b.name)}</b> <span class="dim sm">${esc(b.occ)}</span>
+       <span style="float:right">${talkDots(b)}　<span class="mk" style="color:${m[1]}">${m[0]}</span></span>
+       <i style="display:block;font-style:normal" class="xs ${known?'':'dim'}">${esc(off)}</i>
+       ${hit.length?`<i style="display:block;font-style:normal;color:var(--good)" class="xs">
+         ✦ ${hit.map(t=>TAG[t]).join('・')} が噛み合います</i>`:''}</button>`;}).join('')}
+   <div class="xs dim" style="margin:6px 0">薄く表示されている人は、まだ話を聞けていない人です。</div>
+   <button onclick="closeModal()" style="width:100%;margin-top:8px">やめる</button>`);
+}
+function mkMatch(v){ return v>=7?['◎','var(--good)']:v>=4?['○','var(--good)']:v>=2?['△','var(--warn)']:['×','var(--bad)']; }
+function doConnect(a,b){
+  S.ap-=2;S.hp-=1;
+  const v=matchScore(a,b), aff=affinity(a,b);
+  let icon,head,body,tone;
+  if(v>=4 && a.revealed>=2){
+    const p=startProject(a,b);
+    icon='🌱';tone='var(--good)';head='企画が動き出しました';
+    body=`「${p.t}」に ${b.name} が加わりました。<br>あと ${p.need} ヶ月ほどで形になります。`;
+  } else if(v>=2||aff>0.3){
+    S.edges++;a.links++;b.links++;a.belong+=10;b.belong+=10;
+    S.commons.bridge+=3;S.commons.bond+=2; sfx('good');
+    news('○ '+a.name+'と'+b.name+'がつながった');
+    icon='🤝';tone='var(--good)';head='つながりました';
+    body='2人は話が弾んでいます。企画にはなりませんでしたが、関係はできました。';
+  } else if(aff>-1.5){
+    S.commons.bridge+=0.6;a.belong+=3;b.belong+=3;
+    news('― '+a.name+'と'+b.name+'を引き合わせた。特に何も起きなかった');
+    icon='😐';tone='var(--dim)';head='何も起きませんでした';
+    body=`${b.name} は、${a.name} が必要としているものを持っていませんでした。<br>`
+      +(b.revealed<3?'相手のことをもっと知ってから繋ぐと、うまくいきやすくなります。'
+                    :'噛み合うものを持っている人を探してみてください。');
+  } else {
+    S.hp-=3;S.commons.bond-=2.6;a.belong-=8;b.belong-=8; sfx('bad');
+    news('× '+a.name+'と'+b.name+'は、合わなかった');
+    icon='💥';tone='var(--bad)';head='失敗しました';
+    body='この2人は、そもそも相性が良くありませんでした。<br>気まずい空気になり、2人とも足が遠のいています。';
+  }
+  modal(`<div style="text-align:center">
+    <div style="font-size:40px">${icon}</div>
+    <h2 style="margin:6px 0 10px;color:${tone}">${head}</h2></div>
+   <div class="note">${body}</div>
+   <div class="bd" style="margin-top:10px"><span>${esc(a.name)}</span>
+     <span class="xs dim">${a.revealed>=2?'「'+esc(a.want.t)+'」':'やりたいことは未確認'}</span></div>
+   <div class="bd"><span>${esc(b.name)}</span>
+     <span class="xs dim">${b.revealed>=3?b.offer.map(t=>TAGI[t]+OFFER[t]).join('　'):'できることは未確認'}</span></div>
+   <div style="margin-top:14px"><button class="pri" style="width:100%;padding:10px" onclick="closeModal()">閉じる</button></div>`);
+}
+function chooseRaw(title,items,cb){
+  CB=cb;window.__l=items.map(x=>x.val);
+  modal(`<h2>${esc(title)}</h2><hr class="hr">
+   ${items.map((x,i)=>`<button class="pick" onclick="pickIdx(${i})"><b>${esc(x.label)}</b>
+     <i style="display:block;font-style:normal" class="xs dim">${esc(x.sub||'')}</i></button>`).join('')}
+   <button onclick="closeModal()" style="width:100%;margin-top:8px">やめる</button>`);
+}
+
+/* ---------- 月末レポート ---------- */
+function showReport(R){
+  const F=[...R.comfort.factors].sort((a,b)=>Math.abs(b.v)-Math.abs(a.v)).slice(0,3);
+  const money=(k,v,note)=>`<div class="bd"><span>${esc(k)}${note?' <span class="xs dim">'+esc(note)+'</span>':''}</span>
+    <span class="num ${v>0?'pos':v<0?'neg':'dim'}">${v===0?'—':yen(v)}</span></div>`;
+  const sign=(k,v)=>{const m=mk(v);return `<div class="bd"><span>${esc(k)}</span><span class="mk" style="color:${m[1]}">${m[0]}</span></div>`;};
+  const t=R.tier, cm=mkR(R.comfort.score), hpm=mkR(R.hpEnd), mpm=mkR(R.mpEnd);
+  modal(`<h2>${R.month}ヶ月目 おわり</h2><hr class="hr">
+   <div class="sm dim">お金</div>
+   ${R.money.map(m=>money(m.k,m.v,m.note)).join('')}
+   <div class="bd" style="border-top:1px solid var(--line)"><b>あなたの所得（今月の差し引き）</b><b class="num ${R.inc-R.exp>=0?'pos':'neg'}">${yen(R.inc-R.exp)}</b></div>
+   <div class="bd"><span>手元の現金</span><b class="num">${yen(R.cashEnd)}</b></div>
+   <hr class="hr">
+   <div class="sm dim">居心地　<span class="mk" style="color:${cm[1]}">${cm[0]}</span></div>
+   ${F.map(f=>sign(f.k,f.v)).join('')}
+   <hr class="hr">
+   <div class="sm dim">今月のあなた</div>
+   ${R.hp.length?R.hp.map(h=>sign(h.k,h.v)).join(''):'<div class="dim sm" style="padding:4px 0">特になし</div>'}
+   <div class="bd" style="border-top:1px solid var(--line)"><b>体力</b>
+     <b><span class="mk" style="color:${hpm[1]}">${hpm[0]}</span> <span class="num dim">${Math.round(R.hpEnd)}</span></b></div>
+   <hr class="hr">
+   <div class="sm dim">気持ちのほう</div>
+   ${(R.mp||[]).length?R.mp.map(h=>sign(h.k,h.v)).join(''):'<div class="dim sm" style="padding:4px 0">特になし</div>'}
+   <div class="bd" style="border-top:1px solid var(--line)"><b>メンタル</b>
+     <b><span class="mk" style="color:${mpm[1]}">${mpm[0]}</span> <span class="num dim">${Math.round(R.mpEnd)} / 100</span></b></div>
+   ${R.mpEnd<50?`<div class="note sm" style="border-left-color:var(--bad);margin-top:8px">
+     <b>${R.mpEnd<25?'かなり危ない状態です':'危険ゾーンに入りました'}</b><br>
+     このままだと体力の減りが早くなります。<b>休む</b>か、会員に任せられる状態をつくってください。</div>`:''}
+   <hr class="hr">
+   <div class="sm dim">会員</div>
+   <div class="bd"><span>コア（よく来る）</span><span class="num">${t.before.core} → <b>${t.after.core}</b></span></div>
+   <div class="bd"><span>中間（たまに来る）</span><span class="num">${t.before.mid} → <b>${t.after.mid}</b></span></div>
+   <div class="bd"><span>周辺（ほとんど来ない）</span><span class="num">${t.before.edge} → <b>${t.after.edge}</b></span></div>
+   <div class="bd"><span>入会 / 退会</span><span class="num">+${R.joined} / −${R.left}</span></div>
+   ${S.news.length?`<div class="xs dim" style="margin-top:8px">${S.news.map(esc).join('<br>')}</div>`:''}
+   <div style="margin-top:16px"><button class="pri" style="width:100%;padding:11px"
+     onclick="nextMonth()">${S.ended?'結果を見る':S.month+'ヶ月目へ ▶'}</button></div>`);
+}
+
+/* ================= タイトル → 説明 → ビジョン → 特色 → 物件 ================= */
+function renderTitle(){
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:660px;margin:38px auto;text-align:center;padding:34px">
+    <div class="dim sm" style="letter-spacing:.2em">A LOCAL COWORKING SIMULATION</div>
+    <h1 style="font-size:27px;margin:10px 0 4px">The Local Coworking Community</h1>
+    <div class="dim sm">人口10万人・小枠市／12ヶ月</div>
+    <hr class="hr">
+    <div style="text-align:left;font-size:14px">
+      <p>人口10万人の地方都市。駅前の空き店舗を借りて、あなたはコワーキングスペースを始めた。</p>
+      <p>来るのは、<b>いけいけの元社長</b>。<b>凝り性の職人</b>。<br>
+         <b>軽トラで野菜を積んでくる農家のおっちゃん</b>。</p>
+      <p class="dim">ひとりずつ話を聞き、その人が何をしたいのかを知る。<br>
+         持っているものが噛み合う相手と、引き合わせる。</p>
+      <p><b>そこから、企画がぽんぽん芽を出しはじめる。</b><br>
+         <span class="dim">それが、コワーキング"コミュニティ"です。</span></p>
+      <p style="margin-top:14px"><b>12ヶ月で、いくつ芽を出せるだろうか。</b></p>
+    </div>
+    <div style="margin-top:22px"><button class="pri" onclick="S={phase:'howto'};render()"
+      style="padding:12px 40px;font-size:15px">はじめる</button></div>
+  </div>`;
+}
+function renderHowTo(){
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:740px;margin:22px auto">
+    <h1 style="font-size:20px;margin:0 0 8px">遊びかた</h1>
+
+    <div class="note" style="margin-bottom:8px;font-size:13.5px;line-height:1.85">
+      あなたは、コワーキングスペースのマネージャーです。<br><br>
+      地方でコワーキングスペースを運営するということは、単に場所を貸すことではありません。
+      そこに集まる人たちのコミュニティを育てていくことが、仕事の中心になります。<br><br>
+      カフェをやるのか、こども食堂をやるのか、宿を併設するのか。
+      「コワーキング＋何か」は、あなたが決めます。<br><br>
+      12ヶ月かけて、自分が目指すコミュニティをどうつくるか——それをためすゲームです。
+    </div>
+    <div class="xs dim" style="margin-bottom:14px">舞台は、人口10万人の地方都市「小枠市」。</div>
+
+    <h3 style="margin:16px 0 4px">減っていく、3つのもの</h3>
+    <div class="hg">
+      <div class="hc"><div class="ic">💴</div><b>現金</b>
+        <span>家賃も人件費も毎月出ていきます。0になったら閉店です。<br>
+        会費だけでは足りません。カフェや住所貸しなど、別の柱が要ります。</span></div>
+      <div class="hc" style="border-color:var(--bad)"><div class="ic">❤️</div><b>体力（100から）</b>
+        <span>動けば減ります。人に気を遣うたびに減ります。<br>
+        0になったら燃え尽きて終了。黒字でも終わります。</span></div>
+      <div class="hc" style="border-color:var(--bad)"><div class="ic">🧠</div><b>メンタル（100から）</b>
+        <span>赤字が続く、揉めごとが起きる、人が辞める。報われないと減ります。<br>
+        体力より大きく動きます。50を切ると危険。<br>
+        0になったら、うつになって終了です。<br>
+        低いままだと、体力の減りも早くなります。</span></div>
+    </div>
+    <div class="note" style="margin-bottom:6px">
+      メンタルが戻るのは：黒字で終われた月／休んだとき／
+      会員が自分から動いてくれたとき／企画が形になったとき。<br>
+      <span class="xs dim">全部ひとりで抱えていると、まず先に心のほうが尽きます。</span></div>
+
+    <h3 style="margin:16px 0 4px">増やしていく、2つのもの</h3>
+    <div class="hg">
+      <div class="hc"><div class="ic">🤝</div><b>つながり</b>
+        <span>会員どうしの関係の厚み。<br>
+        厚いと、もめごとを会員が勝手に収めてくれます。<b>あなたの体力が減らなくなります。</b></span></div>
+      <div class="hc"><div class="ic">⚖️</div><b>信用</b>
+        <span>地域からの見られ方。高いと補助金・受託・家賃交渉が通ります。<br>
+        <b>掃除が行き届いている、Wi-Fiが切れない、営業に顔を出している</b>——
+        そういう基本の積み重ねから上がります。こども食堂などでも上がります。</span></div>
+    </div>
+
+    <h3 style="margin:18px 0 4px">⚡ AP（行動ポイント）＝ 今月動ける回数</h3>
+    <div class="note" style="margin-bottom:8px">
+      毎月 <b>12</b> もらえて、<b>翌月に持ち越せません</b>。使い切ってください。<br>
+      経営が軌道に乗ってスタッフを増やせると <b>15</b> に増えます。</div>
+    <div class="hg">
+      <div class="hc"><div class="ic">👂</div><b>話を聞く　AP1</b>
+        <span>その人のことが分かります。3回聞くと全部。</span></div>
+      <div class="hc"><div class="ic">🔗</div><b>つなぐ　AP2</b>
+        <span>2人を引き合わせます。噛み合うと企画が動き出します。<br>
+        相手を知らないと、たいてい何も起きません。</span></div>
+      <div class="hc"><div class="ic">🎪</div><b>イベント　AP2〜3</b>
+        <span>たまにしか来ない人が戻ってきます。<br>
+        自分でやるか、会員に任せるか選べます。</span></div>
+      <div class="hc"><div class="ic">📣</div><b>営業する　AP2</b>
+        <span>見学に来る人が増えます。信用も少し上がります。</span></div>
+      <div class="hc"><div class="ic">📜</div><b>ルールを作る　AP2</b>
+        <span>面倒ごとがそもそも起きなくなります。<br>
+        「電話は通話ブースで」を決めれば、以後その揉めごとは来ません。</span></div>
+      <div class="hc"><div class="ic">🛌</div><b>休む　残りAP全部</b>
+        <span>体力とメンタルが回復します。その月はもう何もできません。<br>
+        削られる前に休むのがコツです。</span></div>
+    </div>
+
+    <h3 style="margin:18px 0 4px">1ヶ月の流れ</h3>
+    <div class="flow">
+      <div class="st"><div class="ic">👀</div><b>気配り</b><span>放っておくと<br>体力とつながりが減る</span></div>
+      <span class="arw">▶</span>
+      <div class="st"><div class="ic">⚡</div><b>行動</b><span>APを使って<br>動く</span></div>
+      <span class="arw">▶</span>
+      <div class="st"><div class="ic">📅</div><b>次の月へ</b><span>毎月かならず<br>何かが起きる</span></div>
+    </div>
+
+    <h3 style="margin:18px 0 6px">会員は 2 : 6 : 2 に分かれます</h3>
+    <div class="tierbar" style="margin-bottom:7px">
+      <div style="flex:2;background:var(--core)">コア 2割</div>
+      <div style="flex:6;background:var(--mid)">中間 6割</div>
+      <div style="flex:2;background:var(--edge)">周辺 2割</div></div>
+    <div class="sm">
+      <div class="bd"><span><b>コア</b></span><span class="dim">ほぼ毎日来て、席に座っている</span></div>
+      <div class="bd"><span><b>中間</b></span><span class="dim">たまに来る。イベントには来る</span></div>
+      <div class="bd"><span><b>周辺</b></span><span class="dim">声をかけないと、いなくなる</span></div>
+    </div>
+    <div class="xs dim" style="margin-top:7px">声をかける・つなぐ・イベントに誘うと、周辺 → 中間 → コア へ上がっていきます。</div>
+    <h3 style="margin:18px 0 4px">★ このゲームの中心：知る → つなぐ → 芽が出る</h3>
+    <div class="flow">
+      <div class="st"><div class="ic">👂</div><b>話を聞く</b><span>「ネットショップを<br>始めたい」と分かる</span></div>
+      <span class="arw">▶</span>
+      <div class="st"><div class="ic">✦</div><b>印がつく</b><span>噛み合う相手が<br>いると光ります</span></div>
+      <span class="arw">▶</span>
+      <div class="st"><div class="ic">🔗</div><b>つなぐ</b><span>Webが作れる人と<br>引き合わせる</span></div>
+      <span class="arw">▶</span>
+      <div class="st" style="border-color:var(--good)"><div class="ic">🌱</div><b>企画が動く</b>
+        <span>数ヶ月で形になり<br>ずっと続く収入に</span></div>
+    </div>
+    <div class="xs dim">相手のことを知らないまま繋いでも、たいてい何も起きません。まずは聞くことです。</div>
+
+    <h3 style="margin:18px 0 4px">タイプと、隣の席</h3>
+    <div class="hg">
+      <div class="hc" style="border-color:var(--moon)"><div class="ic">🌙</div><b>月</b><span>人に合わせる</span></div>
+      <div class="hc" style="border-color:var(--earth)"><div class="ic">🌍</div><b>地球</b><span>こだわる</span></div>
+      <div class="hc" style="border-color:var(--sun)"><div class="ic">☀️</div><b>太陽</b><span>思いつきで動く</span></div>
+    </div>
+    <div class="sm dim"><b>隣り合った人どうしの相性だけ</b>が居心地に効きます。席はドラッグではなく、
+      その人を開いて「席を移動する」から動かせます。<br>
+      ただし全体が同じタイプに偏ると、場が壊れます（月ばかり＝何も決まらない／地球ばかり＝口論／太陽ばかり＝続かない）。</div>
+    <div style="margin-top:22px;display:flex;gap:8px">
+      <button class="pri" style="flex:1;padding:11px" onclick="S.phase='vision';render()">目標を選ぶ ▶</button>
+      <button onclick="S=null;render()">戻る</button></div>
+  </div>`;
+}
+function renderVision(){
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:820px;margin:22px auto">
+    <div class="dim sm">ステップ 1 / 4</div>
+    <h1 style="font-size:20px;margin:3px 0 4px">この場を、何にしたいですか</h1>
+    <p class="sm dim">選んだ目標で、達成条件も、有効な手も変わります。</p>
+    <div class="vgrid" style="margin-top:12px">
+      ${Object.entries(VISIONS).map(([k,v])=>`<button class="vcard" onclick="chooseVision('${k}')">
+        <h3>${v.i} ${v.n}</h3><div class="sm dim" style="margin-bottom:7px">${v.d}</div>
+        <div class="xs"><span class="tag">達成条件</span>${v.kpi}</div></button>`).join('')}
+    </div>
+    <div style="margin-top:14px"><button onclick="S.phase='howto';render()">戻る</button></div>
+  </div>`;
+}
+function chooseVision(k){S.vision=k;S.phase='opt';PICKOPT={};render();}
+
+function renderOpt(){
+  const budget=8000000;
+  const sel=Object.keys(PICKOPT).filter(k=>PICKOPT[k]);
+  const cost=sel.reduce((s,k)=>s+OPT[k].cost,0);
+  const V=VISIONS[S.vision];
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:860px;margin:22px auto">
+    <div class="dim sm">ステップ 2 / 4</div>
+    <h1 style="font-size:20px;margin:3px 0 4px">どんなコワーキングにしますか</h1>
+    <p class="sm dim">いくつ選んでも、ひとつも選ばなくてもかまいません。あとから増やすこともできます。<br>
+      開業資金は次の画面で決めます（借入額しだい）。ここから改装費と設備費が出ていきます。</p>
+    <div class="vgrid" style="margin-top:12px">
+      ${Object.entries(OPT).map(([k,o])=>`<button class="vcard ${PICKOPT[k]?'on':''}" onclick="toggleOpt('${k}')">
+        <h3>${PICKOPT[k]?'✓ ':''}${o.i} ${o.n}</h3>
+        <div class="sm dim" style="margin-bottom:7px">${o.d}</div>
+        <div class="xs"><span class="tag">初期 ${Math.round(o.cost/10000)}万</span>${o.fix?`<span class="tag">月 ${Math.round(o.fix/10000)}万</span>`:'<span class="tag">月額の固定費なし</span>'}</div>
+      </button>`).join('')}
+    </div>
+    <div class="note" style="margin-top:14px">
+      選択中：<b>${sel.length?sel.map(k=>OPT[k].i+OPT[k].n).join('　'):'なし（コワーキング専業）'}</b><br>
+      設備費 ${yen(cost)}　／　残る開業資金 <b class="${budget-cost<2000000?'neg':''}">${yen(budget-cost)}</b>（ここから改装費が引かれます）
+    </div>
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <button class="pri" style="flex:1;padding:11px" onclick="S.phase='setup';render()">物件を選ぶ ▶</button>
+      <button onclick="S.phase='vision';render()">戻る</button></div>
+    <div class="xs dim" style="margin-top:8px">${V.i} 目標：${V.n}　${V.kpi}</div>
+  </div>`;
+}
+function toggleOpt(k){PICKOPT[k]=!PICKOPT[k];render();}
+
+function renderSetup(){
+  const V=VISIONS[S.vision];
+  const sel=Object.keys(PICKOPT).filter(k=>PICKOPT[k]);
+  const cost=sel.reduce((s,k)=>s+OPT[k].cost,0);
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:740px;margin:22px auto">
+    <div class="dim sm">ステップ 3 / 4</div>
+    <h1 style="font-size:20px;margin:3px 0 8px">物件を選ぶ</h1>
+    <div class="note" style="margin-bottom:12px">${V.i} <b>${V.n}</b><br>
+      ${sel.length?sel.map(k=>OPT[k].i+OPT[k].n).join('　'):'コワーキング専業'}　設備費 ${yen(cost)}</div>
+
+    <div class="card" style="background:var(--panel2);padding:12px;margin-bottom:12px">
+      <div class="sl" style="margin:0">
+        <label><span>いくら借りますか</span><span class="num"><b>${yen(LOAN)}</b></span></label>
+        <input type="range" min="1000000" max="10000000" step="500000" value="${LOAN}"
+          oninput="LOAN=parseInt(this.value);render()"></div>
+      <div class="sm" style="display:flex;justify-content:space-between;margin-top:6px">
+        <span>開業資金　自己資金 ${yen(OWN)} ＋ 借入</span><b>${yen(OWN+LOAN)}</b></div>
+      <div class="sm" style="display:flex;justify-content:space-between">
+        <span class="dim">毎月の返済（5年）</span><b class="neg">${yen(repay(LOAN))} / 月</b></div>
+      <div class="xs dim" style="margin-top:5px">借りるほど手元は厚くなりますが、返済がそのまま毎月の重石になります。</div>
+    </div>
+
+    ${PROPS.map((p,i)=>{const left=OWN+LOAN-cost-p.init;
+      return `<button class="pick" onclick="toRules(${i})" ${left<200000?'disabled':''}>
+      <b>${p.n}</b> <span class="sm dim">${p.tsubo}坪</span>
+      <i style="display:block;font-style:normal" class="xs dim">
+        家賃 ${yen(p.rent)}／月　改装 ${yen(p.init)}
+        <b class="${left<1000000?'neg':''}">開業後に残る現金 ${yen(left)}</b>${left<200000?'　← 足りません':''}<br>${p.note}</i></button>`;}).join('')}
+    ${PROPS.every(p=>OWN+LOAN-cost-p.init<200000)
+      ? `<div class="note" style="border-left-color:var(--bad);margin-top:10px">
+          設備を選びすぎて、借りられる物件がありません。ひとつ戻って、減らしてください。<br>
+          <span class="xs dim">あとから増やすこともできます。</span></div>`
+      : `<div class="sm dim" style="margin-top:8px">固定費は月30万前後＋返済 ${yen(repay(LOAN))}。会員費だけでは届きません。</div>`}
+    <div style="margin-top:10px"><button onclick="S.phase='opt';render()">戻る</button></div>
+  </div>`;
+}
+let PICKRULE={}, PROPIDX=0;
+function toRules(i){ PROPIDX=i; PICKRULE={}; S.phase='rules'; render(); }
+function toggleRule(k){
+  const n=Object.keys(PICKRULE).filter(x=>PICKRULE[x]).length;
+  if(!PICKRULE[k]&&n>=3){ toast('最初に決められるのは3つまでです。あとからいつでも追加できます'); return; }
+  PICKRULE[k]=!PICKRULE[k]; sfx('tap'); render();
+}
+function renderRules(){
+  const sel=Object.keys(PICKRULE).filter(k=>PICKRULE[k]);
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:860px;margin:22px auto">
+    <div class="dim sm">ステップ 4 / 4</div>
+    <h1 style="font-size:20px;margin:3px 0 4px">最初のルールを決める</h1>
+    <p class="sm dim">開業前に <b>3つまで</b> 無料で決められます。あとからいつでも追加できます（AP2）。</p>
+    <div class="note" style="margin:10px 0 12px">
+      <b>ルールを決めておくと、その手間が毎月やってこなくなります。</b><br>
+      <span class="xs dim">たとえば「電話は通話ブースで」を決めておけば、
+      毎月「声が大きい人がいる」に対応しなくて済みます。</span></div>
+    <div class="vgrid">
+      ${RULES.map(r=>`<button class="vcard ${PICKRULE[r.id]?'on':''}" onclick="toggleRule('${r.id}')"
+        ${r.cost?'disabled title="開業後に追加できます"':''}>
+        <h3>${PICKRULE[r.id]?'✓ ':''}${r.i} ${esc(r.n)}</h3>
+        <div class="sm" style="color:var(--good)">◎ ${esc(r.eff)}</div>
+        ${r.bad!=='—'?`<div class="sm dim">△ ${esc(r.bad)}</div>`:''}
+        ${r.cost?`<div class="xs dim">開業後に追加（${yen(r.cost)}）</div>`:''}
+      </button>`).join('')}
+    </div>
+    <div class="note" style="margin-top:14px">選択中 <b>${sel.length} / 3</b>
+      ${sel.length?sel.map(k=>{const r=RULES.find(x=>x.id===k);return r.i+r.n;}).join('　'):'なし（ルールなしで始める）'}</div>
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <button class="pri" style="flex:1;padding:11px" onclick="startGame(PROPIDX)">この内容で開業する ▶</button>
+      <button onclick="S.phase='setup';render()">戻る</button></div>
+  </div>`;
+}
+function startGame(i){
+  const v=S.vision, opts=Object.keys(PICKOPT).filter(k=>PICKOPT[k]);
+  const rules=Object.keys(PICKRULE).filter(k=>PICKRULE[k]);
+  S=newState(PROPS[i],v,opts);
+  S.rules=rules;
+  for(let k=0;k<3;k++){const m=uniqName(makeMember());m.belong=62;m.months=1;S.members.push(m);}
+  S.members.forEach(m=>m.tier=tierOf(m)); reseat();
+  S.care=genCare(); news('開業した。とりあえず3人が来てくれた'); render();
+}
+
+function renderEnd(){
+  const V=VISIONS[S.vision], SC=scoreAll(), RK=RANK.find(r=>SC.total>=r.min);
+  const won=V.ok(S);
+  const stop={bankrupt:'💀 現金が尽きて、12ヶ月を待たずに閉じた。',
+              burnout:'🔥 体力が尽きた。動けなくなって、店を閉めた。',
+              depression:'🌧 心が保たなかった。医者に止められて、しばらく休むことにした。'}[S.ended];
+  const bar2=(v,c)=>`<div class="meter" style="height:7px"><i style="width:${cl(v,0,100)}%;background:${c}"></i></div>`;
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:680px;margin:24px auto">
+    <div style="text-align:center">
+      <div class="dim sm" style="letter-spacing:.2em">${S.month} / 12 ヶ月</div>
+      <div style="font-size:40px;margin:6px 0">${V.i}</div>
+      <div class="dim sm">目指したもの</div>
+      <h1 style="font-size:21px;margin:2px 0 10px">${V.n}</h1>
+      <div style="display:inline-block;padding:4px 16px;border-radius:99px;border:1px solid var(--line);
+        background:var(--panel2);font-size:13px">${V.kpi}
+        <b style="color:${won?'var(--good)':'var(--warn)'}">${won?'達成':Math.round(V.prog(S))+'%'}</b></div>
+    </div>
+    <div class="note" style="margin:16px 0">${stop?stop+'<br>':''}${won?V.win:V.lose}</div>
+    <div style="text-align:center;margin:18px 0 6px">
+      <div style="font-size:52px;font-weight:700;line-height:1;color:var(--acc)">${RK.r}</div>
+      <div style="font-size:17px;font-weight:700;margin-top:8px">${RK.t}</div>
+      <div class="sm dim" style="margin-top:6px">${RK.d}</div>
+    </div>
+    <hr class="hr">
+    <div style="text-align:left">
+      ${[['目標への到達',SC.vis,'var(--acc)'],['場に貯まったつながり',SC.com,'var(--moon)'],
+         ['生まれた企画',SC.prj,'var(--earth)'],['経営',SC.biz,'var(--sun)'],['あなたの心身',SC.hp,'var(--good)']]
+        .map(([k,v,c])=>`<div style="margin-bottom:9px">
+          <div class="sm" style="display:flex;justify-content:space-between">
+            <span>${k}</span><span class="mk" style="color:${mkR(v)[1]}">${mkR(v)[0]}</span></div>
+          ${bar2(v,c)}</div>`).join('')}
+    </div>
+    <hr class="hr">
+    <div class="sm dim" style="margin-bottom:5px">この12ヶ月でやったこと</div>
+    <div style="text-align:left">
+      <div class="bd"><span>あなたの体力 / メンタル</span>
+        <span class="num"><b style="color:${mkR(cl(S.hp,0,100))[1]}">${Math.round(S.hp)}</b>
+        / <b style="color:${mkR(cl(S.mp,0,100))[1]}">${Math.round(S.mp)}</b> <span class="dim">（各100）</span></span></div>
+      <div class="bd"><span>会員</span><span class="num">${S.members.length}人（コア${tiers().core.length}・中間${tiers().mid.length}・周辺${tiers().edge.length}）</span></div>
+      <div class="bd"><span>形になった企画</span><span class="num">${S.done}件</span></div>
+      <div class="bd"><span>人と人をつないだ</span><span class="num">${S.edges}組</span></div>
+      <div class="bd"><span>つながり 結束／橋渡し／連結</span><span class="num">${Math.round(S.commons.bond)} / ${Math.round(S.commons.bridge)} / ${Math.round(S.commons.link)}</span></div>
+      <div class="bd"><span>地域での信用</span><span class="num">${Math.round(legitimacy())}</span></div>
+      <div class="bd"><span>イベント／こども食堂</span><span class="num">${S.eventCount}回 / ${S.kodomoCount}回</span></div>
+      <div class="bd"><span>ハウスルール</span><span class="num">${S.rules.length} / 5</span></div>
+      <div class="bd"><span>手元の現金</span><span class="num">${yen(S.cash)}</span></div>
+      <div class="bd"><span>あなたがいなくても回るか</span><span class="mk" style="color:${mkR(cl(jisou()*1.25,0,100))[1]}">${mkR(cl(jisou()*1.25,0,100))[0]}</span></div>
+    </div>
+    <div style="margin-top:18px;text-align:center">
+      <button class="pri" onclick="S=null;MOVE=null;PICKOPT={};render()" style="padding:11px 32px">もう一度</button></div>
+  </div>`;
+}
+function renderEndOld(){
+  const E={
+    bankrupt:{i:'💀',t:'倒産',s:'現金が尽きた。',d:'席は埋まっていたかもしれない。だが、この街の人口では、会員費だけで固定費は埋まらなかった。'},
+    burnout :{i:'🔥',t:'燃え尽き',s:'黒字だった。あなたが保たなかった。',d:'誰にも見えない仕事が、毎月あなたを削っていた。'},
+    inner   :{i:'🏚',t:'内輪',s:'常連しか来ない場所になった。',d:'結束は厚い。だが外に開いていない。閉じた場には、誰も金を出さない。'},
+    stranger:{i:'🧊',t:'無縁',s:'会員はいた。だが、誰も隣の人の名前を知らなかった。',d:'ここは、ただの安い席貸しになっていた。'},
+    survive :{i:'😐',t:'存続',s:'12ヶ月、生き延びた。',d:'潰れなかった。それだけでも、この街では珍しいことだ。'},
+    vision  :{i:'⭐',t:'目標達成',s:'',d:'12ヶ月で、目指した場所にたどり着いた。'},
+    'true'  :{i:'👑',t:'手放せる場',s:'あなたがいなくても、この場は回る。',d:'もめごとは会員が収め、新しい人は誰かが迎える。いちばん良い結末です。'},
+  }[S.ended];
+  const V=VISIONS[S.vision],L=legitimacy(),J=jisou(),T=tiers();
+  if(S.ended==='vision')E.s='「'+V.n+'」に到達した。';
+  const c=S.commons;
+  const row=(k,mark,sub)=>`<div class="bd"><span>${k}${sub?' <span class="xs dim">'+sub+'</span>':''}</span>
+    <span class="mk" style="color:${mark[1]}">${mark[0]}</span></div>`;
+  document.getElementById('app').innerHTML=`
+  <div class="card" style="max-width:660px;margin:24px auto;text-align:center">
+    <div style="font-size:48px">${E.i}</div>
+    <h1 style="font-size:22px;margin:4px 0">${E.t}</h1>
+    <div style="margin:6px 0 4px">${E.s}</div>
+    <div class="dim sm" style="text-align:left;margin:14px 0;padding:11px;background:var(--panel2);border-radius:9px">${E.d}</div>
+    <hr class="hr">
+    <div style="text-align:left">
+      <div class="bd"><span><b>${V.i} ${V.n}</b> <span class="xs dim">${V.kpi}</span></span>
+        <span class="mk" style="color:${V.ok(S)?'var(--good)':'var(--bad)'}">${V.ok(S)?'◎':'×'}</span></div>
+      ${row('経営',mkR(cl(S.cash/30000,0,100)),'手元 '+yen(S.cash))}
+      ${row('あなたの体力',mkR(cl(S.hp,0,100)),Math.round(S.hp)+' / 100')}
+      ${row('あなたのメンタル',mkR(cl(S.mp,0,100)),Math.round(S.mp)+' / 100')}
+      ${row('人が集まったか',mkR(cl(S.members.length*2.6,0,100)),S.members.length+'人（コア'+T.core.length+'・中間'+T.mid.length+'・周辺'+T.edge.length+'）')}
+      ${row('結束',mkR(cl(c.bond,0,100)),'常連どうしの濃さ')}
+      ${row('橋渡し',mkR(cl(c.bridge,0,100)),'外とのつながり')}
+      ${row('連結',mkR(cl(c.link*1.6,0,100)),'行政・企業との線')}
+      ${row('地域での信用',mkR(cl(L,0,100)),'')}
+      ${row('人と人をつないだ',mkR(cl(S.edges*7,0,100)),S.edges+'組')}
+      ${row('ハウスルール',mkR(cl(S.rules.length*20,0,100)),S.rules.length+' / 5')}
+      ${row('自走できているか',mkR(cl(J*1.25,0,100)),'あなたが抜けても回るか')}
+    </div>
+    <div style="margin-top:18px"><button class="pri" onclick="S=null;MOVE=null;PICKOPT={};render()" style="padding:11px 32px">もう一度</button></div>
+  </div>`;
+}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal'){MOVE=null;closeModal();}});
+render();
+</script>
+</body>
+</html>
