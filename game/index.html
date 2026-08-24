@@ -45,7 +45,7 @@ button:disabled{opacity:.35;cursor:not-allowed}
 .zone{border:1px dashed var(--line);border-radius:10px;padding:8px;margin-bottom:8px;background:var(--panel2)}
 .zone h4{margin:0 0 6px;font-size:11px;color:var(--dim);font-weight:600;letter-spacing:.06em}
 .seats{display:flex;gap:6px;flex-wrap:wrap}
-.seat{width:82px;height:62px;border:1px solid var(--line);border-radius:8px;background:var(--panel);
+.seat{width:84px;height:84px;border:1px solid var(--line);border-radius:8px;background:var(--panel);
   display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10.5px;
   cursor:pointer;padding:3px;text-align:center;line-height:1.3;overflow:hidden}
 .seat.empty{opacity:.38;border-style:dashed}
@@ -57,6 +57,11 @@ button:disabled{opacity:.35;cursor:not-allowed}
 @keyframes tw{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
 .seat.tgt{border-color:var(--acc);background:rgba(240,168,72,.12)}
 .seat b{font-size:11.5px;font-weight:700}
+.avsvg{vertical-align:middle;display:inline-block;border-radius:50%;flex:0 0 auto}
+.avwrap{line-height:0;margin-bottom:1px}
+.avrow{float:left;margin:-2px 8px 0 0;line-height:0}
+.pick{overflow:hidden}
+.chip .avsvg{margin-right:2px}
 .dot{width:7px;height:7px;border-radius:99px;display:inline-block;margin-right:3px;vertical-align:middle}
 .chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:99px;
   padding:3px 9px;margin:2px;font-size:11.5px;background:var(--panel2);cursor:pointer}
@@ -179,7 +184,7 @@ const OFFER={web:'Webサイトが作れる',design:'デザインができる',mo
   edu:'教えるのが得意',local:'行政と地域に顔がきく',people:'人を集められる',space:'場所や機材を持っている'};
 /* 職業ごとに、持っていそうなもの */
 const OCC_OFFER={'自営業':['sales','space'],'士業':['money','local'],'フリーランス':['web','design'],
-  '企業の副業組':['sales','money'],'農業':['food','space'],'主婦・パート':['people','edu'],
+  '企業の副業組':['sales','money'],'農業':['food','space'],'主婦・主夫':['people','edu'],
   '退職者':['local','people'],'移住・協力隊':['local','people'],'元教員':['edu'],
   '創業予定者':['craft'],'金融機関':['money'],'商工会議所':['local'],'カフェ客':['people'],
   'ママ友':['people','edu'],'民生委員':['local'],'ボランティア':['people'],'アーティスト':['design','craft'],
@@ -193,6 +198,15 @@ function makeBudget(){
   if(r<0.90) return ri(5500,9000);
   return ri(10000,16000);
 }
+/* 職業から見える年齢帯 */
+const AGE={'高校生':[16,18],'保護者':[34,50],'主婦・主夫':[30,55],'退職者':[62,78],
+ '自営業':[35,60],'士業':[33,58],'フリーランス':[26,45],'企業の副業組':[28,48],
+ '農業':[42,72],'移住・協力隊':[25,40],'創業予定者':[25,45],'金融機関':[30,50],
+ '商工会議所':[40,62],'カフェ客':[20,60],'ママ友':[28,42],'打合せ利用':[30,55],
+ '民生委員':[55,75],'ひとり親':[28,45],'ボランティア':[40,70],'元教員':[55,72],
+ 'イベント主催':[25,45],'地域団体':[45,70],'アーティスト':[25,50],
+ 'ワーケーション':[25,45],'サイクリスト':[25,55],'外国人旅行者':[20,45]};
+const FEM={'主婦・主夫':.85,'ママ友':.95,'保護者':.7,'ひとり親':.7,'ボランティア':.6,'民生委員':.55,'元教員':.5};
 const SEI=['白石','真鍋','村上','渡部','近藤','曽我部','菊池','天野','藤原','丹下','玉井','河野','大西','日野',
   '青野','十亀','加藤','佐々木','山内','宮内','高橋','田中','中村','伊藤','岡田','松本','三好','篠原','森','石川',
   '井上','木村','竹内','原田','西山','続木','宇都宮','矢野','越智田','片山'];
@@ -200,7 +214,7 @@ const GAIJIN=['グエン','マリア','ジャン','リー','キム','サーラ',
 
 const OCC = [
   {k:'自営業',w:20,q:.30},{k:'士業',w:10,q:.60},{k:'フリーランス',w:10,q:.70},
-  {k:'企業の副業組',w:15,q:.50},{k:'農業',w:10,q:.20},{k:'主婦・パート',w:15,q:.30},
+  {k:'企業の副業組',w:15,q:.50},{k:'農業',w:10,q:.20},{k:'主婦・主夫',w:15,q:.30},
   {k:'退職者',w:15,q:.10},{k:'移住・協力隊',w:5,q:.20},
 ];
 /* ── 6つの複合オプション ── */
@@ -412,7 +426,18 @@ function makeMember(){
   if(o.k==='士業'||o.k==='金融機関') budget=Math.round(budget*1.5);
   if(o.pay==='n') budget=Math.round(budget*0.4);
   budget=cl(Math.round(budget),1500,20000);
-  return {id:'m'+(S.seed++), name, occ:o.k, pay:o.pay||null, quiet:o.q, phase,
+  // 年齢と見た目。同じ人はいつ見ても同じ顔になる
+  const ar=AGE[o.k]||[28,58], age=ri(ar[0],ar[1]);
+  const fp=(FEM[o.k]!==undefined?FEM[o.k]:0.45), fem=Math.random()<fp;
+  const grayP = age>=70?0.9 : age>=58?0.5 : age>=48?0.18 : 0;
+  const look={
+    fem, skin:ri(0,4), cloth:ri(0,6), hc:ri(0,4),
+    hair: fem ? pick([2,3,3,4,5,2,3]) : pick([0,0,1,2,6,7,0]),
+    gray: Math.random()<grayP,
+    glasses: Math.random()<(age>=45?0.45:0.24),
+    beard: !fem && age>=32 && Math.random()<0.28
+  };
+  return {id:'m'+(S.seed++), name, occ:o.k, pay:o.pay||null, quiet:o.q, phase, age, look,
     group:gk, tempo, dist, traits, gt:cl(gt,-5,5),
     want:pick(WANT), offer, budget, inProject:false,
     months:0, seat:null, revealed:0, links:0, belong:30+rnd(-12,22), tier:'mid', cared:false, joined:false};
@@ -1527,6 +1552,7 @@ function floorCard(CM){
       if(m){const hm=hasMatch(m);
         s+=`<div class="seat ${MOVE===m.id?'sel':''} ${hm>=7?'match':''}" onclick="clickSeat('${k}')">
           ${hm>=7?'<div class="spark">✦</div>':''}
+          <div class="avwrap">${avatar(m,26)}</div>
           <b>${esc(m.name)}</b><div class="xs dim">${esc(m.occ)}</div>
           <div class="xs">${talkDots(m)}${m.revealed>=3?' '+m.offer.map(t=>TAGI[t]).join(''):''}</div></div>`;
       } else s+=`<div class="seat empty ${MOVE?'tgt':''}" onclick="clickSeat('${k}')">空席</div>`;
@@ -1550,7 +1576,7 @@ function floorCard(CM){
     ${zones}
     ${others.length?`<div class="zone"><h4>今日は来ていない会員　<span style="text-transform:none">${others.length}人</span></h4>
       ${others.slice(0,40).map(m=>`<span class="chip" onclick="showMember('${m.id}')">
-        <span class="dot" style="background:${m.tier==='mid'?'var(--mid)':'var(--edge)'}"></span>${esc(m.name)}
+        ${avatar(m,18)}${esc(m.name)}
         <span class="xs dim">${esc(m.occ)}</span>${talkDots(m)}${m.revealed>=3?m.offer.map(t=>TAGI[t]).join(''):''}</span>`).join('')}
       ${others.length>40?'<span class="xs dim">ほか'+(others.length-40)+'人</span>':''}</div>`:''}
   </div>`;
@@ -1660,8 +1686,10 @@ function showMember(id){
   const g=G[m.group],tn={core:'コア層',mid:'中間層',edge:'周辺層'}[m.tier];
   const tc={core:'var(--core)',mid:'var(--mid)',edge:'var(--edge)'}[m.tier];
   const gtM=mk(m.gt);
-  modal(`<h2>${esc(m.name)}</h2>
-   <div class="dim sm">在籍${m.months}ヶ月　つながり${m.links}本　　話を聞いた回数 ${talkDots(m)}</div><hr class="hr">
+  modal(`<div style="display:flex;align-items:center;gap:12px">${avatar(m,58)}
+     <div><h2 style="margin:0">${esc(m.name)}</h2>
+     <div class="dim sm">${esc(m.occ)}　${m.age}歳</div></div></div>
+   <div class="dim sm" style="margin-top:8px">在籍${m.months}ヶ月　つながり${m.links}本　　話を聞いた回数 ${talkDots(m)}</div><hr class="hr">
    <div class="bd"><span>来店頻度</span><span><span class="dot" style="background:${tc}"></span><b>${tn}</b></span></div>
    <div class="bd"><span>仕事</span><span>${esc(m.occ)}${m.phase&&m.phase!=='―'?'　<span class="dim">'+esc(m.phase)+'</span>':''}</span></div>
    <div class="bd"><span>働き方</span><span>${m.quiet>=.6?'静かに集中したい':m.quiet>=.35?'場に合わせる':'みんなと話したい'}</span></div>
@@ -1679,6 +1707,53 @@ function showMember(id){
      <button onclick="closeModal()">閉じる</button></div>`);
 }
 function startMove(id){MOVE=id;closeModal();}
+
+/* ================= 似顔絵（属性からSVGを組み立てる） ================= */
+const SKIN=['#f6d5bb','#eec19b','#dba375','#b47b52','#8a5a3b'];
+const HAIRC=['#2a2320','#463125','#63452c','#8b6a44','#151515'];
+const CLOTHC=['#5b7fa6','#7a6a9c','#6b9b7a','#b0763f','#9c5f5f','#4a5568','#3f7d78'];
+function avatar(m,size){
+  size=size||30;
+  const L=m.look||{fem:false,skin:0,cloth:0,hc:0,hair:0,gray:false,glasses:false,beard:false};
+  const sk=SKIN[L.skin%5], cl=CLOTHC[L.cloth%7];
+  const hc=L.gray?'#b7bbc3':HAIRC[L.hc%5];
+  const gc=(G[m.group]&&G[m.group].c)||'var(--line)';
+  const old=(m.age||40)>=62;
+  let back='',front='';
+  switch(L.hair){
+    case 0: front='<path d="M11.3 18.4c0-6.2 3.9-8.9 8.7-8.9s8.7 2.7 8.7 8.9c-1.7-3.6-4.5-4.9-8.7-4.9s-7 1.3-8.7 4.9z" fill="'+hc+'"/>'; break;
+    case 1: front='<path d="M11.6 17.6c.9-4.8 4.3-7.4 8.4-7.4s7.5 2.6 8.4 7.4c-2.1-2.3-5-3.4-8.4-3.4s-6.3 1.1-8.4 3.4z" fill="'+hc+'" opacity=".92"/>'; break;
+    case 2: back='<ellipse cx="20" cy="20" rx="10" ry="11" fill="'+hc+'"/>';
+            front='<path d="M11.3 18.6c0-6.4 3.9-9.1 8.7-9.1s8.7 2.7 8.7 9.1c-1.9-3.8-4.6-5.1-8.7-5.1s-6.8 1.3-8.7 5.1z" fill="'+hc+'"/>'; break;
+    case 3: back='<path d="M9.6 19c0-7 4.6-9.9 10.4-9.9S30.4 12 30.4 19v8.5c0 1.6-1.3 2.4-2.6 1.8V21c-1.8-3.4-4.4-4.6-7.8-4.6s-6 1.2-7.8 4.6v8.3c-1.3.6-2.6-.2-2.6-1.8z" fill="'+hc+'"/>'; break;
+    case 4: back='<ellipse cx="20" cy="20" rx="9.8" ry="10.6" fill="'+hc+'"/><path d="M28.6 17.5c2.9.6 4.2 3.2 3.6 6.2-.5 2.4-2 3.6-3.4 3.3-1.3-.3-1.6-1.6-1.1-3.4.5-2 .6-4-.5-5.5z" fill="'+hc+'"/>';
+            front='<path d="M11.3 18.6c0-6.4 3.9-9.1 8.7-9.1s8.7 2.7 8.7 9.1c-1.9-3.8-4.6-5.1-8.7-5.1s-6.8 1.3-8.7 5.1z" fill="'+hc+'"/>'; break;
+    case 5: back='<circle cx="20" cy="7.6" r="3.6" fill="'+hc+'"/><ellipse cx="20" cy="20" rx="9.6" ry="10.4" fill="'+hc+'"/>';
+            front='<path d="M11.3 18.4c0-6.2 3.9-8.9 8.7-8.9s8.7 2.7 8.7 8.9c-1.7-3.6-4.5-4.9-8.7-4.9s-7 1.3-8.7 4.9z" fill="'+hc+'"/>'; break;
+    case 6: front='<path d="M11.4 19.4c-.3-3.3.3-5.6 1.4-6.4.5 2.4.9 4.3 1.3 5.6zm17.2 0c.3-3.3-.3-5.6-1.4-6.4-.5 2.4-.9 4.3-1.3 5.6z" fill="'+hc+'"/>'; break;
+    default: front='<path d="M11.4 15.2c0-5.6 3.8-8 8.6-8s8.6 2.4 8.6 8z" fill="#3d4c63"/><rect x="9.2" y="14.4" width="21.6" height="2.4" rx="1.2" fill="#313e52"/>';
+  }
+  const eyeY=old?19.2:18.8;
+  const eyes=old
+    ? '<path d="M15.6 '+eyeY+'q1.6-1.2 3.2 0" stroke="#3a3330" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M21.2 '+eyeY+'q1.6-1.2 3.2 0" stroke="#3a3330" stroke-width="1.2" fill="none" stroke-linecap="round"/>'
+    : '<circle cx="17" cy="'+eyeY+'" r="1.15" fill="#3a3330"/><circle cx="23" cy="'+eyeY+'" r="1.15" fill="#3a3330"/>';
+  const mouth='<path d="M18.1 23.4q1.9 1.6 3.8 0" stroke="#9b6a55" stroke-width="1.1" fill="none" stroke-linecap="round"/>';
+  const glasses=L.glasses
+    ? '<g fill="none" stroke="#4a5262" stroke-width="1.05"><circle cx="17" cy="'+eyeY+'" r="2.9"/><circle cx="23" cy="'+eyeY+'" r="2.9"/><path d="M19.9 '+eyeY+'h.2"/></g>' : '';
+  const beard=L.beard
+    ? '<path d="M12.9 21.5c.6 5.2 3.5 7.6 7.1 7.6s6.5-2.4 7.1-7.6c-1.2 3-3.9 4.3-7.1 4.3s-5.9-1.3-7.1-4.3z" fill="'+hc+'" opacity=".85"/>' : '';
+  return '<svg class="avsvg" viewBox="0 0 40 40" width="'+size+'" height="'+size+'" aria-hidden="true">'
+    +'<circle cx="20" cy="20" r="20" fill="'+gc+'" opacity=".16"/>'
+    +back
+    +'<path d="M8.4 40c.6-6.1 5.3-9 11.6-9s11 2.9 11.6 9z" fill="'+cl+'"/>'
+    +'<rect x="17.4" y="25" width="5.2" height="7" rx="2.6" fill="'+sk+'"/>'
+    +'<circle cx="20" cy="19" r="8.7" fill="'+sk+'"/>'
+    +beard+front+eyes+mouth+glasses
+    +'</svg>';
+}
+function avatarQ(){ return '<svg class="avsvg" viewBox="0 0 40 40" width="26" height="26" aria-hidden="true">'
+  +'<circle cx="20" cy="20" r="20" fill="var(--line)" opacity=".5"/>'
+  +'<text x="20" y="26" text-anchor="middle" font-size="18" fill="var(--dim)">?</text></svg>'; }
 function talkDots(m){ let s='';
   for(let i=0;i<3;i++) s+=`<span class="dot" style="background:${i<m.revealed?'var(--acc)':'var(--line)'}"></span>`;
   return s; }
@@ -1713,7 +1788,7 @@ function choose(title,list,cb){
   modal(`<h2>${esc(title)}</h2><hr class="hr">
    ${list.map((m,i)=>{const g=G[m.group],gm=mk(m.gt),hm=hasMatch(m);
      return `<button class="pick ${hm>=7?'match':''}" onclick="pickIdx(${i})">
-     <b>${esc(m.name)}</b> <span class="dim sm">${esc(m.occ)}${m.phase&&m.phase!=='―'?'・'+esc(m.phase):''}</span>
+     <span class="avrow">${avatar(m,30)}</span><b>${esc(m.name)}</b> <span class="dim sm">${esc(m.occ)}${m.phase&&m.phase!=='―'?'・'+esc(m.phase):''}</span>
      <span style="float:right">${hm>=7?'<span style="color:var(--good)">✦ 良い相手がいる</span>　':''}${talkDots(m)}</span>
      <i style="display:block;font-style:normal" class="xs dim">
        ${m.revealed>=2?'「'+esc(m.want.t)+'」':(m.revealed>=1?g.n+'タイプ':'まだ何も分かっていない')}
@@ -1740,7 +1815,7 @@ function chooseMatch(a){
        :(known?'できることは、まだ聞けていない':'この人のことは、ほとんど分かっていない');
      const hit=known&&a.revealed>=2?a.want.need.filter(t=>b.offer.includes(t)):[];
      return `<button class="pick ${x.v>=7?'match':''}" style="${known?'':'opacity:.55'}" onclick="pickIdx(${i})">
-       <b>${esc(b.name)}</b> <span class="dim sm">${esc(b.occ)}</span>
+       <span class="avrow">${avatar(b,30)}</span><b>${esc(b.name)}</b> <span class="dim sm">${esc(b.occ)}</span>
        <span style="float:right">${talkDots(b)}　<span class="mk" style="color:${m[1]}">${m[0]}</span></span>
        <i style="display:block;font-style:normal" class="xs ${known?'':'dim'}">${esc(off)}</i>
        ${hit.length?`<i style="display:block;font-style:normal;color:var(--good)" class="xs">
