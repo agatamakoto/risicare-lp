@@ -13,8 +13,13 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>西条市のDX補助金・業務改善｜サカエマチHOLICギルド</title>
-<meta name="description" content="補助金で実質負担を抑えてDX導入。行政書士による申請代行から、システム構築、チームビルディング、健康経営まで。西条の専門家集団が並走します。">
+<title>西条市の経営相談｜専門家13人のチーム｜サカエマチHOLICギルド</title>
+<meta name="description" content="愛媛県西条市の中小企業・個人事業主むけの経営相談窓口。HP制作・業務改善・AI活用・組織改善・販路開拓・お金の相談まで、行政書士やITコンサルなど地域の専門家13人が1つの窓口でチームを組んで伴走します。ご相談は無料です。">
+<link rel="canonical" href="https://risicare.org/guild/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="西条市の経営相談｜専門家13人のチーム｜サカエマチHOLICギルド">
+<meta property="og:description" content="愛媛県西条市の中小企業・個人事業主むけの経営相談窓口。地域の専門家13人がチームを組み、課題の切り分けから実行・定着まで伴走します。">
+<meta property="og:url" content="https://risicare.org/guild/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
@@ -306,19 +311,6 @@
     opacity: 0.9;
     letter-spacing: 0.05em;
   }
-
-  /* 残り枠バナー */
-  .slots-banner {
-    background: var(--red);
-    color: #fff;
-    text-align: center;
-    padding: 14px 24px;
-    font-family: 'Zen Maru Gothic', sans-serif;
-    font-weight: 900;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-  }
-  .slots-banner span { font-size: 1.4rem; margin: 0 4px; }
 
   /* ── SECTION BASE ── */
   section.sec {
@@ -645,7 +637,148 @@
     .flow-steps { grid-template-columns: 1fr; }
     .other-menu { grid-template-columns: 1fr; }
   }
+
+  /* ── FAQ ── */
+  .faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 18px 54px 18px 22px;
+    position: relative;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--dark);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "＋";
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-item summary:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+  .faq-answer {
+    padding: 0 22px 20px;
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  @media (max-width: 600px) {
+    .faq-item summary { font-size: 0.95rem; padding: 16px 46px 16px 18px; }
+    .faq-answer { font-size: 0.88rem; padding: 0 18px 18px; }
+  }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://risicare.org/guild/#business",
+      "name": "サカエマチHOLIC ギルド",
+      "description": "愛媛県西条市の中小企業・個人事業主のための経営相談窓口。HP制作・業務改善・AI活用・組織改善・販路開拓・お金の相談まで、地域の専門家13人が1つの窓口でチームを組んで伴走します。",
+      "url": "https://risicare.org/guild/",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "一般社団法人リズカーレ",
+        "url": "https://risicare.org/"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "793-0030",
+        "addressRegion": "愛媛県",
+        "addressLocality": "西条市",
+        "streetAddress": "大町1663",
+        "addressCountry": "JP"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "西条市"
+      },
+      "knowsAbout": ["経営相談", "ホームページ制作", "業務改善", "AI活用", "組織改善", "SNS運用", "販路開拓", "補助金申請", "資産運用相談"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://risicare.org/guild/#website",
+      "url": "https://risicare.org/guild/",
+      "name": "サカエマチHOLIC ギルド",
+      "inLanguage": "ja",
+      "publisher": { "@id": "https://risicare.org/guild/#business" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://risicare.org/guild/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "相談は無料ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ご相談は無料です。フォームを送信いただいてから24時間以内にご連絡します。お話を聞いた段階で費用が発生することはありません。費用がかかる場合は、必ず内容とお見積りをご提示してからのご判断になります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "何を相談すればいいか整理できていなくても大丈夫ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "大丈夫です。IT・人・お金・販路のどれから手をつけるべきかの切り分けを、課題ヒアリングで一緒に行います。整理した結果、今は何もしないほうがいいという結論になることもあります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1つのことだけ相談したいのですが、パッケージを頼まないとだめですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1つだけのご相談で大丈夫です。HPだけ、SNSだけ、組織のことだけといった単発のご相談も受けています。複数の専門家が必要ない場合は担当1名でお話を進めます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "補助金は使えますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "使える制度があるかの確認からお手伝いします。行政書士が在籍しており、申請書類の作成にも対応できます。補助金は年度ごとに内容が変わり、予算に達した時点で募集が締め切られるため、ご相談いただいたタイミングで市や県の最新情報を確認してお伝えします。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "オンラインでも相談できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "オンライン・対面のどちらでも対応しています。対面の場合は、西条市大町のコワーキングスペース「サカエマチHOLIC」でお話をうかがうこともできます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "強引に営業されませんか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "強引な営業は一切行いません。一度の受注より長く相談してもらえる関係を大事にしています。必要のないものをお勧めしたり、期限で急かしたりはしません。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -659,17 +792,18 @@
 <section class="hero">
   <div class="hero-inner">
 
-    <div class="hero-badge">🎉 6月8日スタート｜西条市DX補助金、受付中です</div>
+    <div class="hero-badge">愛媛県西条市の中小企業・個人事業主むけ｜ご相談は無料です</div>
     <h1>
-      西条市のDX補助金、<br>
-      <span class="hl">申請から導入・運用まで</span><br>
-      うちでまるごとやります。
+      西条の経営の悩みを、<br>
+      <span class="hl">13人の専門家チーム</span>が<br>
+      まるごと引き受けます。
     </h1>
     <p class="hero-lead">
-      「西条市中小企業等デジタル基盤強化事業費補助金」が6月8日から受付開始。<br>
-      最大<strong>50万円・補助率1/2</strong>で、DX化の自己負担をぐっと抑えられます。<br>
-      申請書類の作成（行政書士対応）から、システム導入・社内定着まで、<br>
-      地域の専門家チームが一括でサポートします。
+      サカエマチHOLICギルドは、<strong>愛媛県西条市の中小企業・個人事業主のための経営相談窓口</strong>です。<br>
+      HP制作・業務改善・AI活用・組織改善・販路開拓・お金の相談まで、<br>
+      行政書士やITコンサルなど<strong>地域の専門家13人</strong>が1つの窓口でチームを組み、<br>
+      「どの課題から手をつけるか」の整理から、実行・社内への定着まで通して伴走します。<br>
+      「何を相談すればいいか分からない」という状態からで大丈夫です。
     </p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">無料相談を申し込む</a>
@@ -682,24 +816,19 @@
 <div class="horic-bar">
   <img src="スタンタ_ート_透過.png" alt="ほりっくま" class="horic-bar-img">
   <div class="horic-bar-bubble">
-    今なら補助金使って一気に事業を進めるチャンスくま！
+    どこに相談したらいいか分からん、から始めてOKくま！
   </div>
-</div>
-
-<!-- 残り枠バナー -->
-<div class="slots-banner">
-  現在 7社 成約済み！残り <span>13社</span> 限定受付中
 </div>
 
 <!-- 実績バー -->
 <div class="stats-bar">
   <div class="stat">
-    <span class="num">31件</span>
-    <span class="label">累計受注件数（2026年4月末）</span>
+    <span class="num">37件</span>
+    <span class="label">累計受注件数（2026年8月末時点）</span>
   </div>
   <div class="stat">
-    <span class="num">196万円</span>
-    <span class="label">累計受注金額</span>
+    <span class="num">約210万円</span>
+    <span class="label">累計受注金額（2026年8月末時点）</span>
   </div>
 </div>
 
@@ -711,9 +840,9 @@
     <div class="divider-dot"></div>
     <div class="problem-cards">
       <div class="prob-card">
-        <span class="icon">🤔</span>
-        <h3>DX補助金、使いたいけど<br>手続きが複雑で進められない</h3>
-        <p>申請書類は専門知識が必要。「やりたいけど動けない」状態が続いていませんか？</p>
+        <span class="icon">📋</span>
+        <h3>使える補助金や制度が<br>あるのか分からない</h3>
+        <p>制度は年度ごとに変わります。「うちは対象になるのか」の確認から、行政書士がついて一緒に調べます。</p>
       </div>
       <div class="prob-card">
         <span class="icon">💻</span>
@@ -747,15 +876,16 @@
   <p class="sec-sub">複数の専門家がチームで動くから、1件の相談が会社全体の底上げにつながります。</p>
 
   <div class="pkg-card">
-    <div class="pkg-badge">人気 No.1</div>
-    <h3>DX補助金パッケージ<br>（士業 × IT × コンサル）</h3>
+    <div class="pkg-badge">おすすめ</div>
+    <h3>まるごと伴走パッケージ<br>（士業 × IT × コンサル）</h3>
     <p>
-      補助金の申請書類の作成・代行から、HP・システム導入、組織改善まで一気通貫でサポート。
-      1案件で3名以上の専門家がチームを組み、「やりっぱなし」にしません。
-      実質負担を抑えたDX化を最速で実現します。
+      「どの課題から手をつけるか」の切り分けから、HP・システム導入、組織改善、販路開拓まで一気通貫でサポート。
+      1案件で3名以上の専門家がチームを組むので、外注先ごとの調整をお客さま側で抱える必要がありません。
+      導入して終わりにせず、社内で回り続けるところまで見ます。
+      使える補助金や制度があれば、その確認と申請書類の作成もあわせて対応します。
     </p>
     <div class="role-tags">
-      <div class="role-tag"><span class="emoji">📝</span> 補助金申請</div>
+      <div class="role-tag"><span class="emoji">📝</span> 補助金・制度の確認</div>
       <div class="role-tag"><span class="emoji">💻</span> IT / DX</div>
       <div class="role-tag"><span class="emoji">🎬</span> 動画・SNS制作</div>
       <div class="role-tag"><span class="emoji">👥</span> 組織改善</div>
@@ -771,7 +901,7 @@
     <div class="sec-label">OTHER MENU</div>
     <h2 class="sec-title">その他の<span class="hl">サポートメニュー</span></h2>
     <div class="divider-dot"></div>
-    <p class="sec-sub">DX以外にも、こんな課題を解決できます。組み合わせてのご相談も大歓迎！</p>
+    <p class="sec-sub">パッケージにしなくても、1つだけのご相談で大丈夫です。組み合わせてのご相談も大歓迎！</p>
 
     <div class="other-menu">
       <div class="other-card">
@@ -927,7 +1057,7 @@
       <div class="flow-step">
         <div class="step-num">3</div>
         <h3>提案・お見積り</h3>
-        <p>パッケージ内容と費用感をご提示。補助金活用もご提案。</p>
+        <p>パッケージ内容と費用感をご提示。使える制度があればあわせてご提案。</p>
       </div>
       <div class="flow-step">
         <div class="step-num">4</div>
@@ -938,11 +1068,69 @@
   </div>
 </div>
 
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="sec-label">FAQ</div>
+  <h2 class="sec-title">よくある<span class="hl">ご質問</span></h2>
+  <div class="divider-dot"></div>
+  <p class="sec-sub">相談する前に気になることをまとめました。</p>
+
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>相談は無料ですか？</summary>
+      <div class="faq-answer">
+        はい、ご相談は無料です。フォームを送信いただいてから24時間以内にご連絡します。
+        お話を聞いた段階で費用が発生することはありません。費用がかかる場合は、必ず内容とお見積りをご提示してからのご判断になります。
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>何を相談すればいいか、自分でも整理できていません。それでも大丈夫ですか？</summary>
+      <div class="faq-answer">
+        それでも大丈夫です。むしろ、そこから一緒に整理するのがギルドの仕事です。
+        「IT・人・お金・販路のどれから手をつけるべきか」の切り分けを、課題ヒアリングで一緒に行います。
+        整理した結果「今は何もしないほうがいい」という結論になることもあります。
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>1つのことだけ相談したいのですが、パッケージを頼まないとだめですか？</summary>
+      <div class="faq-answer">
+        1つだけのご相談で大丈夫です。
+        HPだけ、SNSだけ、組織のことだけ、といった単発のご相談も受けています。
+        複数の専門家が必要ない場合は、担当1名でお話を進めます。必要のないものをお勧めすることはありません。
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>補助金は使えますか？</summary>
+      <div class="faq-answer">
+        使える制度があるかの確認からお手伝いします。ギルドには行政書士が在籍しており、申請書類の作成にも対応できます。
+        ただし補助金は年度ごとに内容が変わり、予算に達した時点で募集が締め切られます。
+        （たとえば西条市中小企業等デジタル基盤強化事業費補助金は、2026年8月3日で募集が締め切られました。）
+        そのため「今どの制度が使えるか」は、ご相談いただいたタイミングで市や県の最新情報を確認してお伝えします。
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>オンラインでも相談できますか？</summary>
+      <div class="faq-answer">
+        オンライン・対面のどちらでも対応しています。ご希望をお知らせください。
+        対面の場合は、西条市大町のコワーキングスペース「サカエマチHOLIC」でお話をうかがうこともできます。
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>強引に営業されませんか？</summary>
+      <div class="faq-answer">
+        強引な営業は一切行いません。
+        ギルドは一度の受注より、長く相談してもらえる関係を大事にしています。
+        必要のないものをお勧めしたり、期限で急かしたりはしませんので、安心してご相談ください。
+      </div>
+    </details>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="sec-label">CONTACT</div>
   <h2>まずは無料相談から。<br>どんな小さな悩みでもOK！</h2>
-  <p>Googleフォームに移動します。かんたん1分で送信できます。<br>補助金が使えるか確認したいだけでも大歓迎です！</p>
+  <p>Googleフォームに移動します。かんたん1分で送信できます。<br>何を相談すればいいか決まっていない状態でも大歓迎です！</p>
   <div class="cta-btn-area">
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfjgVunYH_knVGxtcbgrKfHoqq4F9Ln3LuU5AwXJhPIerDsXA/viewform?usp=publish-editor" target="_blank" class="btn-cta-big">
       Googleフォームで無料相談する →
@@ -955,7 +1143,7 @@
 <footer>
   <div class="footer-logo">サカエマチHOLIC ギルド</div>
   <p>運営：一般社団法人リズカーレ<br>〒793-0030 愛媛県西条市大町1663</p>
-  <p style="margin-top:6px;">© 2025 サカエマチHOLICギルド All rights reserved.</p>
+  <p style="margin-top:6px;">© 2026 サカエマチHOLICギルド All rights reserved.</p>
 </footer>
 
 </body>
